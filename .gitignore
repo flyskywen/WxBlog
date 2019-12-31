@@ -1,0 +1,6 @@
+# python运行产生的缓存
+*.pyc
+
+# .idea/目录下的pycharm文件
+*.xml
+*.iml
