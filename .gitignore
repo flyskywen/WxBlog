@@ -4,3 +4,6 @@
 # .idea/目录下的pycharm文件
 *.xml
 *.iml
+
+# 迁移数据库产生的文件
+blog/migrations/
