@@ -20,6 +20,7 @@ __author__ = 'WX_PC'
 from django.contrib.syndication.views import Feed
 from .models import Post
 
+
 class AllPostsRssFeed(Feed):
     # 显示在聚合阅读器上的标题
     title = "Django 博客教程演示项目"

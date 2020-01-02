@@ -9,10 +9,6 @@ import markdown
 from django.utils.html import strip_tags
 
 
-# from django.utils.six import python_2_unicode_compatible
-# python_2_unicode_compatible 装饰器用于兼容 Python2
-# 使用python3 所以注释掉
-# @python_2_unicode_compatible
 class Category(models.Model):
     """
     Django 要求模型必须继承 models.Model 类。
