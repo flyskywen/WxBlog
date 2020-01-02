@@ -7,3 +7,4 @@
 
 # 迁移数据库产生的文件
 blog/migrations/
+comments/migrations/

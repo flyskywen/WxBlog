@@ -37,7 +37,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'blog',
     'comments',
-    'polls',
     # 较为复杂的搜索应用
     'haystack'
 ]
@@ -148,6 +147,10 @@ AUTH_PASSWORD_VALIDATORS = [
 
 # 修改语言和时区
 # LANGUAGE_CODE = 'en-us'
+
+# win
+# LANGUAGE_CODE = 'zh_Hans'
+# linux
 LANGUAGE_CODE = 'zh-Hans'
 
 # TIME_ZONE = 'UTC'

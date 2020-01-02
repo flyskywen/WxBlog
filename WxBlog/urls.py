@@ -14,8 +14,8 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 
-from django.conf.urls import url, include
-from django.urls import path
+from django.conf.urls import url
+from django.urls import path, include
 from django.contrib import admin
 from blog.feeds import AllPostsRssFeed
 
@@ -23,15 +23,18 @@ urlpatterns = [
     # django2.0之前的用法
     url(r'^admin/', admin.site.urls),
     url(r'', include('blog.urls')),
-    # path('', include('comments.urls')),
-    # url(r'^polls/', include('polls.urls')),
+
     # django2.0后的path方法
     # 建议把路径写在app.urls中,工程路径包含
     # 除了admin路由外，尽量给每个app设计自己独立的二级路由
     # include的import路径也发生了改变
     # from django.urls import path,include
-    path('', include('polls.urls')),
+
     path('', include('comments.urls')),
+
+    # path('', include('polls.urls'))  之前测试用的
+    # url(r'^polls/', include('polls.urls')),
+
     path('all/rss/', AllPostsRssFeed(), name='rss'),
 
     # 配置 URL，搜索的视图函数和 URL 模式 django haystack 都已经帮我们写好了，

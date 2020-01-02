@@ -19,11 +19,10 @@ class Category(models.Model):
     Category 只需要一个简单的分类名 name 就可以了。
     CharField 指定了分类名 name 的数据类型，CharField 是字符型，
     CharField 的 max_length 参数指定其最大长度，超过这个长度的分类名就不能被存入数据库。
-    当然 Django 还为我们提供了多种其它的数据类型，如日期时间类型 DateTimeField、整数类型 IntegerField 等等。
-    Django 内置的全部类型可查看文档：
-    https://docs.djangoproject.com/en/1.10/ref/models/fields/#field-types
     """
     name = models.CharField(max_length=100)
+    # 新增描述文字
+    description = models.TextField(blank=True)
 
     # print实例时,打印实例的name属性
     def __str__(self):
@@ -36,6 +35,7 @@ class Tag(models.Model):
     再次强调一定要继承 models.Model 类！
     """
     name = models.CharField(max_length=100)
+    description = models.TextField(blank=True)
 
     def __str__(self):
         return self.name
@@ -80,6 +80,9 @@ class Post(models.Model):
 
     # 新增 views 字段记录阅读量
     views = models.PositiveIntegerField(default=0)
+
+    # 新增点赞数 看看是不是还会报错
+    # thumbs_up = models.PositiveIntegerField(default=0)
 
     def __str__(self):
         return self.title
