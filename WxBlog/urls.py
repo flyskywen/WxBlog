@@ -20,7 +20,7 @@ from django.contrib import admin
 from blog.feeds import AllPostsRssFeed
 
 urlpatterns = [
-    # django2.0之前的用法
+    # django2.0之前的用法,用正则进行匹配
     url(r'^admin/', admin.site.urls),
     url(r'', include('blog.urls')),
 
@@ -35,6 +35,7 @@ urlpatterns = [
     # path('', include('polls.urls'))  之前测试用的
     # url(r'^polls/', include('polls.urls')),
 
+    # rss订阅
     path('all/rss/', AllPostsRssFeed(), name='rss'),
 
     # 配置 URL，搜索的视图函数和 URL 模式 django haystack 都已经帮我们写好了，
