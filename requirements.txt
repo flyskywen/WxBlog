@@ -1,0 +1,23 @@
+Django==2.2
+django-haystack==2.8.1
+jieba==0.40
+Markdown==3.1.1
+Pygments==2.5.2
+pytz==2019.3
+sqlparse==0.3.0
+Whoosh==2.7.4
+
+
+# 注意：django2.2不支持pyMySQL，所以暂时用sqlite数据库
+
+# Django
+
+# 文章搜索功能
+# 在win 中多安装了一个 haystack库
+# django-haystack
+# whoosh
+# jieba
+
+# 实现文章显示markdown
+# Pygments
+# Markdown
