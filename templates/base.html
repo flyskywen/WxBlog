@@ -3,10 +3,13 @@
 {% load blog_tags %}
 <!--导入自定义标签-->
 
-<!DOCTYPE html>
-<html>
+
+<!doctype html>
+<html lang="zh-CN">
+
 <head>
-    <title>博客v1.0测试</title>
+    <title>个人博客_一个使用django和bootstrap搭建的个人博客</title>
+
 
     <!--添加搜索高亮的css-->
     <style>
@@ -15,124 +18,132 @@
         }
     </style>
 
-    <!-- meta -->
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- css -->
-    <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-    <link rel="stylesheet" href="{% static 'blog/css/bootstrap.min.css' %}">
-    <link rel="stylesheet" href="{% static 'blog/css/pace.css' %}">
-    <link rel="stylesheet" href="{% static 'blog/css/custom.css' %}">
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- 图标字体库 用i标签 来展示图标 -->
+    <link rel="stylesheet" href="{% static 'font-awesome-4.7.0/css/font-awesome.min.css' %}">
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="{% static 'bootstrap-4.1.3-dist/css/bootstrap.min.css' %}">
+    <!-- markdown代码高亮 -->
     <link rel="stylesheet" href="{% static 'blog/css/highlights/github.css' %}">
-
-    <!-- js -->
-    <script src="{% static 'blog/js/jquery-2.1.3.min.js' %}"></script>
-    <script src="{% static 'blog/js/bootstrap.min.js' %}"></script>
-    <script src="{% static 'blog/js/pace.min.js' %}"></script>
-    <script src="{% static 'blog/js/modernizr.custom.js' %}"></script>
-
 </head>
 
-<body>
-<div class="container">
-    <header id="site-header">
-        <div class="row">
-            <div class="col-md-4 col-sm-5 col-xs-8">
-                <div class="logo">
-                    <!-- url 指向视图函数blog.view.index -->
-                    <h1><a href="{% url 'blog:index' %}"><b>Black</b> &amp; White</a></h1>
+<!-- 背景颜色 -->
+<body class="bg-secondary">
+<!--导航开始-->
+<!-- 直接用用fix-top会遮挡住正文的内容 -->
+<nav class="navbar navbar-expand-lg navbar-light bg-white navbar-fixed-top">
+    <a class="navbar-brand" href="#">
+        <strong>Logo文字或者图标</strong>
+    </a>
+
+
+    <!--移动端导航按钮-->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01"
+            aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+        <!-- 按钮图标 -->
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- 移动端隐藏导航 -->
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+        <!-- mr-auto左对其，ml-auto右对其 -->
+        <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+
+            <!--mr-2右侧外边距 2*0.25rem-->
+            <li class="nav-item mr-2 active">
+                <a class="nav-link py-md-3" href="#">
+                    <i class="fa fa-home mr-1"></i>
+                    首页
+                    <!-- 残障人士，弱势或盲人是很难或者根本看不出导航菜单高亮的。他们上网可能借助的是屏幕阅读器，也就是 screen reader（sr），
+                        屏幕阅读器需要找到能辨识的文本说明然后“读”出来给用户听。 -->
+                    <span class="sr-only">(current)</span>
+                </a>
+            </li>
+            <li class="nav-item mr-2">
+                <a class="nav-link py-md-3" href="#">
+                    <i class="fa fa-sitemap mr-1"></i>归档
+                </a>
+            </li>
+
+            <li class="nav-item mr-2">
+                <a class="nav-link py-md-3" href="#">
+                    <i class="fa fa-balance-scale mr-1"></i>在线工具</a>
+            </li>
+
+            <!-- display隐藏 -->
+            <!-- 只在lg屏幕上可见 -->
+            <li class="nav-item mr-2 d-none d-lg-block">
+                <a class="nav-link py-md-3" href="https://hao.tendcode.com" target="_blank"><i
+                        class="fa fa-chrome mr-1"></i>微草导航</a>
+            </li>
+
+            <li class="nav-item mr-2 ">
+                <a class="nav-link py-md-3" href="#">
+                    <i class="fa fa-anchor mr-1"></i>关于</a>
+            </li>
+
+        </ul>
+
+        <!-- 搜索表单 -->
+        <form class="nav-item navbar-form form-inline mr-2 my-2 my-lg-0">
+            <div class="input-group">
+                <!-- rounded-0圆角边框 -->
+                <!-- input中删除了一个required=True -->
+                <input type="search" name="q" class="form-control rounded-0" placeholder="站内搜索" autocomplete="off">
+                <div class="input-group-btn">
+                    <button class="btn btn-info rounded-0" type="submit">
+                        <i class="fa fa-search"></i>
+                    </button>
                 </div>
-            </div><!-- col-md-4 -->
-            <div class="col-md-8 col-sm-7 col-xs-4">
-                <nav class="main-nav" role="navigation">
-                    <div class="navbar-header">
-                        <button type="button" id="trigger-overlay" class="navbar-toggle">
-                            <span class="ion-navicon"></span>
-                        </button>
-                    </div>
+            </div><!-- /input-group -->
+        </form>
 
-                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                        <ul class="nav navbar-nav navbar-right">
-                            <!--首页导航栏早晚要换掉，放这几个图标这太扯了-->
-                            <li class="cl-effect-11"><a href="{% url 'blog:index' %}" data-hover="首页">首页</a></li>
-                            <li class="cl-effect-11"><a href="#" data-hover="博客">博客</a></li>
-                            <li class="cl-effect-11"><a href="#" data-hover="关于">关于</a></li>
-                            <li class="cl-effect-11"><a href="#" data-hover="待定">待定</a></li>
-                        </ul>
-                    </div><!-- /.navbar-collapse -->
-                </nav>
-                <div id="header-search-box">
-                    <a id="search-menu" href="#"><span id="search-icon" class="ion-ios-search-strong"></span></a>
-                    <div id="search-form" class="search-form">
-                        <!--添加搜索功能 -->
-                        <form role="search" method="get" id="searchform" action="{% url 'haystack_search' %}">
-                            <input type="search" name="q" placeholder="搜索" required>
-                            <button type="submit"><span class="ion-ios-search-strong"></span></button>
-                        </form>
-                    </div>
-                </div>
-            </div><!-- col-md-8 -->
-        </div>
-    </header>
-</div>
-
-<!--版权信息-->
-<div class="copyrights">Collect from <a href="http://www.cssmoban.com/">网页模板</a></div>
-<div class="copyrights">Modified by <a href="http://zmrenwu.com/">追梦人物的博客</a></div>
-
-<div class="content-body">
-    <div class="container">
-        <div class="row">
-
-            <!--主题内容-->
-            <main class="col-md-8">
-                {% block main %}
-                {% endblock main %}
-            </main>
-
-            <!--侧边栏内容-->
-            <aside class="col-md-4">
-                {% block toc %}
-                {% endblock toc %}
-            </aside>
-
-            <!--detail文章页面应该不需要侧边栏显示这些内容，只要有目录就行了-->
-            <!--首页需要侧边栏显示分类，标签等信息-->
-            {% block aside %}
-            {% endblock aside %}
-
-
-        </div>
+        <!-- 登录注册导航，而不是导航栏 -->
+        <ul class="navbar-nav">
+            <li class="nav-item mr-2">
+                <a class="nav-link py-md-3" href="/accounts/login/?next=/">登录</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link py-md-3" href="/accounts/signup/?next=/">注册</a>
+            </li>
+        </ul>
     </div>
-</div>
-<footer id="site-footer">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                <p class="copyright">&copy 2018 - <a href="{% url 'blog:index' %}" title="MK"
-                                                     target="_blank">MK的个人博客</a>
-                </p>
-            </div>
-        </div>
+</nav>
+
+
+<!-- 回到顶部按钮
+<div class="text-center" id="to-top">
+    <i class="fa fa-chevron-up" id="btn-top" title="回到顶部"></i>
+</div> -->
+
+
+{% block main %}
+{% endblock main %}
+
+
+
+<!-- 网站底部 -->
+<footer class="container-fluid mt-4 py-0 bg-dark text-light">
+    <div class="card-body text-center px-0">
+        <p class="card-text mb-1">Copyright&nbsp;&copy;&nbsp;<span id="year-info"></span>
+            <a href="https://github.com/Hopetree" target="_blank"
+               title="博客作者的Github">Hopetree</a>.&nbsp;Powered&nbsp;by&nbsp;Django.
+        </p>
+        <p class="mb-0">
+            <a href="/sitemap.xml" target="_blank">Sitemap</a>
+        </p>
     </div>
 </footer>
 
-<!-- Mobile Menu -->
-<!-- 这个也是待修改，移动端侧边栏 -->
-<div class="overlay overlay-hugeinc">
-    <button type="button" class="overlay-close"><span class="ion-ios-close-empty"></span></button>
-    <nav>
-        <ul>
-            <li><a href="{% url 'blog:index' %}">首页</a></li>
-            <li><a href="#">博客</a></li>
-            <li><a href="#">关于</a></li>
-            <li><a href="#">联系</a></li>
-        </ul>
-    </nav>
-</div>
-
-<script src="{% static 'blog/js/script.js' %}"></script>
-
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="{% static 'jquery-3.3.1.min.js' %}"></script>
+<script src="{% static 'popper.min.js' %}"></script>
+<script src="{% static 'bootstrap-4.1.3-dist/js/bootstrap.bundle.min.js' %}"></script>
 </body>
+
 </html>

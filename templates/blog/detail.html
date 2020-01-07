@@ -1,100 +1,388 @@
-{% extends 'base.html' %}
-
-<!-- 继承模版 -->
-{% block main %}
-    <article class="post post-{{ post.pk }}">
-        <header class="entry-header">
-            <h1 class="entry-title">{{ post.title }}</h1>
-            <div class="entry-meta">
-                <span class="post-category"><a href="{% url 'blog:category' post.category.pk %}">{{ post.category }}</a></span>
-                <span class="post-date"><a href="#"><time class="entry-date"
-                                                          datetime="2012-11-09T23:15:57+00:00">{{ post.created_time }}</time></a></span>
-                <span class="post-author"><a href="#">{{ post.author }}</a></span>
-                <span class="comments-link"><a href="#">{{ post.comment_set.count }} 评论</a></span>
-                <span class="views-count"><a href="#">{{ post.views }} 阅读</a></span>
-            </div>
-        </header>
-        <div class="entry-content clearfix">
-            {{ post.body|safe }}
-            <div class="widget widget-tag-cloud">
-                <ul>
-                    标签：
-                    {% for tag in post.tags.all %}
-                        <li><a href="{% url 'blog:tag' tag.pk %}"># {{ tag.name }}</a></li>
-                    {% endfor %}
-                </ul>
-            </div>
-        </div>
-    </article>
-    <section class="comment-area" id="comment-area">
-        <hr>
-        <h3>发表评论</h3>
-        <form action="{% url 'comments:post_comment' post.pk %}" method="post" class="comment-form">
-            {% csrf_token %}
-            <!-- 防止CSRF攻击的功能 -->
-            <div class="row">
-                <div class="col-md-4">
-                    <label for="id_name">名字：</label>
-                    {{ form.name }}
-                    {{ form.name.errors }}
-                </div>
-                <div class="col-md-4">
-                    <label for="id_email">邮箱：</label>
-                    {{ form.email }}
-                    {{ form.email.errors }}
-                </div>
-                <div class="col-md-4">
-                    <label for="id_url">网址：</label>
-                    {{ form.url }}
-                    {{ form.url.errors }}
-                </div>
-                <div class="col-md-12">
-                    <label for="id_comment">评论：</label>
-                    {{ form.text }}
-                    {{ form.text.errors }}
-                    <button type="submit" class="comment-btn">发表</button>
-                </div>
-            </div>    <!-- row -->
-        </form>
-        <div class="comment-list-panel">
-            <h3>评论列表，共 <span>{{ post.comment_set.count }}</span> 条评论</h3>
-            <ul class="comment-list list-unstyled">
-                {% for comment in comment_list %}
-                    <li class="comment-item">
-                        <span class="nickname">{{ comment.name }}</span>
-                        <time class="submit-date" datetime="2012-11-09T23:15:57+00:00">{{ comment.created_time }}</time>
-                        <div class="text">
-                            {{ comment.text|safe }}
+<main>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-9 col-xl-10">
+                <!-- 面包屑导航 -->
+                <nav aria-label="breadcrumb">
+                    <ol class="breadcrumb bg-white border-0 rounded-0 mb-2 py-2">
+                        <li class="breadcrumb-item">
+                            <i class="fa fa-home mr-1"></i><a href="/">首页</a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a href="/category/Front-end/">Web 前端</a>
+                        </li>
+                        <li class="breadcrumb-item active d-none d-md-block" aria-current="page">
+                            博客添加暗色主题切换功能，从主题切换聊聊前后端cookies的使用</li>
+                        <li class="breadcrumb-item active d-md-none" aria-current="page">当前位置</li>
+                    </ol>
+                </nav>
+                <div class="card rounded-0 border-0" id="article">
+                    <div class="card-body px-2 px-md-3 pb-0">
+                        <!-- 标题 -->
+                        <h1 class="card-title text-center font-weight-bold text-info">博客添加暗色主题切换功能，从主题切换聊聊前后端cookies的使用
+                        </h1>
+                        <hr>
+                        <!-- 文章信息 -->
+                        <div class="text-center">
+                            <span class="mx-2" data-toggle="tooltip" data-placement="bottom"
+                                title="最后编辑于2019年12月20日">2019年11月25日 11:50</span>
+                            <span class="mx-2">阅读 388</span>
+                            <a class="mx-2 to-com" href="#comment-block">评论 6</a>
                         </div>
-                    </li>
-                {% empty %}
-                    暂无评论!
-                {% endfor %}
-            </ul>
+                        <!-- 正文 -->
+                        <div class="article-body mt-4" style="line-height:1.8">
+                            正文内容
+                            <!-- 版权声明 -->
+                            <blockquote class="p-1" style="border-left: 4px solid #dc3545;">
+                                <p class="m-1"><strong>版权声明：</strong>如无特殊说明，文章均为本站原创，转载请注明出处</p>
+                                <p class="m-1"><strong>本文链接：</strong>https://tendcode.com/article/theme-change/</p>
+                            </blockquote>
+                        </div>
+                        <!-- 标签云 -->
+                        <div class="tag-cloud my-4">
+
+                            <a class="tags" href="/tag/Django/">Django</a>
+
+                            <a class="tags" href="/tag/Bootstrap/">Bootstrap</a>
+
+                            <a class="tags" href="/tag/Cookie/">Cookie</a>
+
+                        </div>
+                        <nav class="more-page">
+                            <ul class="pagination justify-content-between">
+                                <li class="page-item">
+
+                                    <a class="d-none d-md-block" href="/article/yaml_and_jinja2/"
+                                        title="上一篇：Python 模板渲染库 yaml 和 jinja2 的实战经验分享">
+                                        <i class="fa fa-chevron-left mr-1"></i>
+                                        Python 模板渲染库 yaml
+                                    </a>
+                                    <a class="d-md-none" href="/article/yaml_and_jinja2/">
+                                        <i class="fa fa-chevron-left mr-1"></i>上一篇</a>
+
+                                </li>
+                                <li class="page-item">
+
+                                    <a class="d-none d-md-block" href="/article/markdown-editor/"
+                                        title="下一篇：博客添加 markdown 在线编辑器工具">
+                                        博客添加 markdown 在线编辑
+                                        <i class="fa fa-chevron-right ml-1"></i>
+                                    </a>
+                                    <a class="d-md-none" href="/article/markdown-editor/">
+                                        下一篇<i class="fa fa-chevron-right ml-1"></i>
+                                    </a>
+
+                                </li>
+                            </ul>
+                        </nav>
+
+                        <div class="text-center">
+                            <button class="btn btn-danger rounded-0" data-toggle="collapse"
+                                data-target=".multi-collapse" aria-expanded="false"
+                                aria-controls="sponsor-zfb sponsor-wx" style="line-height: 1;font-size: .8rem;">
+                                <i class="fa fa-cny"></i>
+                                如果文章对你有所帮助，可以赞助本站
+                                <i class="fa fa-chevron-down"></i>
+                            </button>
+                        </div>
+                        <div class="row p-3">
+                            <div class="col text-center">
+                                <div class="collapse multi-collapse" id="sponsor-wx">
+                                    <div class="p-1 text-success">微信</div>
+                                    <img class="w-75" src="/static/blog/img/reward_wx.png">
+                                </div>
+                            </div>
+                            <div class="col text-center">
+                                <div class="collapse multi-collapse" id="sponsor-zfb">
+                                    <div class="p-1 text-primary">支付宝</div>
+                                    <img class="w-75" src="/static/blog/img/reward_zfb.png">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card mt-2 rounded-0 border-0" id="comment-block">
+
+                    <div class="card border-0 rounded-0 f-16" id="editor-block">
+
+                        <div class="card-body text-center m-2 m-md-3 f-16" id="no-editor">
+                            <div>您尚未登录，请
+                                <a class="text-danger" href="/accounts/login/?next=/article/theme-change/">登录</a> 或
+                                <a class="text-danger" href="/accounts/signup/?next=/article/theme-change/">注册</a> 后评论
+                            </div>
+                            <div class="login-link mt-2">
+                                <a class="mx-3" href="/accounts/weibo/login/?next=/article/theme-change/"
+                                    title="社交账号登录有点慢，请耐心等候！"><i class="fa fa-weibo fa-2x"></i></a>
+                                <a class="mx-3" href="/accounts/github/login/?next=/article/theme-change/"
+                                    title="社交账号登录有点慢，请耐心等候！"><i class="fa fa-github fa-2x"></i></a>
+                            </div>
+                        </div>
+
+                    </div>
+
+
+
+
+                    <div class="card-body p-2 p-md-3 f-17" id="comment-list">
+                        <ul class="list-unstyled">
+                            <div class="mb-3">
+                                <strong>4&nbsp;人参与&nbsp;|&nbsp;6&nbsp;条评论</strong>
+                            </div>
+
+                            <div class="comment-parent pt-2" id="com-655">
+                                <li class="media">
+
+
+                                    <img class="avatar" src="/media/avatar/2019/03/13/20180208-172024eSpace.png"
+                                        alt="Jerry94">
+
+                                    <div class="media-body ml-2">
+                                        <a class="float-right small mr-2 rep-btn" href="#editor-block" data-repid="655"
+                                            data-repuser="Jerry94">回复</a>
+                                        <p class="mt-0 mb-1">
+
+
+                                            <strong>
+                                                <a href="https://www.jerrycoding.com/" title="前往 Jerry94 的个人网站"
+                                                    target="_blank">Jerry94
+                                                </a>
+                                            </strong>
+
+
+
+                                            <i class="fa fa-envelope-o" title="邮箱认证用户"></i>
+
+
+
+                                        </p>
+                                        <p class="small text-muted">3&nbsp;楼&nbsp;-&nbsp;2 周，4天前</p>
+                                    </div>
+                                </li>
+                                <div class="comment-body">
+                                    <p>博主的博客是越来越骚了 备案号链接错了 得修改下</p>
+                                </div>
+                            </div>
+
+
+
+                            <div class="comment-parent pt-2" id="com-635">
+                                <li class="media">
+
+
+                                    <img class="avatar" src="/media/avatar/default.png" alt="hjdhnx">
+
+                                    <div class="media-body ml-2">
+                                        <a class="float-right small mr-2 rep-btn" href="#editor-block" data-repid="635"
+                                            data-repuser="hjdhnx">回复</a>
+                                        <p class="mt-0 mb-1">
+
+
+                                            <strong title="该用户未认证或没有个人站点">hjdhnx</strong>
+
+
+
+                                        </p>
+                                        <p class="small text-muted">2&nbsp;楼&nbsp;-&nbsp;1月前</p>
+                                    </div>
+                                </li>
+                                <div class="comment-body">博客的master版本按2.1分支的安装方式无法运行<br>
+                                    <p>在python manage.py migrate时候报错 python manage.py make migrate没问题
+                                        报错详情:
+                                        django.db.utils.OperationalError: (1071, 'Specified key was too long; max key
+                                        length is 1000 bytes')
+                                        求解决</p>
+                                </div>
+                            </div>
+
+
+                            <ul class="list-unstyled ml-4">
+
+                                <div class="comment-child pt-2" id="com-636">
+                                    <li class="media">
+
+
+                                        <img class="avatar"
+                                            src="/media/avatar/2019/07/27/91ef76c6a7efce1b99717f97a851f3deb48f6510.png"
+                                            alt="Hopetree">
+
+                                        <div class="media-body ml-2">
+                                            <a class="float-right small mr-2 rep-btn" href="#editor-block"
+                                                data-repid="636" data-repuser="Hopetree">回复</a>
+                                            <p class="mt-0 mb-1">
+
+
+                                                <strong>
+                                                    <a href="https://tendcode.com" title="前往 Hopetree 的个人网站"
+                                                        target="_blank">Hopetree
+                                                    </a>
+                                                </strong>
+
+
+
+                                                <i class="fa fa-github" title="Github 绑定用户"></i>
+
+
+
+                                                <small class="text-danger">[博主]</small>
+
+                                                <i class="fa fa-share"></i>
+                                                @hjdhnx
+                                            </p>
+                                            <p class="small text-muted">1月前</p>
+                                        </div>
+                                    </li>
+                                    <div class="comment-body">
+                                        <p>你可以把报错放谷歌或者百度搜索，很多相关回答，我看到的原因可能是你数据库的格式设置的utf8mb4，但是我博客是配置的utf8，所以你创建数据库的时候需要设置一下为utf8，你看看是不是这个问题的
+                                        </p>
+                                    </div>
+                                </div>
+
+                            </ul>
+
+
+                            <div class="comment-parent pt-2" id="com-631">
+                                <li class="media">
+
+
+                                    <img class="avatar" src="https://avatars3.githubusercontent.com/u/16336606?v=4"
+                                        alt="frostming">
+
+                                    <div class="media-body ml-2">
+                                        <a class="float-right small mr-2 rep-btn" href="#editor-block" data-repid="631"
+                                            data-repuser="frostming">回复</a>
+                                        <p class="mt-0 mb-1">
+
+
+                                            <strong>
+                                                <a href="https://github.com/frostming" title="前往 frostming 的个人网站"
+                                                    target="_blank">frostming
+                                                </a>
+                                            </strong>
+
+
+
+                                            <i class="fa fa-github" title="Github 绑定用户"></i>
+
+
+
+                                        </p>
+                                        <p class="small text-muted">1&nbsp;楼&nbsp;-&nbsp;1月，1 周前</p>
+                                    </div>
+                                </li>
+                                <div class="comment-body">
+                                    <p>博客做得越来越漂亮了。</p>
+                                    <p>我写了一篇新文章<a href="https://frostming.com/2019/11-25/git-commit-sign">给你的 Git commit
+                                            加上绿勾</a>，我觉得你可能会需要</p>
+                                </div>
+                            </div>
+
+
+                            <ul class="list-unstyled ml-4">
+
+                                <div class="comment-child pt-2" id="com-632">
+                                    <li class="media">
+
+
+                                        <img class="avatar"
+                                            src="/media/avatar/2019/07/27/91ef76c6a7efce1b99717f97a851f3deb48f6510.png"
+                                            alt="Hopetree">
+
+                                        <div class="media-body ml-2">
+                                            <a class="float-right small mr-2 rep-btn" href="#editor-block"
+                                                data-repid="632" data-repuser="Hopetree">回复</a>
+                                            <p class="mt-0 mb-1">
+
+
+                                                <strong>
+                                                    <a href="https://tendcode.com" title="前往 Hopetree 的个人网站"
+                                                        target="_blank">Hopetree
+                                                    </a>
+                                                </strong>
+
+
+
+                                                <i class="fa fa-github" title="Github 绑定用户"></i>
+
+
+
+                                                <small class="text-danger">[博主]</small>
+
+                                                <i class="fa fa-share"></i>
+                                                @frostming
+                                            </p>
+                                            <p class="small text-muted">1月，1 周前</p>
+                                        </div>
+                                    </li>
+                                    <div class="comment-body">
+                                        <p>我看了一下我的，commit的确没有认证的锁，合入的倒是会自动添加，文章看完了，涨知识了，回去研究一下</p>
+                                    </div>
+                                </div>
+
+                                <div class="comment-child pt-2" id="com-633">
+                                    <li class="media">
+
+
+                                        <img class="avatar" src="https://avatars3.githubusercontent.com/u/16336606?v=4"
+                                            alt="frostming">
+
+                                        <div class="media-body ml-2">
+                                            <a class="float-right small mr-2 rep-btn" href="#editor-block"
+                                                data-repid="633" data-repuser="frostming">回复</a>
+                                            <p class="mt-0 mb-1">
+
+
+                                                <strong>
+                                                    <a href="https://github.com/frostming" title="前往 frostming 的个人网站"
+                                                        target="_blank">frostming
+                                                    </a>
+                                                </strong>
+
+
+
+                                                <i class="fa fa-github" title="Github 绑定用户"></i>
+
+
+
+                                                <i class="fa fa-share"></i>
+                                                @Hopetree
+                                            </p>
+                                            <p class="small text-muted">1月，1 周前</p>
+                                        </div>
+                                    </li>
+                                    <div class="comment-body">
+                                        <p>如果是通过Github页面生成的提交时会带上Verified的</p>
+                                    </div>
+                                </div>
+
+                            </ul>
+
+
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
-    </section>
-{% endblock main %}
-
-{% block toc %}
-    <div class="widget widget-content">
-        <h3 class="widget-title">文章目录</h3>
-        <ul>
-            <li>
-                <a href="#">教程特点</a>
-            </li>
-            <li>
-                <a href="#">谁适合这个教程</a>
-            </li>
-            <li>
-                <a href="#">在线预览</a>
-            </li>
-            <li>
-                <a href="#">资源列表</a>
-            </li>
-            <li>
-                <a href="#">获取帮助</a>
-            </li>
-        </ul>
     </div>
-{% endblock toc %}
+    <!--图片预览-->
+    <div class="modal fade" id="img-to-big" tabindex="-1" role="dialog" aria-labelledby="img-to-bigTitle"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document" style="max-width: 90%">
+            <img class="rounded mx-auto d-block" alt="image" style="max-width: 100%">
+        </div>
+    </div>
+    <!--前后文章-->
 
+    <div class="more-blog" id="icon-pre-blog">
+        <a href="/article/yaml_and_jinja2/">
+            <i class="fa fa-angle-left fa-3x"></i>
+        </a>
+    </div>
+
+
+    <div class="more-blog" id="icon-next-blog">
+        <a href="/article/markdown-editor/">
+            <i class="fa fa-angle-right fa-3x"></i>
+        </a>
+    </div>
+
+</main>
