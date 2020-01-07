@@ -12,7 +12,7 @@ from django.db.models import Q
 
 # 首页视图函数context={} 可以简化为 {}
 def index(request):
-    # 似乎默认就按照-created_time排序的
+    # 元数据Meta默认按照-created_time排序
     post_list = Post.objects.all()
 
     # 实现分页,不用试图类
@@ -96,11 +96,21 @@ def detail(request, pk):
     post.increase_views()
     post.body = markdown.markdown(post.body,
                                   extensions=[
+                                      # 支持 ```
                                       'markdown.extensions.extra',
+                                      # 代码高亮
                                       'markdown.extensions.codehilite',
                                       # toc实现自动生成文章目录的操作
                                       'markdown.extensions.toc',
-                                  ])
+                                      # 表格处理
+                                      # markdown.markdown(text, extensions=['markdown.extensions.tables'])
+
+                                      # markdown使用方法
+                                      # import markdown
+                                      # html = markdown.markdown(text)
+                                      # print
+                                      # html
+    ])
     # 导入form类
     form = CommentForm()
     # 获取post下的全部评论

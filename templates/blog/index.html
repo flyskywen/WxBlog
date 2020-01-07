@@ -26,7 +26,7 @@
                         <div class="carousel-inner">
                             <div class="carousel-item active">
                                 <a href="{% static 'blog/img/1.jpg' %}">
-                                    <img class="w-100" src="{% static 'blog/img/1.jpg' %}"
+                                    <img class="w-100" src="{% static 'blog/img/5.jpg' %}"
                                          alt="容器化部署博客（3）—— 5分钟完成项目迁移">
                                 </a>
                             </div>
@@ -82,7 +82,7 @@
                                 <!-- align子元素设置 支持不同尺寸匹配 -->
                                 <div class="align-self-center mr-2 mr-lg-3 w-25">
                                     <a href="{{ post.get_absolute_url }}" target="_blank">
-                                        <img class="w-100 article-img" src="../../../../../Note/image/Djanog结构.png"
+                                        <img class="w-100 article-img" src="{% static 'blog/img/3.jpg' %}"
                                              alt="博客添加 markdown 在线编辑器工具">
                                     </a>
                                 </div>
@@ -145,19 +145,19 @@
                             <div class="row text-center">
                                 <div class="col">
                                     <a href="https://github.com/Hopetree" target="_blank" title="进入博主的Github查看博客源码">
-                                        <img style="max-width:40px" alt="博主的github" src="/static/blog/img/github.png">
+                                        <img style="max-width:40px" alt="博主的github" src="{% static 'github.png' %}">
                                         <p class="mt-2">Github</p>
                                     </a>
                                 </div>
                                 <div class="col">
                                     <a href="/timeline/" target="_blank" title="查看网站建站历程">
-                                        <img style="max-width:40px" alt="网站的建站历程" src="/static/blog/img/blog.png">
+                                        <img style="max-width:40px" alt="网站的建站历程" src="{% static 'blog.png' %}">
                                         <p class="mt-2">Timeline</p>
                                     </a>
                                 </div>
                                 <div class="col">
                                     <a href="/feed/" target="_blank" title="订阅博客">
-                                        <img style="max-width:40px" alt="订阅博客RSS" src="/static/blog/img/rss.png">
+                                        <img style="max-width:40px" alt="订阅博客RSS" src="{% static 'rss.png' %}">
                                         <p class="mt-2">RSS订阅</p>
                                     </a>
                                 </div>
