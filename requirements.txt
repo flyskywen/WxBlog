@@ -21,3 +21,6 @@ Whoosh==2.7.4
 # 实现文章显示markdown
 # Pygments
 # Markdown
+
+# Django上传图片
+# pillow
