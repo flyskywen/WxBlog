@@ -142,8 +142,13 @@
 
                         <div class="card border-0 rounded-0" id="editor-block">
 
-                            <div class="card-body text-center">
-                                评论功能
+                            <div class="card-body">
+                                <div id="test-editor">
+                                    {# 还没写好表单,所以警告 #}
+                                    <textarea style="display:none;">
+
+                                    </textarea>
+                                </div>
                             </div>
 
                             {#                            <div class="card-body text-center m-2 m-md-3 f-16" id="no-editor">#}
@@ -398,6 +403,7 @@
                 </div>
             </div>
         </div>
+
         <!--图片预览-->
         <div class="modal fade" id="img-to-big" tabindex="-1" role="dialog" aria-labelledby="img-to-bigTitle"
              aria-hidden="true">
@@ -405,8 +411,8 @@
                 <img class="rounded mx-auto d-block" alt="image" style="max-width: 100%">
             </div>
         </div>
-        <!--前后文章-->
 
+        <!--前后文章-->
         <div class="more-blog" id="icon-pre-blog">
             <a href="/article/yaml_and_jinja2/">
                 <i class="fa fa-angle-left fa-3x"></i>
@@ -425,10 +431,23 @@
 
 {% block highlight %}
     {# 代码高亮 #}
-    <script src="https://cdn.bootcss.com/highlight.js/9.15.8/highlight.min.js"></script>
-    <script src="https://cdn.bootcss.com/highlightjs-line-numbers.js/2.7.0/highlightjs-line-numbers.min.js"></script>
-    <script>
-        hljs.initHighlightingOnLoad();
-        hljs.initLineNumbersOnLoad();
+    {# 代码高亮没生效,而且不好看,之后再调整 #}
+    {#    <script src="https://cdn.bootcss.com/highlight.js/9.15.8/highlight.min.js"></script>#}
+    {#    <script src="https://cdn.bootcss.com/highlightjs-line-numbers.js/2.7.0/highlightjs-line-numbers.min.js"></script>#}
+    {#    <script>#}
+    {#        hljs.initHighlightingOnLoad();#}
+    {#        hljs.initLineNumbersOnLoad();#}
+    {#    </script>#}
+{% endblock highlight %}
+
+{% block editor %}
+    <script type="text/javascript">
+        $(function () {
+            let editor = editormd("test-editor", {
+                // width  : "100%",
+                // height : "100%",
+                path: "{% static 'editor.md/lib/' %}"
+            });
+        });
     </script>
-{% endblock %}
+{% endblock editor %}
