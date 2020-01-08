@@ -1,8 +1,5 @@
 {% load staticfiles %}
 <!--导入静态文件-->
-{% load blog_tags %}
-<!--导入自定义标签-->
-
 
 <!doctype html>
 <html lang="zh-CN">
@@ -105,10 +102,10 @@
         <!-- 登录注册导航，而不是导航栏 -->
         <ul class="navbar-nav">
             <li class="nav-item mr-2">
-                <a class="nav-link py-md-3" href="/accounts/login/?next=/">登录</a>
+                <a class="nav-link py-md-3" href="#">登录</a>
             </li>
             <li class="nav-item">
-                <a class="nav-link py-md-3" href="/accounts/signup/?next=/">注册</a>
+                <a class="nav-link py-md-3" href="#">注册</a>
             </li>
         </ul>
     </div>
@@ -134,7 +131,7 @@
                title="博客作者的Github">Hopetree</a>.&nbsp;Powered&nbsp;by&nbsp;Django.
         </p>
         <p class="mb-0">
-            <a href="/sitemap.xml" target="_blank">Sitemap</a>
+            <a href="#" target="_blank">Sitemap</a>
         </p>
     </div>
 </footer>
@@ -145,5 +142,9 @@
 <script src="{% static 'popper.min.js' %}"></script>
 <script src="{% static 'bootstrap-4.1.3-dist/js/bootstrap.bundle.min.js' %}"></script>
 </body>
+
+{% block highlight %}
+    {# 代码高亮 #}
+{% endblock highlight %}
 
 </html>

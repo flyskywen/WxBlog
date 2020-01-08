@@ -13,55 +13,57 @@
                 <!-- 正文部分 -->
                 <!--当屏幕宽度小于768px(桌面显示器)，上下堆叠排版-->
                 <div class="col-md-8">
-                    <!-- 轮播 -->
-                    <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-                        <!-- 轮播列表 -->
-                        <ol class="carousel-indicators">
-                            <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                            <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                            <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-                            <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
-                        </ol>
-                        <!-- 轮播内容 -->
-                        <div class="carousel-inner">
-                            <div class="carousel-item active">
-                                <a href="{% static 'blog/img/1.jpg' %}">
-                                    <img class="w-100" src="{% static 'blog/img/5.jpg' %}"
-                                         alt="容器化部署博客（3）—— 5分钟完成项目迁移">
-                                </a>
-                            </div>
-                            <div class="carousel-item">
-                                <a href="{% static 'blog/img/2.jpg' %}">
-                                    <img class="w-100" src="{% static 'blog/img/2.jpg' %}"
-                                         alt="在 Linux 服务器上使用 Nginx + Gunicorn 部署 Django 项目的正确姿势">
-                                </a>
-                            </div>
-                            <div class="carousel-item">
-                                <a href="{% static 'blog/img/3.jpg' %}">
-                                    <img class="w-100" src="{% static 'blog/img/3.jpg' %}"
-                                         alt="Python虚拟环境Virtualenv分别在Windows和Linux上的安装和使用">
-                                </a>
-                            </div>
-                            <div class="carousel-item">
-                                <a href=".../../../../../Note/image/DOM树.png">
-                                    <img class="w-100" src="{% static 'blog/img/4.jpg' %}" alt="煎蛋网妹子图爬虫">
-                                </a>
-                            </div>
+                    {% block top %}
+                        <!-- 轮播 -->
+                        <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                            <!-- 轮播列表 -->
+                            <ol class="carousel-indicators">
+                                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                                <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                                <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                                <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
+                            </ol>
+                            <!-- 轮播内容 -->
+                            <div class="carousel-inner">
+                                <div class="carousel-item active">
+                                    <a href="{% static 'blog/img/1.jpg' %}">
+                                        <img class="w-100" src="{% static 'blog/img/5.jpg' %}"
+                                             alt="容器化部署博客（3）—— 5分钟完成项目迁移">
+                                    </a>
+                                </div>
+                                <div class="carousel-item">
+                                    <a href="{% static 'blog/img/2.jpg' %}">
+                                        <img class="w-100" src="{% static 'blog/img/2.jpg' %}"
+                                             alt="在 Linux 服务器上使用 Nginx + Gunicorn 部署 Django 项目的正确姿势">
+                                    </a>
+                                </div>
+                                <div class="carousel-item">
+                                    <a href="{% static 'blog/img/3.jpg' %}">
+                                        <img class="w-100" src="{% static 'blog/img/3.jpg' %}"
+                                             alt="Python虚拟环境Virtualenv分别在Windows和Linux上的安装和使用">
+                                    </a>
+                                </div>
+                                <div class="carousel-item">
+                                    <a href="#">
+                                        <img class="w-100" src="{% static 'blog/img/4.jpg' %}" alt="煎蛋网妹子图爬虫">
+                                    </a>
+                                </div>
 
-                            <!-- 轮播上下控件 -->
-                            <a class="carousel-control-prev" href="#carouselExampleControls" role="button"
-                               data-slide="prev">
-                                <!-- 图标，不能放太亮色的图片，否则看不清图标 -->
-                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                <span class="sr-only">Previous</span>
-                            </a>
-                            <a class="carousel-control-next" href="#carouselExampleControls" role="button"
-                               data-slide="next">
-                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                <span class="sr-only">Next</span>
-                            </a>
-                        </div>
-                    </div><!-- 轮播结束 -->
+                                <!-- 轮播上下控件 -->
+                                <a class="carousel-control-prev" href="#carouselExampleControls" role="button"
+                                   data-slide="prev">
+                                    <!-- 图标，不能放太亮色的图片，否则看不清图标 -->
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Previous</span>
+                                </a>
+                                <a class="carousel-control-next" href="#carouselExampleControls" role="button"
+                                   data-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="sr-only">Next</span>
+                                </a>
+                            </div>
+                        </div><!-- 轮播结束 -->
+                    {% endblock top %}
 
                     <!-- 热度和时间排序按钮 -->
                     <!-- font-weight-bold字体加重 -->
@@ -70,7 +72,7 @@
                     <div class="text-secondary font-weight-bold text-dark py-2">
                         <a class="pb-2 active" href="/">
                             <i class="fa fa-bars mr-1"></i>时间排序</a>
-                        <a class="pb-2 ml-4 " href="/hot/">
+                        <a class="pb-2 ml-4 " href="#">
                             <i class="fa fa-fire mr-1"></i>热度排序</a>
                     </div>
 
@@ -149,7 +151,7 @@
                             <strong><i class="fa fa-paper-plane mr-2"></i>个人空间</strong>
 
                             <!-- 切换主题按钮 -->
-                            <img class="float-right" id="theme-img" src="/static/blog/img/toggle-light.png"
+                            <img class="float-right" id="theme-img" src="#"
                                  alt="theme-toggle" title="切换主题">
                         </div>
 
@@ -157,19 +159,21 @@
                         <div class="card-body px-0 pt-3 pb-1">
                             <div class="row text-center">
                                 <div class="col">
-                                    <a href="https://github.com/Hopetree" target="_blank" title="进入博主的Github查看博客源码">
-                                        <img style="max-width:40px" alt="博主的github" src="{% static 'github.png' %}">
+                                    <a href="https://github.com/Hopetree" target="_blank"
+                                       title="进入博主的Github查看博客源码">
+                                        <img style="max-width:40px" alt="博主的github"
+                                             src="{% static 'github.png' %}">
                                         <p class="mt-2">Github</p>
                                     </a>
                                 </div>
                                 <div class="col">
-                                    <a href="/timeline/" target="_blank" title="查看网站建站历程">
+                                    <a href="#" target="_blank" title="查看网站建站历程">
                                         <img style="max-width:40px" alt="网站的建站历程" src="{% static 'blog.png' %}">
                                         <p class="mt-2">Timeline</p>
                                     </a>
                                 </div>
                                 <div class="col">
-                                    <a href="/feed/" target="_blank" title="订阅博客">
+                                    <a href="#" target="_blank" title="订阅博客">
                                         <img style="max-width:40px" alt="订阅博客RSS" src="{% static 'rss.png' %}">
                                         <p class="mt-2">RSS订阅</p>
                                     </a>
@@ -184,11 +188,20 @@
                             <strong><i class="fa fa-book mr-2"></i>文章分类</strong>
                         </div>
 
+                        {% get_categories as category_list %}
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item d-flex justify-content-between align-items-center pr-2 py-2">
-                                <a class="category-item" href="/category/ci-cd/" title="查看【CI/CD】分类下所有文章">CI/CD</a>
-                                <span class="badge text-center" title="当前分类下有6篇文章">6</span>
-                            </li>
+                            {% for foo in category_list %}
+                                <li class="list-group-item d-flex justify-content-between align-items-center pr-2 py-2">
+                                    <a class="category-item" href="{% url 'blog:category' foo.pk %}"
+                                       title="查看【{{ foo.name }}】分类下所有文章">{{ foo.name }}</a>
+                                    <span class="badge text-center"
+                                          title="当前分类下有{{ foo.num_posts }}篇文章">{{ foo.num_posts }}</span>
+                                </li>
+                            {% empty %}
+                                <li>
+                                    暂无分类
+                                </li>
+                            {% endfor %}
                         </ul>
                     </div> <!-- 文章分类结束 -->
 
@@ -200,12 +213,14 @@
                         </div>
                         <div class="card-body px-0 py-3">
                             <!-- 需要自己编写css样式 -->
+                            {% get_tag as tag_list %}
                             <div>
-                                <a href="/tag/Virtualenv/" class="tags" id="tag-1"
-                                   title="【Virtualenv】标签下有3篇文章">Virtualenv</a>
-
-                                <a href="/tag/Web-development/" id="tag-2"
-                                   title="【后端开发】标签下有10篇文章">后端开发</a>
+                                {% for foo in tag_list %}
+                                    <a href="{% url 'blog:tag' foo.pk %}" class="tags" id="tag-1"
+                                       title="【{{ foo.name }}】标签下有{{ foo.num_posts }}篇文章">{{ foo.name }}</a>
+                                {% empty %}
+                                    暂无标签
+                                {% endfor %}
                             </div>
                         </div>
                     </div> <!-- 标签云结束 -->
@@ -229,14 +244,16 @@
 
                                     <div class="w-50 float-left text-center mb-2">
                                         <div class="mx-2">
-                                            <a href="https://frostming.com" title="一个基于 Flask 开发的博客" target="_blank">
+                                            <a href="https://frostming.com" title="一个基于 Flask 开发的博客"
+                                               target="_blank">
                                                 Frost&#39;s Blog</a>
                                         </div>
                                     </div>
 
                                     <div class="w-50 float-left text-center mb-2">
                                         <div class="mx-2">
-                                            <a href="https://zmrenwu.com" title="Django 博客教程分享者" target="_blank">
+                                            <a href="https://zmrenwu.com" title="Django 博客教程分享者"
+                                               target="_blank">
                                                 追梦人物</a>
                                         </div>
                                     </div>
@@ -251,7 +268,8 @@
 
                                     <div class="w-50 float-left text-center mb-2">
                                         <div class="mx-2">
-                                            <a href="https://www.jerrycoding.com/" title="Jerry 的个人博客" target="_blank">
+                                            <a href="https://www.jerrycoding.com/" title="Jerry 的个人博客"
+                                               target="_blank">
                                                 Jerry Coding</a>
                                         </div>
                                     </div>
@@ -270,6 +288,8 @@
                     </div>
 
                 </div>
+
+
             </div>
         </div>
     </main>

@@ -9,6 +9,10 @@ from comments.forms import CommentForm
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from django.db.models import Q
 
+# 美化中文toc锚点
+from django.utils.text import slugify
+from markdown.extensions.toc import TocExtension
+
 
 # 首页视图函数context={} 可以简化为 {}
 def index(request):
@@ -53,21 +57,23 @@ def archives(request, year, month):
     })
 
 
-# 分类页面,同上
+# 分类页面
 def category(request, pk):
     cate = get_object_or_404(Category, pk=pk)
     post_list = Post.objects.filter(category=cate).order_by('-created_time')
-    return render(request, 'blog/index.html', context={
-        'post_list': post_list
+    return render(request, 'blog/category.html', context={
+        'post_list': post_list,
+        'category': cate
     })
 
 
-# 标签页面,同上
+# 标签页面
 def tag(request, pk):
     ta = get_object_or_404(Tag, pk=pk)
     post_list = Post.objects.filter(tags=ta).order_by('-created_time')
-    return render(request, 'blog/index.html', context={
-        'post_list': post_list
+    return render(request, 'blog/tag.html', context={
+        'post_list': post_list,
+        'tag': ta
     })
 
 
@@ -94,23 +100,31 @@ def detail(request, pk):
     post = get_object_or_404(Post, pk=pk)
     # 阅读量+1
     post.increase_views()
-    post.body = markdown.markdown(post.body,
-                                  extensions=[
-                                      # 支持 ```
-                                      'markdown.extensions.extra',
-                                      # 代码高亮
-                                      'markdown.extensions.codehilite',
-                                      # toc实现自动生成文章目录的操作
-                                      'markdown.extensions.toc',
-                                      # 表格处理
-                                      # markdown.markdown(text, extensions=['markdown.extensions.tables'])
-
-                                      # markdown使用方法
-                                      # import markdown
-                                      # html = markdown.markdown(text)
-                                      # print
-                                      # html
+    # markdown转换为html
+    md = markdown.Markdown(extensions=[
+        # 支持 ```
+        'markdown.extensions.extra',
+        # 代码高亮
+        'markdown.extensions.codehilite',
+        # toc
+        # 记得在顶部引入 TocExtension 和 slugify
+        TocExtension(slugify=slugify),
     ])
+
+    # 表格处理
+    # markdown.markdown(text, extensions=['markdown.extensions.tables'])
+
+    # markdown使用方法
+    # import markdown
+    # html = markdown.markdown(text)
+    # print
+    # html
+
+    # 正文
+    post.body = md.convert(post.body)
+    # TOC目录
+    post.toc = md.toc
+
     # 导入form类
     form = CommentForm()
     # 获取post下的全部评论
