@@ -1,0 +1,80 @@
+<!--导航开始-->
+<!-- 直接用用fix-top会遮挡住正文的内容 -->
+<nav class="navbar navbar-expand-lg navbar-light bg-white navbar-fixed-top">
+    <a class="navbar-brand" href="#">
+        <strong>Logo文字或者图标</strong>
+    </a>
+
+
+    <!--移动端导航按钮-->
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01"
+            aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+        <!-- 按钮图标 -->
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!-- 移动端隐藏导航 -->
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+        <!-- mr-auto左对其，ml-auto右对其 -->
+        <ul class="navbar-nav ml-auto mt-2 mt-lg-0">
+
+            <!--mr-2右侧外边距 2*0.25rem-->
+            <li class="nav-item mr-2 active">
+                <a class="nav-link py-md-3" href="#">
+                    <i class="fa fa-home mr-1"></i>
+                    首页
+                    <!-- 残障人士，弱势或盲人是很难或者根本看不出导航菜单高亮的。他们上网可能借助的是屏幕阅读器，也就是 screen reader（sr），
+                        屏幕阅读器需要找到能辨识的文本说明然后“读”出来给用户听。 -->
+                    <span class="sr-only">(current)</span>
+                </a>
+            </li>
+            <li class="nav-item mr-2">
+                <a class="nav-link py-md-3" href="#">
+                    <i class="fa fa-sitemap mr-1"></i>归档
+                </a>
+            </li>
+
+            <li class="nav-item mr-2">
+                <a class="nav-link py-md-3" href="#">
+                    <i class="fa fa-balance-scale mr-1"></i>在线工具</a>
+            </li>
+
+            <!-- display隐藏 -->
+            <!-- 只在lg屏幕上可见 -->
+            <li class="nav-item mr-2 d-none d-lg-block">
+                <a class="nav-link py-md-3" href="https://hao.tendcode.com" target="_blank"><i
+                        class="fa fa-chrome mr-1"></i>微草导航</a>
+            </li>
+
+            <li class="nav-item mr-2 ">
+                <a class="nav-link py-md-3" href="#">
+                    <i class="fa fa-anchor mr-1"></i>关于</a>
+            </li>
+
+        </ul>
+
+        <!-- 搜索表单 -->
+        <form class="nav-item navbar-form form-inline mr-2 my-2 my-lg-0" action="{% url 'haystack_search' %}">
+            <div class="input-group">
+                <!-- rounded-0圆角边框 -->
+                <!-- input中删除了一个required=True -->
+                <input type="search" name="q" class="form-control rounded-0" placeholder="站内搜索" autocomplete="off">
+                <div class="input-group-btn">
+                    <button class="btn btn-info rounded-0" type="submit">
+                        <i class="fa fa-search"></i>
+                    </button>
+                </div>
+            </div><!-- /input-group -->
+        </form>
+
+        <!-- 登录注册导航，而不是导航栏 -->
+        <ul class="navbar-nav">
+            <li class="nav-item mr-2">
+                <a class="nav-link py-md-3" href="#">登录</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link py-md-3" href="#">注册</a>
+            </li>
+        </ul>
+    </div>
+</nav>

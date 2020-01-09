@@ -1,0 +1,151 @@
+{# 导入静态文件 #}
+{% load static %}
+{# 导入自定义标签 #}
+{% load blog_tags %}
+
+<!-- 侧边栏 -->
+<div class="col-md-4">
+
+    <!--个人空间-->
+    <div class="card border-0 rounded-0 px-3 mb-2 mb-md-3 d-none d-lg-block" id="home-card">
+        <div class="card-header bg-white px-0">
+            <strong><i class="fa fa-paper-plane mr-2"></i>个人空间</strong>
+
+            <!-- 切换主题按钮 -->
+            <img class="float-right" id="theme-img" src="#"
+                 alt="theme-toggle" title="切换主题">
+        </div>
+
+        <!-- 几个重要图标和联系方式 -->
+        <div class="card-body px-0 pt-3 pb-1">
+            <div class="row text-center">
+                <div class="col">
+                    <a href="https://github.com/Hopetree" target="_blank"
+                       title="进入博主的Github查看博客源码">
+                        <img style="max-width:40px" alt="博主的github"
+                             src="{% static 'github.png' %}">
+                        <p class="mt-2">Github</p>
+                    </a>
+                </div>
+                <div class="col">
+                    <a href="#" target="_blank" title="查看网站建站历程">
+                        <img style="max-width:40px" alt="网站的建站历程" src="{% static 'blog.png' %}">
+                        <p class="mt-2">Timeline</p>
+                    </a>
+                </div>
+                <div class="col">
+                    <a href="#" target="_blank" title="订阅博客">
+                        <img style="max-width:40px" alt="订阅博客RSS" src="{% static 'rss.png' %}">
+                        <p class="mt-2">RSS订阅</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--文章分类-->
+    <div class="card border-0 rounded-0 px-3 mb-2 mb-md-3" id="category-card">
+        <div class="card-header bg-white px-0">
+            <strong><i class="fa fa-book mr-2"></i>文章分类</strong>
+        </div>
+
+        {% get_categories as category_list %}
+        <ul class="list-group list-group-flush">
+            {% for foo in category_list %}
+                <li class="list-group-item d-flex justify-content-between align-items-center pr-2 py-2">
+                    <a class="category-item" href="{% url 'blog:category' foo.pk %}"
+                       title="查看【{{ foo.name }}】分类下所有文章">{{ foo.name }}</a>
+                    <span class="badge text-center"
+                          title="当前分类下有{{ foo.num_posts }}篇文章">{{ foo.num_posts }}</span>
+                </li>
+            {% empty %}
+                <li>
+                    暂无分类
+                </li>
+            {% endfor %}
+        </ul>
+    </div> <!-- 文章分类结束 -->
+
+
+    <!--标签云-->
+    <div class="card border-0 rounded-0 px-3 mb-2 mb-md-3" id="tag-card">
+        <div class="card-header bg-white px-0">
+            <strong><i class="fa fa-tags mr-2"></i>标&nbsp;签&nbsp;云</strong>
+        </div>
+        <div class="card-body px-0 py-3">
+            <!-- 需要自己编写css样式 -->
+            {% get_tag as tag_list %}
+            <div>
+                {% for foo in tag_list %}
+                    <a href="{% url 'blog:tag' foo.pk %}" class="tags" id="tag-1"
+                       title="【{{ foo.name }}】标签下有{{ foo.num_posts }}篇文章">{{ foo.name }}</a>
+                {% empty %}
+                    暂无标签
+                {% endfor %}
+            </div>
+        </div>
+    </div> <!-- 标签云结束 -->
+
+    <!--友链-->
+    <!-- 仅lg屏幕可见 -->
+    <div class="d-none d-lg-block">
+        <div class="card border-0 rounded-0 px-3 mb-2 mb-md-3" id="friends-card">
+            <div class="card-header bg-white px-0">
+                <strong><i class="fa fa-link mr-2"></i>友情链接</strong>
+            </div>
+            <div class="card-body px-0 py-3">
+                <div class="tool-list">
+                    <div class="w-50 float-left text-center mb-2">
+                        <div class="mx-2">
+                            <a href="https://github.com/Hopetree/izone" title="izone 博客项目的源代码"
+                               target="_blank">
+                                博客源码</a>
+                        </div>
+                    </div>
+
+                    <div class="w-50 float-left text-center mb-2">
+                        <div class="mx-2">
+                            <a href="https://frostming.com" title="一个基于 Flask 开发的博客"
+                               target="_blank">
+                                Frost&#39;s Blog</a>
+                        </div>
+                    </div>
+
+                    <div class="w-50 float-left text-center mb-2">
+                        <div class="mx-2">
+                            <a href="https://zmrenwu.com" title="Django 博客教程分享者"
+                               target="_blank">
+                                追梦人物</a>
+                        </div>
+                    </div>
+
+                    <div class="w-50 float-left text-center mb-2">
+                        <div class="mx-2">
+                            <a href="https://www.dusaiphoto.com/" title="Django 搭建的博客，分享博客教程"
+                               target="_blank">
+                                杜赛的个人网站</a>
+                        </div>
+                    </div>
+
+                    <div class="w-50 float-left text-center mb-2">
+                        <div class="mx-2">
+                            <a href="https://www.jerrycoding.com/" title="Jerry 的个人博客"
+                               target="_blank">
+                                Jerry Coding</a>
+                        </div>
+                    </div>
+
+                    <div class="w-50 float-left text-center mb-2">
+                        <div class="mx-2">
+                            <a href="https://boywithacoin.cn/" title="Stray_Camel的个人技术博客"
+                               target="_blank">
+                                Stray_Camel</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

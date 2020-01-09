@@ -142,263 +142,265 @@
 
                         <div class="card border-0 rounded-0" id="editor-block">
 
+                            {# 评论功能 #}
                             <div class="card-body">
                                 <div id="test-editor">
                                     {# 还没写好表单,所以警告 #}
-                                    <textarea style="display:none;">
-
-                                    </textarea>
+                                    {# 坑：之前在textarea中留了两个空行，结果显示很奇怪 #}
+                                    <textarea style="display:none;"></textarea>
                                 </div>
                             </div>
 
-                            {#                            <div class="card-body text-center m-2 m-md-3 f-16" id="no-editor">#}
-                            {#                                <div>您尚未登录，请#}
-                            {#                                    <a class="text-danger" href="#">登录</a> 或#}
-                            {#                                    <a class="text-danger" href="#">注册</a>#}
-                            {#                                    后评论#}
-                            {#                                </div>#}
-                            {#                                <div class="login-link mt-2">#}
-                            {#                                    <a class="mx-3" href="#"#}
-                            {#                                       title="社交账号登录有点慢，请耐心等候！"><i class="fa fa-weibo fa-2x"></i></a>#}
-                            {#                                    <a class="mx-3" href="#"#}
-                            {#                                       title="社交账号登录有点慢，请耐心等候！"><i class="fa fa-github fa-2x"></i></a>#}
-                            {#                                </div>#}
-                            {#                            </div>#}
-
+                            {#未登录的评论功能#}
+                            {#<div class="card-body text-center m-2 m-md-3 f-16" id="no-editor">#}
+                            {#    <div>您尚未登录，请#}
+                            {#        <a class="text-danger" href="#">登录</a> 或#}
+                            {#        <a class="text-danger" href="#">注册</a>#}
+                            {#        后评论#}
+                            {#    </div>#}
+                            {#    <div class="login-link mt-2">#}
+                            {#        <a class="mx-3" href="#"#}
+                            {#           title="社交账号登录有点慢，请耐心等候！"><i class="fa fa-weibo fa-2x"></i></a>#}
+                            {#        <a class="mx-3" href="#"#}
+                            {#           title="社交账号登录有点慢，请耐心等候！"><i class="fa fa-github fa-2x"></i></a>#}
+                            {#    </div>#}
+                            {#</div>#}
                         </div>
 
-                        <div class="card-body p-2 p-md-3" id="comment-list">
-                            <ul class="list-unstyled">
-                                <div class="mb-3">
-                                    <strong>4&nbsp;人参与&nbsp;|&nbsp;6&nbsp;条评论</strong>
-                                </div>
+                        {# 评论展示 #}
+                        {#<div class="card-body p-2 p-md-3" id="comment-list">#}
+                        {#    <ul class="list-unstyled">#}
+                        {#        <div class="mb-3">#}
+                        {#            <strong>4&nbsp;人参与&nbsp;|&nbsp;6&nbsp;条评论</strong>#}
+                        {#        </div>#}
+                        {##}
+                        {#        <div class="comment-parent pt-2" id="com-655">#}
+                        {#            <li class="media">#}
+                        {##}
+                        {##}
+                        {#                <img class="avatar" src="/media/avatar/2019/03/13/20180208-172024eSpace.png"#}
+                        {#                     alt="Jerry94">#}
+                        {##}
+                        {#                <div class="media-body ml-2">#}
+                        {#                    <a class="float-right small mr-2 rep-btn" href="#editor-block"#}
+                        {#                       data-repid="655"#}
+                        {#                       data-repuser="Jerry94">回复</a>#}
+                        {#                    <p class="mt-0 mb-1">#}
+                        {##}
+                        {##}
+                        {#                        <strong>#}
+                        {#                            <a href="https://www.jerrycoding.com/" title="前往 Jerry94 的个人网站"#}
+                        {#                               target="_blank">Jerry94#}
+                        {#                            </a>#}
+                        {#                        </strong>#}
+                        {##}
+                        {##}
+                        {#                        <i class="fa fa-envelope-o" title="邮箱认证用户"></i>#}
+                        {##}
+                        {##}
+                        {#                    </p>#}
+                        {#                    <p class="small text-muted">3&nbsp;楼&nbsp;-&nbsp;2 周，4天前</p>#}
+                        {#                </div>#}
+                        {#            </li>#}
+                        {#            <div class="comment-body">#}
+                        {#                <p>博主的博客是越来越骚了 备案号链接错了 得修改下</p>#}
+                        {#            </div>#}
+                        {#        </div>#}
+                        {##}
+                        {##}
+                        {#        <div class="comment-parent pt-2" id="com-635">#}
+                        {#            <li class="media">#}
+                        {##}
+                        {##}
+                        {#                <img class="avatar" src="/media/avatar/default.png" alt="hjdhnx">#}
+                        {##}
+                        {#                <div class="media-body ml-2">#}
+                        {#                    <a class="float-right small mr-2 rep-btn" href="#editor-block"#}
+                        {#                       data-repid="635"#}
+                        {#                       data-repuser="hjdhnx">回复</a>#}
+                        {#                    <p class="mt-0 mb-1">#}
+                        {##}
+                        {##}
+                        {#                        <strong title="该用户未认证或没有个人站点">hjdhnx</strong>#}
+                        {##}
+                        {##}
+                        {#                    </p>#}
+                        {#                    <p class="small text-muted">2&nbsp;楼&nbsp;-&nbsp;1月前</p>#}
+                        {#                </div>#}
+                        {#            </li>#}
+                        {#            <div class="comment-body">博客的master版本按2.1分支的安装方式无法运行<br>#}
+                        {#                <p>在python manage.py migrate时候报错 python manage.py make migrate没问题#}
+                        {#                    报错详情:#}
+                        {#                    django.db.utils.OperationalError: (1071, 'Specified key was too long; max#}
+                        {#                    key#}
+                        {#                    length is 1000 bytes')#}
+                        {#                    求解决</p>#}
+                        {#            </div>#}
+                        {#        </div>#}
+                        {##}
+                        {##}
+                        {#        <ul class="list-unstyled ml-4">#}
+                        {##}
+                        {#            <div class="comment-child pt-2" id="com-636">#}
+                        {#                <li class="media">#}
+                        {##}
+                        {##}
+                        {#                    <img class="avatar"#}
+                        {#                         src="/media/avatar/2019/07/27/91ef76c6a7efce1b99717f97a851f3deb48f6510.png"#}
+                        {#                         alt="Hopetree">#}
+                        {##}
+                        {#                    <div class="media-body ml-2">#}
+                        {#                        <a class="float-right small mr-2 rep-btn" href="#editor-block"#}
+                        {#                           data-repid="636" data-repuser="Hopetree">回复</a>#}
+                        {#                        <p class="mt-0 mb-1">#}
+                        {##}
+                        {##}
+                        {#                            <strong>#}
+                        {#                                <a href="https://tendcode.com" title="前往 Hopetree 的个人网站"#}
+                        {#                                   target="_blank">Hopetree#}
+                        {#                                </a>#}
+                        {#                            </strong>#}
+                        {##}
+                        {##}
+                        {#                            <i class="fa fa-github" title="Github 绑定用户"></i>#}
+                        {##}
+                        {##}
+                        {#                            <small class="text-danger">[博主]</small>#}
+                        {##}
+                        {#                            <i class="fa fa-share"></i>#}
+                        {#                            @hjdhnx#}
+                        {#                        </p>#}
+                        {#                        <p class="small text-muted">1月前</p>#}
+                        {#                    </div>#}
+                        {#                </li>#}
+                        {#                <div class="comment-body">#}
+                        {#                    <p>#}
+                        {#                        你可以把报错放谷歌或者百度搜索，很多相关回答，我看到的原因可能是你数据库的格式设置的utf8mb4，但是我博客是配置的utf8，所以你创建数据库的时候需要设置一下为utf8，你看看是不是这个问题的#}
+                        {#                    </p>#}
+                        {#                </div>#}
+                        {#            </div>#}
+                        {##}
+                        {#        </ul>#}
+                        {##}
+                        {##}
+                        {#        <div class="comment-parent pt-2" id="com-631">#}
+                        {#            <li class="media">#}
+                        {##}
+                        {##}
+                        {#                <img class="avatar" src="https://avatars3.githubusercontent.com/u/16336606?v=4"#}
+                        {#                     alt="frostming">#}
+                        {##}
+                        {#                <div class="media-body ml-2">#}
+                        {#                    <a class="float-right small mr-2 rep-btn" href="#editor-block"#}
+                        {#                       data-repid="631"#}
+                        {#                       data-repuser="frostming">回复</a>#}
+                        {#                    <p class="mt-0 mb-1">#}
+                        {##}
+                        {##}
+                        {#                        <strong>#}
+                        {#                            <a href="https://github.com/frostming" title="前往 frostming 的个人网站"#}
+                        {#                               target="_blank">frostming#}
+                        {#                            </a>#}
+                        {#                        </strong>#}
+                        {##}
+                        {##}
+                        {#                        <i class="fa fa-github" title="Github 绑定用户"></i>#}
+                        {##}
+                        {##}
+                        {#                    </p>#}
+                        {#                    <p class="small text-muted">1&nbsp;楼&nbsp;-&nbsp;1月，1 周前</p>#}
+                        {#                </div>#}
+                        {#            </li>#}
+                        {#            <div class="comment-body">#}
+                        {#                <p>博客做得越来越漂亮了。</p>#}
+                        {#                <p>我写了一篇新文章<a href="https://frostming.com/2019/11-25/git-commit-sign">给你的 Git#}
+                        {#                    commit#}
+                        {#                    加上绿勾</a>，我觉得你可能会需要</p>#}
+                        {#            </div>#}
+                        {#        </div>#}
+                        {##}
+                        {##}
+                        {#        <ul class="list-unstyled ml-4">#}
+                        {##}
+                        {#            <div class="comment-child pt-2" id="com-632">#}
+                        {#                <li class="media">#}
+                        {##}
+                        {##}
+                        {#                    <img class="avatar"#}
+                        {#                         src="/media/avatar/2019/07/27/91ef76c6a7efce1b99717f97a851f3deb48f6510.png"#}
+                        {#                         alt="Hopetree">#}
+                        {##}
+                        {#                    <div class="media-body ml-2">#}
+                        {#                        <a class="float-right small mr-2 rep-btn" href="#editor-block"#}
+                        {#                           data-repid="632" data-repuser="Hopetree">回复</a>#}
+                        {#                        <p class="mt-0 mb-1">#}
+                        {##}
+                        {##}
+                        {#                            <strong>#}
+                        {#                                <a href="https://tendcode.com" title="前往 Hopetree 的个人网站"#}
+                        {#                                   target="_blank">Hopetree#}
+                        {#                                </a>#}
+                        {#                            </strong>#}
+                        {##}
+                        {##}
+                        {#                            <i class="fa fa-github" title="Github 绑定用户"></i>#}
+                        {##}
+                        {##}
+                        {#                            <small class="text-danger">[博主]</small>#}
+                        {##}
+                        {#                            <i class="fa fa-share"></i>#}
+                        {#                            @frostming#}
+                        {#                        </p>#}
+                        {#                        <p class="small text-muted">1月，1 周前</p>#}
+                        {#                    </div>#}
+                        {#                </li>#}
+                        {#                <div class="comment-body">#}
+                        {#                    <p>我看了一下我的，commit的确没有认证的锁，合入的倒是会自动添加，文章看完了，涨知识了，回去研究一下</p>#}
+                        {#                </div>#}
+                        {#            </div>#}
+                        {##}
+                        {#            <div class="comment-child pt-2" id="com-633">#}
+                        {#                <li class="media">#}
+                        {##}
+                        {##}
+                        {#                    <img class="avatar"#}
+                        {#                         src="https://avatars3.githubusercontent.com/u/16336606?v=4"#}
+                        {#                         alt="frostming">#}
+                        {##}
+                        {#                    <div class="media-body ml-2">#}
+                        {#                        <a class="float-right small mr-2 rep-btn" href="#editor-block"#}
+                        {#                           data-repid="633" data-repuser="frostming">回复</a>#}
+                        {#                        <p class="mt-0 mb-1">#}
+                        {##}
+                        {##}
+                        {#                            <strong>#}
+                        {#                                <a href="https://github.com/frostming"#}
+                        {#                                   title="前往 frostming 的个人网站"#}
+                        {#                                   target="_blank">frostming#}
+                        {#                                </a>#}
+                        {#                            </strong>#}
+                        {##}
+                        {##}
+                        {#                            <i class="fa fa-github" title="Github 绑定用户"></i>#}
+                        {##}
+                        {##}
+                        {#                            <i class="fa fa-share"></i>#}
+                        {#                            @Hopetree#}
+                        {#                        </p>#}
+                        {#                        <p class="small text-muted">1月，1 周前</p>#}
+                        {#                    </div>#}
+                        {#                </li>#}
+                        {#                <div class="comment-body">#}
+                        {#                    <p>如果是通过Github页面生成的提交时会带上Verified的</p>#}
+                        {#                </div>#}
+                        {#            </div>#}
+                        {##}
+                        {#        </ul>#}
+                        {##}
+                        {##}
+                        {#    </ul>#}
+                        {#</div>#}
 
-                                <div class="comment-parent pt-2" id="com-655">
-                                    <li class="media">
-
-
-                                        <img class="avatar" src="/media/avatar/2019/03/13/20180208-172024eSpace.png"
-                                             alt="Jerry94">
-
-                                        <div class="media-body ml-2">
-                                            <a class="float-right small mr-2 rep-btn" href="#editor-block"
-                                               data-repid="655"
-                                               data-repuser="Jerry94">回复</a>
-                                            <p class="mt-0 mb-1">
-
-
-                                                <strong>
-                                                    <a href="https://www.jerrycoding.com/" title="前往 Jerry94 的个人网站"
-                                                       target="_blank">Jerry94
-                                                    </a>
-                                                </strong>
-
-
-                                                <i class="fa fa-envelope-o" title="邮箱认证用户"></i>
-
-
-                                            </p>
-                                            <p class="small text-muted">3&nbsp;楼&nbsp;-&nbsp;2 周，4天前</p>
-                                        </div>
-                                    </li>
-                                    <div class="comment-body">
-                                        <p>博主的博客是越来越骚了 备案号链接错了 得修改下</p>
-                                    </div>
-                                </div>
-
-
-                                <div class="comment-parent pt-2" id="com-635">
-                                    <li class="media">
-
-
-                                        <img class="avatar" src="/media/avatar/default.png" alt="hjdhnx">
-
-                                        <div class="media-body ml-2">
-                                            <a class="float-right small mr-2 rep-btn" href="#editor-block"
-                                               data-repid="635"
-                                               data-repuser="hjdhnx">回复</a>
-                                            <p class="mt-0 mb-1">
-
-
-                                                <strong title="该用户未认证或没有个人站点">hjdhnx</strong>
-
-
-                                            </p>
-                                            <p class="small text-muted">2&nbsp;楼&nbsp;-&nbsp;1月前</p>
-                                        </div>
-                                    </li>
-                                    <div class="comment-body">博客的master版本按2.1分支的安装方式无法运行<br>
-                                        <p>在python manage.py migrate时候报错 python manage.py make migrate没问题
-                                            报错详情:
-                                            django.db.utils.OperationalError: (1071, 'Specified key was too long; max
-                                            key
-                                            length is 1000 bytes')
-                                            求解决</p>
-                                    </div>
-                                </div>
-
-
-                                <ul class="list-unstyled ml-4">
-
-                                    <div class="comment-child pt-2" id="com-636">
-                                        <li class="media">
-
-
-                                            <img class="avatar"
-                                                 src="/media/avatar/2019/07/27/91ef76c6a7efce1b99717f97a851f3deb48f6510.png"
-                                                 alt="Hopetree">
-
-                                            <div class="media-body ml-2">
-                                                <a class="float-right small mr-2 rep-btn" href="#editor-block"
-                                                   data-repid="636" data-repuser="Hopetree">回复</a>
-                                                <p class="mt-0 mb-1">
-
-
-                                                    <strong>
-                                                        <a href="https://tendcode.com" title="前往 Hopetree 的个人网站"
-                                                           target="_blank">Hopetree
-                                                        </a>
-                                                    </strong>
-
-
-                                                    <i class="fa fa-github" title="Github 绑定用户"></i>
-
-
-                                                    <small class="text-danger">[博主]</small>
-
-                                                    <i class="fa fa-share"></i>
-                                                    @hjdhnx
-                                                </p>
-                                                <p class="small text-muted">1月前</p>
-                                            </div>
-                                        </li>
-                                        <div class="comment-body">
-                                            <p>
-                                                你可以把报错放谷歌或者百度搜索，很多相关回答，我看到的原因可能是你数据库的格式设置的utf8mb4，但是我博客是配置的utf8，所以你创建数据库的时候需要设置一下为utf8，你看看是不是这个问题的
-                                            </p>
-                                        </div>
-                                    </div>
-
-                                </ul>
-
-
-                                <div class="comment-parent pt-2" id="com-631">
-                                    <li class="media">
-
-
-                                        <img class="avatar" src="https://avatars3.githubusercontent.com/u/16336606?v=4"
-                                             alt="frostming">
-
-                                        <div class="media-body ml-2">
-                                            <a class="float-right small mr-2 rep-btn" href="#editor-block"
-                                               data-repid="631"
-                                               data-repuser="frostming">回复</a>
-                                            <p class="mt-0 mb-1">
-
-
-                                                <strong>
-                                                    <a href="https://github.com/frostming" title="前往 frostming 的个人网站"
-                                                       target="_blank">frostming
-                                                    </a>
-                                                </strong>
-
-
-                                                <i class="fa fa-github" title="Github 绑定用户"></i>
-
-
-                                            </p>
-                                            <p class="small text-muted">1&nbsp;楼&nbsp;-&nbsp;1月，1 周前</p>
-                                        </div>
-                                    </li>
-                                    <div class="comment-body">
-                                        <p>博客做得越来越漂亮了。</p>
-                                        <p>我写了一篇新文章<a href="https://frostming.com/2019/11-25/git-commit-sign">给你的 Git
-                                            commit
-                                            加上绿勾</a>，我觉得你可能会需要</p>
-                                    </div>
-                                </div>
-
-
-                                <ul class="list-unstyled ml-4">
-
-                                    <div class="comment-child pt-2" id="com-632">
-                                        <li class="media">
-
-
-                                            <img class="avatar"
-                                                 src="/media/avatar/2019/07/27/91ef76c6a7efce1b99717f97a851f3deb48f6510.png"
-                                                 alt="Hopetree">
-
-                                            <div class="media-body ml-2">
-                                                <a class="float-right small mr-2 rep-btn" href="#editor-block"
-                                                   data-repid="632" data-repuser="Hopetree">回复</a>
-                                                <p class="mt-0 mb-1">
-
-
-                                                    <strong>
-                                                        <a href="https://tendcode.com" title="前往 Hopetree 的个人网站"
-                                                           target="_blank">Hopetree
-                                                        </a>
-                                                    </strong>
-
-
-                                                    <i class="fa fa-github" title="Github 绑定用户"></i>
-
-
-                                                    <small class="text-danger">[博主]</small>
-
-                                                    <i class="fa fa-share"></i>
-                                                    @frostming
-                                                </p>
-                                                <p class="small text-muted">1月，1 周前</p>
-                                            </div>
-                                        </li>
-                                        <div class="comment-body">
-                                            <p>我看了一下我的，commit的确没有认证的锁，合入的倒是会自动添加，文章看完了，涨知识了，回去研究一下</p>
-                                        </div>
-                                    </div>
-
-                                    <div class="comment-child pt-2" id="com-633">
-                                        <li class="media">
-
-
-                                            <img class="avatar"
-                                                 src="https://avatars3.githubusercontent.com/u/16336606?v=4"
-                                                 alt="frostming">
-
-                                            <div class="media-body ml-2">
-                                                <a class="float-right small mr-2 rep-btn" href="#editor-block"
-                                                   data-repid="633" data-repuser="frostming">回复</a>
-                                                <p class="mt-0 mb-1">
-
-
-                                                    <strong>
-                                                        <a href="https://github.com/frostming"
-                                                           title="前往 frostming 的个人网站"
-                                                           target="_blank">frostming
-                                                        </a>
-                                                    </strong>
-
-
-                                                    <i class="fa fa-github" title="Github 绑定用户"></i>
-
-
-                                                    <i class="fa fa-share"></i>
-                                                    @Hopetree
-                                                </p>
-                                                <p class="small text-muted">1月，1 周前</p>
-                                            </div>
-                                        </li>
-                                        <div class="comment-body">
-                                            <p>如果是通过Github页面生成的提交时会带上Verified的</p>
-                                        </div>
-                                    </div>
-
-                                </ul>
-
-
-                            </ul>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -412,19 +414,19 @@
             </div>
         </div>
 
-        <!--前后文章-->
-        <div class="more-blog" id="icon-pre-blog">
-            <a href="/article/yaml_and_jinja2/">
-                <i class="fa fa-angle-left fa-3x"></i>
-            </a>
-        </div>
-
-
-        <div class="more-blog" id="icon-next-blog">
-            <a href="/article/markdown-editor/">
-                <i class="fa fa-angle-right fa-3x"></i>
-            </a>
-        </div>
+        <!--固定在屏幕两端的前后文章按钮，暂时未实现-->
+        {#<div class="more-blog" id="icon-pre-blog">#}
+        {#    <a href="#">#}
+        {#        <i class="fa fa-angle-left fa-3x"></i>#}
+        {#    </a>#}
+        {#</div>#}
+        {##}
+        {##}
+        {#<div class="more-blog" id="icon-next-blog">#}
+        {#    <a href="#">#}
+        {#        <i class="fa fa-angle-right fa-3x"></i>#}
+        {#    </a>#}
+        {#</div>#}
 
     </main>
 {% endblock main %}
@@ -446,8 +448,96 @@
             let editor = editormd("test-editor", {
                 // width  : "100%",
                 // height : "100%",
-                path: "{% static 'editor.md/lib/' %}"
+                placeholder: "请使用Markdown语法", // 不知道为何不生效
+                width: "100%",
+                {#autoHeight: true, // 自动高度#}
+                {# 设置了自动高度后,少了两行,而且输入框直接看不到了 #}
+                height: 400,
+                path: "{% static 'editor.md/lib/' %}", // lib路径
+
+                syncScrolling: "single", // 同步滚动
+                emoji: true, // emoji表情
+                watch: false, // 实时预览，默认开启
+                saveHTMLToTextarea: true,
+
+                // searchReplace : true, // 搜索功能，default true
+                // Search: Press Ctrl + F / Command + F
+                // Replace: Press Ctrl + Shift + F / Command + Option + F
+                // Replace All: Press Ctrl + Shift + R / Command + Option + R
+
+                // previewCodeHighlight : true, // 预览 HTML 的代码块高亮，默认开启
+                // readOnly: false,  //只读模式，默认关闭
+                // tocm: false, // 支持 [TOCM]
+                // tex: false, // 科学公式TeX语言支持，默认关闭
+                // flowChart: false, // 流程图支持，默认关闭
+                // sequenceDiagram: false,       // 开启时序/序列图支持，默认关闭,
+
+                // dialogLockScreen : false,   // 设置弹出层对话框不锁屏，全局通用，默认为true
+                // dialogShowMask : false,     // 设置弹出层对话框显示透明遮罩层，全局通用，默认为true
+                // dialogDraggable : false,    // 设置弹出层对话框不可拖动，全局通用，默认为true
+                // dialogMaskOpacity : 0.4,    // 设置透明遮罩层的透明度，全局通用，默认值为0.1
+                // dialogMaskBgColor : "#000", // 设置透明遮罩层的背景颜色，全局通用，默认为#fff
+
+                /* 上传图片配置 */
+                // imageUpload: true,
+                // imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+                // imageUploadURL: "${proPath }/base/blog/upFile", //注意你后端的上传图片服务地址
+
+                {# 自定义工具栏 #}
+                toolbarIcons: function () {
+                    // Or return editormd.toolbarModes[name]; // full, simple, mini
+                    // Using "||" set icons align right.
+
+                    {# 默认 #}
+                    // full:["undo","redo","|","bold","del","italic","quote","ucwords","uppercase","lowercase","|",
+                    // "h1","h2","h3","h4","h5","h6","|","list-ul","list-ol","hr","|",
+                    // "link","reference-link","image","code","preformatted-text","code-block","table","datetime","emoji","html-entities","pagebreak",
+                    // "|","goto-line","watch","preview","fullscreen","clear","search","|","help","info"],
+
+                    // simple:["undo","redo","|","bold","del","italic","quote","uppercase","lowercase","|",
+                    // "h1","h2","h3","h4","h5","h6","|","list-ul","list-ol","hr","|","watch","preview","fullscreen","|",
+                    // "help","info"],mini:["undo","redo","|","watch","preview","|","help","info"]
+
+                    // 撤销　回复撤销　粗体　斜体　引用　代码　代码块　插入连接　插入图片　表格　emoji　预览
+                    return ["undo", "redo", "|", "bold", "italic", "quote", "code", "code-block", "link", "image", "table", "emoji", "watch"]
+                },
+
+                {# 自定义快捷键 #}
+                disabledKeyMaps: [
+                    "Ctrl-B", "F11", "F10"  // disable some default keyboard shortcuts handle 取消一些默认快捷键
+                ],
+                onload: function () {
+                    let keyMap = {
+                        "Ctrl-S": function (cm) {
+                            alert("Ctrl+S");
+                        },
+                        "Ctrl-A": function (cm) { // default Ctrl-A selectAll
+                            // custom
+                            alert("Ctrl+A");
+                            cm.execCommand("selectAll");
+                        }
+                    };
+
+                    // setting signle key
+                    let keyMap2 = {
+                        "Ctrl-T": function (cm) {
+                            alert("Ctrl+T");
+                        }
+                    };
+
+                    this.addKeyMap(keyMap);
+                    this.addKeyMap(keyMap2);
+                    this.removeKeyMap(keyMap2);  // remove signle key
+                }
+
             });
+
+            // editor.watch(); // 启动双窗口对比
+            // editor.unwatch(); //取消双窗口对比
+
+            // editor.previewing(); //预览效果???
+            // editor.setToolbarAutoFixed(true); //工具栏自动固定定位的开启与禁用，默认警用
+            // editor.gotoLine(90); //跳转到指定的行
         });
     </script>
 {% endblock editor %}

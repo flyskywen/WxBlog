@@ -2,8 +2,7 @@
 
 {# 导入静态文件 #}
 {% load static %}
-{# 导入自定义标签 #}
-{% load blog_tags %}
+
 
 {% block main %}
     <!-- 上外边距0.5rem -->
@@ -65,229 +64,89 @@
                         </div><!-- 轮播结束 -->
                     {% endblock top %}
 
-                    <!-- 热度和时间排序按钮 -->
-                    <!-- font-weight-bold字体加重 -->
-                    <!-- f-15不知道是什么效果，暂时删除 -->
-                    <!-- 颜色是蓝色链接的颜色，之后再修改 -->
-                    <div class="text-secondary font-weight-bold text-dark py-2">
-                        <a class="pb-2 active" href="/">
-                            <i class="fa fa-bars mr-1"></i>时间排序</a>
-                        <a class="pb-2 ml-4 " href="#">
-                            <i class="fa fa-fire mr-1"></i>热度排序</a>
-                    </div>
+                    {% block hot %}
+                        <!-- 热度和时间排序按钮 -->
+                        <!-- font-weight-bold字体加重 -->
+                        <!-- 颜色是蓝色链接的颜色，之后再修改 -->
+                        <div class="text-secondary font-weight-bold text-dark py-2">
+                            <a class="pb-2 active" href="/">
+                                <i class="fa fa-bars mr-1"></i>时间排序</a>
+                            <a class="pb-2 ml-4 " href="#">
+                                <i class="fa fa-fire mr-1"></i>热度排序</a>
+                        </div>
+                    {% endblock %}
 
-                    <!-- 文章列表 -->
-                    <div class="article-list">
-                        {% for post in post_list %}
-                            <div class="media mb-1 mb-sm-2 p-2 p-lg-3 bg-white">
-                                <!-- 文章图片，占据一行百分之25的内容 -->
-                                <!-- align子元素设置 支持不同尺寸匹配 -->
-                                <div class="align-self-center mr-2 mr-lg-3 w-25">
-                                    <a href="{{ post.get_absolute_url }}" target="_blank">
-                                        <img class="w-100 article-img" src="{% static 'blog/img/3.jpg' %}"
-                                             alt="博客添加 markdown 在线编辑器工具">
-                                    </a>
-                                </div>
-
-                                <!-- 标题和摘要 -->
-                                <div class="media-body">
-                                    <!-- 文章标题链接 -->
-                                    <h5 class="mt-0 font-weight-bold text-info">
-                                        <a href="{{ post.get_absolute_url }}" target="_blank">{{ post.title }}</a>
-                                    </h5>
-
-                                    <!-- 正文 -->
-                                    <!-- 只在sm屏幕隐藏 -->
-                                    <p class="d-none d-sm-block mb-2">
-                                        {{ post.excerpt }}
-                                    </p>
-                                    <!-- 只在sm屏幕可见 -->
-                                    <p class="d-block d-sm-none mb-2">
-                                        需要写两个摘要信息
-                                        自从博客项目上线以来，经常会有用到我博客项目的人问我后台编辑博文为啥没有编辑器，博主是怎么编辑博文的？我每次的回答基本都是说随便</p>
-                                    <!-- 分类 访问量 评论量 -->
-                                    <div class="text-muted mb-0">
-                                        <a class="cate" href="#" title="查看当前分类下更多文章">
-                                            <i class="fa fa-book mr-1"></i>{{ post.category.name }}</a>
-
-                                        <span><i class="fa fa-eye ml-2 mr-1"></i>{{ post.increase_views }}</span>
-
-                                        <a href="{{ post.get_absolute_url }}#comment-block" target="_blank"
-                                           title="查看文章评论">
-                                            <i class="fa fa-comments ml-2 mr-1"></i>8
+                    {% block post_list %}
+                        <!-- 文章列表 -->
+                        <div class="article-list">
+                            {% for post in post_list %}
+                                <div class="media mb-1 mb-sm-2 p-2 p-lg-3 bg-white">
+                                    <!-- 文章图片，占据一行百分之25的内容 -->
+                                    <!-- align子元素设置 支持不同尺寸匹配 -->
+                                    <div class="align-self-center mr-2 mr-lg-3 w-25">
+                                        <a href="{{ post.get_absolute_url }}" target="_blank">
+                                            <img class="w-100 article-img" src="{% static 'blog/img/3.jpg' %}"
+                                                 alt="博客添加 markdown 在线编辑器工具">
                                         </a>
                                     </div>
 
-                                </div>
+                                    <!-- 标题和摘要 -->
+                                    <div class="media-body">
+                                        <!-- 文章标题链接 -->
+                                        <h5 class="mt-0 font-weight-bold text-info">
+                                            <a href="{{ post.get_absolute_url }}" target="_blank">{{ post.title }}</a>
+                                        </h5>
 
-                            </div> <!-- 第一篇文章 -->
-                        {% empty %}
-                            <!-- 这个格式要重写 -->
-                            <div class="no_post">暂时还没有发布的文章！</div>
-                        {% endfor %}
+                                        <!-- 正文 -->
+                                        <!-- 只在sm屏幕隐藏 -->
+                                        <p class="d-none d-sm-block mb-2">
+                                            {{ post.excerpt }}
+                                        </p>
+                                        <!-- 只在sm屏幕可见 -->
+                                        <p class="d-block d-sm-none mb-2">
+                                            需要写两个摘要信息
+                                            自从博客项目上线以来，经常会有用到我博客项目的人问我后台编辑博文为啥没有编辑器，博主是怎么编辑博文的？我每次的回答基本都是说随便</p>
+                                        <!-- 分类 访问量 评论量 -->
+                                        <div class="text-muted mb-0">
+                                            <a class="cate" href="#" title="查看当前分类下更多文章">
+                                                <i class="fa fa-book mr-1"></i>{{ post.category.name }}</a>
 
-                    </div> <!-- 文章列表结束 -->
+                                            <span><i class="fa fa-eye ml-2 mr-1"></i>{{ post.increase_views }}</span>
 
-                    {# 分页 #}
-                    <div class="pagination">
-                        <ul>
-                            {% if post_list.has_previous %}
-                                <li><a href="?page={{ post_list.previous_page_number }}">上一页</a></li>
-                            {% endif %}
-                            <li class="current">第{{ post_list.number }}页/共{{ post_list.paginator.num_pages }}页</li>
-                            {% if post_list.has_next %}
-                                <li><a href="?page={{ post_list.next_page_number }}">下一页</a></li>
-                            {% endif %}
-                        </ul>
-                    </div>
-                </div>
+                                            <a href="{{ post.get_absolute_url }}#comment-block" target="_blank"
+                                               title="查看文章评论">
+                                                <i class="fa fa-comments ml-2 mr-1"></i>8
+                                            </a>
+                                        </div>
 
-                <!-- 侧边栏 -->
-                <div class="col-md-4">
+                                    </div>
 
-                    <!--个人空间-->
-                    <div class="card border-0 rounded-0 px-3 mb-2 mb-md-3 d-none d-lg-block" id="home-card">
-                        <div class="card-header bg-white px-0">
-                            <strong><i class="fa fa-paper-plane mr-2"></i>个人空间</strong>
-
-                            <!-- 切换主题按钮 -->
-                            <img class="float-right" id="theme-img" src="#"
-                                 alt="theme-toggle" title="切换主题">
-                        </div>
-
-                        <!-- 几个重要图标和联系方式 -->
-                        <div class="card-body px-0 pt-3 pb-1">
-                            <div class="row text-center">
-                                <div class="col">
-                                    <a href="https://github.com/Hopetree" target="_blank"
-                                       title="进入博主的Github查看博客源码">
-                                        <img style="max-width:40px" alt="博主的github"
-                                             src="{% static 'github.png' %}">
-                                        <p class="mt-2">Github</p>
-                                    </a>
-                                </div>
-                                <div class="col">
-                                    <a href="#" target="_blank" title="查看网站建站历程">
-                                        <img style="max-width:40px" alt="网站的建站历程" src="{% static 'blog.png' %}">
-                                        <p class="mt-2">Timeline</p>
-                                    </a>
-                                </div>
-                                <div class="col">
-                                    <a href="#" target="_blank" title="订阅博客">
-                                        <img style="max-width:40px" alt="订阅博客RSS" src="{% static 'rss.png' %}">
-                                        <p class="mt-2">RSS订阅</p>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!--文章分类-->
-                    <div class="card border-0 rounded-0 px-3 mb-2 mb-md-3" id="category-card">
-                        <div class="card-header bg-white px-0">
-                            <strong><i class="fa fa-book mr-2"></i>文章分类</strong>
-                        </div>
-
-                        {% get_categories as category_list %}
-                        <ul class="list-group list-group-flush">
-                            {% for foo in category_list %}
-                                <li class="list-group-item d-flex justify-content-between align-items-center pr-2 py-2">
-                                    <a class="category-item" href="{% url 'blog:category' foo.pk %}"
-                                       title="查看【{{ foo.name }}】分类下所有文章">{{ foo.name }}</a>
-                                    <span class="badge text-center"
-                                          title="当前分类下有{{ foo.num_posts }}篇文章">{{ foo.num_posts }}</span>
-                                </li>
+                                </div> <!-- 第一篇文章 -->
                             {% empty %}
-                                <li>
-                                    暂无分类
-                                </li>
+                                <!-- 这个格式要重写 -->
+                                <div class="no_post">暂时还没有发布的文章！</div>
                             {% endfor %}
-                        </ul>
-                    </div> <!-- 文章分类结束 -->
 
+                        </div> <!-- 文章列表结束 -->
 
-                    <!--标签云-->
-                    <div class="card border-0 rounded-0 px-3 mb-2 mb-md-3" id="tag-card">
-                        <div class="card-header bg-white px-0">
-                            <strong><i class="fa fa-tags mr-2"></i>标&nbsp;签&nbsp;云</strong>
+                        {# 分页 #}
+                        <div class="pagination">
+                            <ul>
+                                {% if post_list.has_previous %}
+                                    <li><a href="?page={{ post_list.previous_page_number }}">上一页</a></li>
+                                {% endif %}
+                                <li class="current">第{{ post_list.number }}页/共{{ post_list.paginator.num_pages }}页</li>
+                                {% if post_list.has_next %}
+                                    <li><a href="?page={{ post_list.next_page_number }}">下一页</a></li>
+                                {% endif %}
+                            </ul>
                         </div>
-                        <div class="card-body px-0 py-3">
-                            <!-- 需要自己编写css样式 -->
-                            {% get_tag as tag_list %}
-                            <div>
-                                {% for foo in tag_list %}
-                                    <a href="{% url 'blog:tag' foo.pk %}" class="tags" id="tag-1"
-                                       title="【{{ foo.name }}】标签下有{{ foo.num_posts }}篇文章">{{ foo.name }}</a>
-                                {% empty %}
-                                    暂无标签
-                                {% endfor %}
-                            </div>
-                        </div>
-                    </div> <!-- 标签云结束 -->
-
-                    <!--友链-->
-                    <!-- 仅lg屏幕可见 -->
-                    <div class="d-none d-lg-block">
-                        <div class="card border-0 rounded-0 px-3 mb-2 mb-md-3" id="friends-card">
-                            <div class="card-header bg-white px-0">
-                                <strong><i class="fa fa-link mr-2"></i>友情链接</strong>
-                            </div>
-                            <div class="card-body px-0 py-3">
-                                <div class="tool-list">
-                                    <div class="w-50 float-left text-center mb-2">
-                                        <div class="mx-2">
-                                            <a href="https://github.com/Hopetree/izone" title="izone 博客项目的源代码"
-                                               target="_blank">
-                                                博客源码</a>
-                                        </div>
-                                    </div>
-
-                                    <div class="w-50 float-left text-center mb-2">
-                                        <div class="mx-2">
-                                            <a href="https://frostming.com" title="一个基于 Flask 开发的博客"
-                                               target="_blank">
-                                                Frost&#39;s Blog</a>
-                                        </div>
-                                    </div>
-
-                                    <div class="w-50 float-left text-center mb-2">
-                                        <div class="mx-2">
-                                            <a href="https://zmrenwu.com" title="Django 博客教程分享者"
-                                               target="_blank">
-                                                追梦人物</a>
-                                        </div>
-                                    </div>
-
-                                    <div class="w-50 float-left text-center mb-2">
-                                        <div class="mx-2">
-                                            <a href="https://www.dusaiphoto.com/" title="Django 搭建的博客，分享博客教程"
-                                               target="_blank">
-                                                杜赛的个人网站</a>
-                                        </div>
-                                    </div>
-
-                                    <div class="w-50 float-left text-center mb-2">
-                                        <div class="mx-2">
-                                            <a href="https://www.jerrycoding.com/" title="Jerry 的个人博客"
-                                               target="_blank">
-                                                Jerry Coding</a>
-                                        </div>
-                                    </div>
-
-                                    <div class="w-50 float-left text-center mb-2">
-                                        <div class="mx-2">
-                                            <a href="https://boywithacoin.cn/" title="Stray_Camel的个人技术博客"
-                                               target="_blank">
-                                                Stray_Camel</a>
-                                        </div>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    {% endblock %}
 
                 </div>
+
+                {# 右侧侧边栏 #}
+                {% include 'blog/tags/rsidebar.html' %}
 
 
             </div>

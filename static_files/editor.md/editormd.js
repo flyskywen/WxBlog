@@ -3365,7 +3365,9 @@
 
     // Emoji graphics files url path
     editormd.emoji     = {
-        path  : "https://www.webpagefx.com/tools/emoji-cheat-sheet/graphics/emojis/",
+        // 修改emoji路径为本地下载的文件夹，修改后依旧无法正常显示
+        // path  : "../plugins/emoji-dialog/emoji/",
+        path  : "http://www.emoji-cheat-sheet.com/graphics/emojis/",
         ext   : ".png"
     };
 
