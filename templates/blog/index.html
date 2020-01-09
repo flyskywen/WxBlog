@@ -6,14 +6,15 @@
 
 {% block main %}
     <!-- 上外边距0.5rem -->
-    <main class="mt-2">
+    <main class="mt-4">
         <div class="container">
             <div class="row">
                 <!-- 正文部分 -->
                 <!--当屏幕宽度小于768px(桌面显示器)，上下堆叠排版-->
-                <div class="col-md-8">
+                <div class="col-lg-8">
                     {% block top %}
                         <!-- 轮播 -->
+                        {# 思路: post model 添加图片字段和是否加入轮播字段 #}
                         <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
                             <!-- 轮播列表 -->
                             <ol class="carousel-indicators">
@@ -67,9 +68,8 @@
                     {% block hot %}
                         <!-- 热度和时间排序按钮 -->
                         <!-- font-weight-bold字体加重 -->
-                        <!-- 颜色是蓝色链接的颜色，之后再修改 -->
                         <div class="text-secondary font-weight-bold text-dark py-2">
-                            <a class="pb-2 active" href="/">
+                            <a class="pb-2 active" href="#">
                                 <i class="fa fa-bars mr-1"></i>时间排序</a>
                             <a class="pb-2 ml-4 " href="#">
                                 <i class="fa fa-fire mr-1"></i>热度排序</a>
@@ -81,23 +81,36 @@
                         <div class="article-list">
                             {% for post in post_list %}
                                 <div class="media mb-1 mb-sm-2 p-2 p-lg-3 bg-white">
+                                    {# 我的博客不需要在主页显示图片 #}
                                     <!-- 文章图片，占据一行百分之25的内容 -->
-                                    <!-- align子元素设置 支持不同尺寸匹配 -->
-                                    <div class="align-self-center mr-2 mr-lg-3 w-25">
-                                        <a href="{{ post.get_absolute_url }}" target="_blank">
-                                            <img class="w-100 article-img" src="{% static 'blog/img/3.jpg' %}"
-                                                 alt="博客添加 markdown 在线编辑器工具">
-                                        </a>
-                                    </div>
+                                    {#<div class="align-self-center mr-2 mr-lg-3 w-25">#}
+                                    {#    <a href="{{ post.get_absolute_url }}" target="_blank">#}
+                                    {#        <img class="w-100 article-img" src="{% static 'blog/img/3.jpg' %}"#}
+                                    {#             alt="博客添加 markdown 在线编辑器工具">#}
+                                    {#    </a>#}
+                                    {#</div>#}
 
                                     <!-- 标题和摘要 -->
                                     <div class="media-body">
-                                        <!-- 文章标题链接 -->
-                                        <h5 class="mt-0 font-weight-bold text-info">
-                                            <a href="{{ post.get_absolute_url }}" target="_blank">{{ post.title }}</a>
-                                        </h5>
+                                        {# 用户头像 #}
+                                        <img class="float-right top-article-img" alt="文章作者"
+                                             src="{% static 'blog/img/3.jpg' %}" style="width:24px;height:24px">
 
-                                        <!-- 正文 -->
+                                        {# 作者和创作时间 #}
+                                        <div class="text-muted mb-2">
+                                            <span>作者</span>
+                                            <span>
+                                                <i class="fa fa-calendar-times-o ml-2 mr-1"></i>时间
+                                            </span>
+                                        </div>
+
+                                        <!-- 文章标题链接 -->
+                                        <h2 class="mt-0 font-weight-bold text-info">
+                                            <a href="{{ post.get_absolute_url }}" target="_blank">{{ post.title }}</a>
+                                        </h2>
+
+                                        {# 需要写两个字段 长摘要和短摘要 #}
+                                        <!-- 文章摘要 -->
                                         <!-- 只在sm屏幕隐藏 -->
                                         <p class="d-none d-sm-block mb-2">
                                             {{ post.excerpt }}
@@ -111,7 +124,7 @@
                                             <a class="cate" href="#" title="查看当前分类下更多文章">
                                                 <i class="fa fa-book mr-1"></i>{{ post.category.name }}</a>
 
-                                            <span><i class="fa fa-eye ml-2 mr-1"></i>{{ post.increase_views }}</span>
+                                            <span><i class="fa fa-eye ml-2 mr-1"></i>{{ post.views }}</span>
 
                                             <a href="{{ post.get_absolute_url }}#comment-block" target="_blank"
                                                title="查看文章评论">
@@ -123,8 +136,7 @@
 
                                 </div> <!-- 第一篇文章 -->
                             {% empty %}
-                                <!-- 这个格式要重写 -->
-                                <div class="no_post">暂时还没有发布的文章！</div>
+                                <div class="p-3 mt-3 bg-white"><p>暂时没有文章!</p></div>
                             {% endfor %}
 
                         </div> <!-- 文章列表结束 -->
