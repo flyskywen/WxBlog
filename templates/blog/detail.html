@@ -502,34 +502,6 @@
                     return ["undo", "redo", "|", "bold", "italic", "quote", "code", "code-block", "link", "image", "table", "emoji", "watch"]
                 },
 
-                {# 自定义快捷键 #}
-                disabledKeyMaps: [
-                    "Ctrl-B", "F11", "F10"  // disable some default keyboard shortcuts handle 取消一些默认快捷键
-                ],
-                onload: function () {
-                    let keyMap = {
-                        "Ctrl-S": function (cm) {
-                            alert("Ctrl+S");
-                        },
-                        "Ctrl-A": function (cm) { // default Ctrl-A selectAll
-                            // custom
-                            alert("Ctrl+A");
-                            cm.execCommand("selectAll");
-                        }
-                    };
-
-                    // setting signle key
-                    let keyMap2 = {
-                        "Ctrl-T": function (cm) {
-                            alert("Ctrl+T");
-                        }
-                    };
-
-                    this.addKeyMap(keyMap);
-                    this.addKeyMap(keyMap2);
-                    this.removeKeyMap(keyMap2);  // remove signle key
-                }
-
             });
 
             // editor.watch(); // 启动双窗口对比
