@@ -92,16 +92,20 @@
 
                                     <!-- 标题和摘要 -->
                                     <div class="media-body">
-                                        {# 用户头像 #}
-                                        <img class="float-right top-article-img" alt="文章作者"
-                                             src="{% static 'blog/img/3.jpg' %}" style="width:24px;height:24px">
-
-                                        {# 作者和创作时间 #}
-                                        <div class="text-muted mb-2">
-                                            <span>作者</span>
-                                            <span>
+                                        <div class="row">
+                                            {# 用户头像 #}
+                                            <div class="mx-3">
+                                                <img alt="文章作者"
+                                                     src="{% static 'blog/img/3.jpg' %}" width="24px" height="24px">
+                                            </div>
+                                            {# 作者和创作时间 #}
+                                            <div class="text-muted small align-self-center">
+                                                <span>作者</span>
+                                                <span>
+                                                {# 月份，多久前  比如：5月，3 周前 #}
                                                 <i class="fa fa-calendar-times-o ml-2 mr-1"></i>时间
                                             </span>
+                                            </div>
                                         </div>
 
                                         <!-- 文章标题链接 -->
