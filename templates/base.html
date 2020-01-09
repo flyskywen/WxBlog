@@ -5,8 +5,6 @@
 <html lang="zh-CN">
 
 <head>
-    <title>个人博客_一个使用django和bootstrap搭建的个人博客</title>
-
     <!--添加搜索高亮的css-->
     <style>
         span.highlighted {
@@ -17,7 +15,24 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    {# 从当前页面中发起的 http请求将只携带 origin 部分 #}
+    {# https://blog.csdn.net/ccfxue/article/details/53119936 #}
+    <meta name="referrer" content="origin">
 
+    <!-- TDK and ICO -->
+    <title>个人博客WXBlog</title>
+    {#<title>{% block head_title %}{% endblock %}_{{ site_end_title }}</title>#}
+
+    {#{% block metas %}#}
+    {#    <meta name="description" content="{{ site_description }}">#}
+    <!-- 搜索引擎关键字 -->
+    {#    <meta name="keywords" content="{{ site_keywords }}">#}
+    {#{% endblock %}#}
+
+    <!-- 网站标签图标，暂时没找好 -->
+    <link rel="shortcut icon" href="{% static 'blog/img/3.jpg' %}" type="image/x-icon"/>
+
+    <!-- CSS -->
     <!-- 图标字体库 用i标签 来展示图标 -->
     <link rel="stylesheet" href="{% static 'font-awesome-4.7.0/css/font-awesome.min.css' %}">
     <!-- Bootstrap CSS -->
@@ -27,10 +42,13 @@
 
     {# editor.md css #}
     <link rel="stylesheet" href="{% static 'editor.md/css/editormd.css' %}">
+
+    {# 根据自己需求写的css #}
+    <link rel="stylesheet" href="{% static 'blog/css/blogbase.css' %}">
 </head>
 
 <!-- 背景颜色 -->
-<body class="bg-secondary">
+<body>
 
 {# 顶部导航栏 #}
 {% include 'blog/tags/navbar.html' %}
