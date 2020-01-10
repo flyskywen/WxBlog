@@ -1,0 +1,66 @@
+{% load static %}
+
+<!-- 文章列表 -->
+<div class="article-list">
+    {% for post in post_list %}
+        <div class="media mb-1 mb-sm-2 p-2 p-lg-3 bg-white">
+            {# 我的博客不需要在博客列表中显示图片 #}
+            <!-- 文章图片，占据一行百分之25的内容 -->
+            {#<div class="align-self-center mr-2 mr-lg-3 w-25">#}
+            {#    <a href="{{ post.get_absolute_url }}" target="_blank">#}
+            {#        <img class="w-100 article-img" src="{% static 'blog/img/3.jpg' %}"#}
+            {#             alt="博客添加 markdown 在线编辑器工具">#}
+            {#    </a>#}
+            {#</div>#}
+
+            <!-- 标题和摘要 -->
+            <div class="media-body">
+                <div class="row">
+                    {# 用户头像 #}
+                    <div class="mx-3">
+                        <img alt="文章作者"
+                             src="{% static 'blog/img/3.jpg' %}" width="24px" height="24px">
+                    </div>
+                    {# 作者和创作时间,垂直居中 #}
+                    <div class="text-muted small align-self-center">
+                        <span>作者</span>
+                        <span>
+                            {# 月份，多久前  比如：5月，3 周前 #}
+                            <i class="fa fa-calendar-times-o ml-2 mr-1"></i>时间
+                        </span>
+                    </div>
+                </div>
+
+                {# 文章标题链接 #}
+                <h5 class="mt-2 font-weight-bold text-info">
+                    <a href="{{ post.get_absolute_url }}" target="_blank">{{ post.title }}</a>
+                </h5>
+                {# 长摘要和短摘要 #}
+                <!-- 只在sm屏幕隐藏 -->
+                <p class="d-none d-sm-block mb-2">
+                    {{ post.excerpt }}
+                </p>
+                <!-- 只在sm屏幕可见 -->
+                <p class="d-block d-sm-none mb-2">
+                    需要写两个摘要信息
+                    自从博客项目上线以来，经常会有用到我博客项目的人问我后台编辑博文为啥没有编辑器，博主是怎么编辑博文的？我每次的回答基本都是说随便</p>
+
+                <!-- 分类 访问量 评论量 -->
+                <div class="text-muted small mb-0">
+                    <a class="cate" href="{% url 'blog:category' post.category.pk %}" title="查看当前分类下更多文章">
+                        <i class="fa fa-book mr-1"></i>{{ post.category.name }}</a>
+
+                    <span><i class="fa fa-eye ml-2 mr-1"></i>{{ post.views }}</span>
+
+                    <a href="{{ post.get_absolute_url }}#comment-block" target="_blank"
+                       title="查看文章评论">
+                        <i class="fa fa-comments ml-2 mr-1"></i>8
+                    </a>
+                </div>
+            </div>
+        </div>
+
+    {% empty %}
+        <div class="p-3 mt-3 bg-white"><p>暂时没有文章!</p></div>
+    {% endfor %}
+</div> <!-- 文章列表结束 -->

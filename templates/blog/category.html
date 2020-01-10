@@ -1,13 +1,28 @@
 {% extends 'blog/index.html' %}
 
 {% block top %}
-    {# 替换index中的轮播 #}
-    {# 描述性文字 #}
-    <div class="bg-white px-3 pt-3 pb-1">
-        <p class="float-right mb-0">共<span class="mx-2 text-info">{{ category.post_set.count }}</span>篇</p>
-        <h5><strong>文章分类：{{ category.name }}</strong></h5>
-        <p>
-            分类的描述信息
-        </p>
+    {# 分类描述信息 替换 index中的图片轮播 #}
+    <div class="card">
+        <div class="card-header bg-white">
+            <p class="float-right mb-0">
+                共<span class="mx-2 text-info">{{ category.post_set.count }}</span>篇
+            </p>
+            <h5><strong>文章分类：{{ category.name }}</strong></h5>
+        </div>
+        <div class="card-body">
+            <p>
+                分类的描述信息(记得删除)
+                {{ category.description }}
+            </p>
+        </div>
+
     </div>
+
+    {#<div class="bg-white px-3 pt-3 pb-1">#}
+    {#    <p class="float-right mb-0">共<span class="mx-2 text-info">{{ category.post_set.count }}</span>篇</p>#}
+    {#    <h5><strong>文章分类：{{ category.name }}</strong></h5>#}
+    {#    <p>#}
+    {#        分类的描述信息#}
+    {#    </p>#}
+    {#</div>#}
 {% endblock top %}

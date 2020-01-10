@@ -24,3 +24,6 @@ Whoosh==2.7.4
 
 # Django上传图片
 # pillow
+
+# Faker 快速生成测试数据
+# Faker

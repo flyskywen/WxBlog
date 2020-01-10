@@ -14,149 +14,39 @@
                 <div class="col-lg-8">
                     {% block top %}
                         <!-- 轮播 -->
-                        {# 思路: post model 添加图片字段和是否加入轮播字段 #}
-                        <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-                            <!-- 轮播列表 -->
-                            <ol class="carousel-indicators">
-                                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-                                <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-                                <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-                                <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
-                            </ol>
-                            <!-- 轮播内容 -->
-                            <div class="carousel-inner">
-                                <div class="carousel-item active">
-                                    <a href="{% static 'blog/img/1.jpg' %}">
-                                        <img class="w-100" src="{% static 'blog/img/5.jpg' %}"
-                                             alt="容器化部署博客（3）—— 5分钟完成项目迁移">
-                                    </a>
-                                </div>
-                                <div class="carousel-item">
-                                    <a href="{% static 'blog/img/2.jpg' %}">
-                                        <img class="w-100" src="{% static 'blog/img/2.jpg' %}"
-                                             alt="在 Linux 服务器上使用 Nginx + Gunicorn 部署 Django 项目的正确姿势">
-                                    </a>
-                                </div>
-                                <div class="carousel-item">
-                                    <a href="{% static 'blog/img/3.jpg' %}">
-                                        <img class="w-100" src="{% static 'blog/img/3.jpg' %}"
-                                             alt="Python虚拟环境Virtualenv分别在Windows和Linux上的安装和使用">
-                                    </a>
-                                </div>
-                                <div class="carousel-item">
-                                    <a href="#">
-                                        <img class="w-100" src="{% static 'blog/img/4.jpg' %}" alt="煎蛋网妹子图爬虫">
-                                    </a>
-                                </div>
-
-                                <!-- 轮播上下控件 -->
-                                <a class="carousel-control-prev" href="#carouselExampleControls" role="button"
-                                   data-slide="prev">
-                                    <!-- 图标，不能放太亮色的图片，否则看不清图标 -->
-                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                    <span class="sr-only">Previous</span>
-                                </a>
-                                <a class="carousel-control-next" href="#carouselExampleControls" role="button"
-                                   data-slide="next">
-                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                    <span class="sr-only">Next</span>
-                                </a>
-                            </div>
-                        </div><!-- 轮播结束 -->
+                        {% include 'blog/tags/carousel.html' %}
                     {% endblock top %}
 
                     {% block hot %}
                         <!-- 热度和时间排序按钮 -->
                         <!-- font-weight-bold字体加重 -->
-                        <div class="text-secondary font-weight-bold text-dark py-2">
-                            <a class="pb-2 active" href="#">
-                                <i class="fa fa-bars mr-1"></i>时间排序</a>
-                            <a class="pb-2 ml-4 " href="#">
-                                <i class="fa fa-fire mr-1"></i>热度排序</a>
+                        {# 用导航实现效果差不多 #}
+                        <div class="text-secondary font-weight-bold">
+                            <ul class="nav nav-tabs">
+                                <li class="nav-item">
+                                    <a class="pl-0 nav-link active" href="#">
+                                        <i class="fa fa-bars mr-1"></i>时间排序
+                                    </a>
+                                </li>
+                                <li class="nav-item link-black">
+                                    <a class="nav-link" href="#">
+                                        <i class="fa fa-fire mr-1"></i>热度排序
+                                    </a>
+                                </li>
+                            </ul>
+                            {#<a class="pb-2 active" href="/">#}
+                            {#    <i class="fa fa-bars mr-1"></i>时间排序</a>#}
+                            {#<a class="pb-2 ml-4 " href="#">#}
+                            {#    <i class="fa fa-fire mr-1"></i>热度排序</a>#}
                         </div>
                     {% endblock %}
 
                     {% block post_list %}
-                        <!-- 文章列表 -->
-                        <div class="article-list">
-                            {% for post in post_list %}
-                                <div class="media mb-1 mb-sm-2 p-2 p-lg-3 bg-white">
-                                    {# 我的博客不需要在主页显示图片 #}
-                                    <!-- 文章图片，占据一行百分之25的内容 -->
-                                    {#<div class="align-self-center mr-2 mr-lg-3 w-25">#}
-                                    {#    <a href="{{ post.get_absolute_url }}" target="_blank">#}
-                                    {#        <img class="w-100 article-img" src="{% static 'blog/img/3.jpg' %}"#}
-                                    {#             alt="博客添加 markdown 在线编辑器工具">#}
-                                    {#    </a>#}
-                                    {#</div>#}
-
-                                    <!-- 标题和摘要 -->
-                                    <div class="media-body">
-                                        <div class="row">
-                                            {# 用户头像 #}
-                                            <div class="mx-3">
-                                                <img alt="文章作者"
-                                                     src="{% static 'blog/img/3.jpg' %}" width="24px" height="24px">
-                                            </div>
-                                            {# 作者和创作时间 #}
-                                            <div class="text-muted small align-self-center">
-                                                <span>作者</span>
-                                                <span>
-                                                {# 月份，多久前  比如：5月，3 周前 #}
-                                                <i class="fa fa-calendar-times-o ml-2 mr-1"></i>时间
-                                            </span>
-                                            </div>
-                                        </div>
-
-                                        <!-- 文章标题链接 -->
-                                        <h2 class="mt-0 font-weight-bold text-info">
-                                            <a href="{{ post.get_absolute_url }}" target="_blank">{{ post.title }}</a>
-                                        </h2>
-
-                                        {# 需要写两个字段 长摘要和短摘要 #}
-                                        <!-- 文章摘要 -->
-                                        <!-- 只在sm屏幕隐藏 -->
-                                        <p class="d-none d-sm-block mb-2">
-                                            {{ post.excerpt }}
-                                        </p>
-                                        <!-- 只在sm屏幕可见 -->
-                                        <p class="d-block d-sm-none mb-2">
-                                            需要写两个摘要信息
-                                            自从博客项目上线以来，经常会有用到我博客项目的人问我后台编辑博文为啥没有编辑器，博主是怎么编辑博文的？我每次的回答基本都是说随便</p>
-                                        <!-- 分类 访问量 评论量 -->
-                                        <div class="text-muted mb-0">
-                                            <a class="cate" href="#" title="查看当前分类下更多文章">
-                                                <i class="fa fa-book mr-1"></i>{{ post.category.name }}</a>
-
-                                            <span><i class="fa fa-eye ml-2 mr-1"></i>{{ post.views }}</span>
-
-                                            <a href="{{ post.get_absolute_url }}#comment-block" target="_blank"
-                                               title="查看文章评论">
-                                                <i class="fa fa-comments ml-2 mr-1"></i>8
-                                            </a>
-                                        </div>
-
-                                    </div>
-
-                                </div> <!-- 第一篇文章 -->
-                            {% empty %}
-                                <div class="p-3 mt-3 bg-white"><p>暂时没有文章!</p></div>
-                            {% endfor %}
-
-                        </div> <!-- 文章列表结束 -->
+                        {# 文章列表 #}
+                        {% include 'blog/tags/posts_list.html' %}
 
                         {# 分页 #}
-                        <div class="pagination">
-                            <ul>
-                                {% if post_list.has_previous %}
-                                    <li><a href="?page={{ post_list.previous_page_number }}">上一页</a></li>
-                                {% endif %}
-                                <li class="current">第{{ post_list.number }}页/共{{ post_list.paginator.num_pages }}页</li>
-                                {% if post_list.has_next %}
-                                    <li><a href="?page={{ post_list.next_page_number }}">下一页</a></li>
-                                {% endif %}
-                            </ul>
-                        </div>
+                        {% include 'blog/tags/pagination.html' %}
                     {% endblock %}
 
                 </div>

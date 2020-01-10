@@ -2,3 +2,25 @@ body {
     /* 全屏背景颜色 */
     background-color: #F4F4F4
 }
+
+/*!* 鼠标聚焦的下划线 *!*/
+a:hover {
+    text-decoration: none
+}
+
+/* 黑色链接,聚焦橘色 后代选择器实现 */
+.link-black a:link {
+    color: black
+}
+
+.link-black a:visited {
+    color: black
+}
+
+.link-black a:hover {
+    color: #ea6f5a
+}
+
+
+/* 蓝色 #2196f3 */
+/* 橙色 #ea6f5a */

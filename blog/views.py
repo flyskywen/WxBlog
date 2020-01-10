@@ -14,14 +14,10 @@ from django.utils.text import slugify
 from markdown.extensions.toc import TocExtension
 
 
-# 首页视图函数context={} 可以简化为 {}
-def index(request):
-    # 元数据Meta默认按照-created_time排序
-    post_list = Post.objects.all()
-
+def get_paginator(request, post_list, num):
     # 实现分页,不用试图类
     # 5个文章一页
-    paginator = Paginator(post_list, 5)
+    paginator = Paginator(post_list, num)
     page = request.GET.get('page')
     try:
         post_list_page = paginator.page(page)
@@ -31,36 +27,37 @@ def index(request):
     except EmptyPage:
         # 请求页码超过了最大页码,显示最后一页
         post_list_page = paginator.page(paginator.num_pages)
+    return post_list_page
 
+
+# 首页视图函数context={} 可以简化为 {}
+def index(request):
+    # 元数据Meta默认按照-created_time排序
+    post_list = Post.objects.all()
+
+    post_list = get_paginator(request, post_list, 5)
     # left_ellipsis = True if (page - 1) > 4 else False
     # right_ellipsis= True if(paginator.num_pages - page) > 2 else False
     # render 可以传递参数
     return render(request, 'blog/index.html', context={
-        'post_list': post_list_page
+        'post_list': post_list
     })
 
     # return HttpResponse("欢迎访问我的博客首页！")
 
+    # 可以传递参数到html页面
     # return render(request, 'blog/index.html', context={
     #    'title': '我的博客首页',
     #    'welcome': '欢迎访问我的博客首页'
-    # }
-    # )
-
-
-# 归档页面,和首页类似
-def archives(request, year, month):
-    post_list = Post.objects.filter(created_time__year=year,
-                                    created_time__month=month).order_by('-created_time')
-    return render(request, 'blog/index.html', context={
-        'post_list': post_list
-    })
+    # })
 
 
 # 分类页面
 def category(request, pk):
     cate = get_object_or_404(Category, pk=pk)
     post_list = Post.objects.filter(category=cate).order_by('-created_time')
+
+    post_list = get_paginator(request, post_list, 5)
     return render(request, 'blog/category.html', context={
         'post_list': post_list,
         'category': cate
@@ -71,31 +68,24 @@ def category(request, pk):
 def tag(request, pk):
     ta = get_object_or_404(Tag, pk=pk)
     post_list = Post.objects.filter(tags=ta).order_by('-created_time')
+
+    post_list = get_paginator(request, post_list, 5)
     return render(request, 'blog/tag.html', context={
         'post_list': post_list,
         'tag': ta
     })
 
 
-# 实现复杂搜索是就不用这个函数了
-# 实现搜索功能,同上,添加Q对象
-# Q 对象。Q 对象用于包装查询表达式，其作用是为了提供复杂的查询逻辑。
-# 例如这里 Q(title__icontains=q) | Q(body__icontains=q)
-# 表示标题（title）含有关键词 q 或者正文（body）含有关键词 q ，或逻辑使用 | 符号。
-# 如果不用 Q 对象，就只能写成 title__icontains=q, body__icontains=q，
-# 这就变成标题（title）含有关键词 q 且正文（body）含有关键词 q，就达不到我们想要的目的。
-def search(request):
-    q = request.GET.get('q')
-    error_msg = ''
-    if not q:
-        error_msg = '请输入关键词'
-        return render(request, 'blog/index.html', {'error_msg': error_msg})
-
-    post_list = Post.objects.filter(Q(title__icontains=q) | Q(body__icontains=q))
-    return render(request, 'blog/index.html', {'error_msg': error_msg,
-                                               'post_list': post_list})
+# 归档页面,还没写
+def archives(request, year, month):
+    post_list = Post.objects.filter(created_time__year=year,
+                                    created_time__month=month).order_by('-created_time')
+    return render(request, 'blog/index.html', context={
+        'post_list': post_list
+    })
 
 
+# 文章详情页
 def detail(request, pk):
     post = get_object_or_404(Post, pk=pk)
     # 阅读量+1
@@ -110,16 +100,6 @@ def detail(request, pk):
         # 记得在顶部引入 TocExtension 和 slugify
         TocExtension(slugify=slugify),
     ])
-
-    # 表格处理
-    # markdown.markdown(text, extensions=['markdown.extensions.tables'])
-
-    # markdown使用方法
-    # import markdown
-    # html = markdown.markdown(text)
-    # print
-    # html
-
     # 正文
     post.body = md.convert(post.body)
     # TOC目录
@@ -143,3 +123,23 @@ def detail(request, pk):
         'comment_list': comment_list
     }
     return render(request, 'blog/detail.html', context=context)
+
+# 实现复杂搜索是就不用这个视图函数了
+
+# 简易搜索功能的实现
+# 实现搜索功能,添加Q对象
+# Q 对象。Q 对象用于包装查询表达式，其作用是为了提供复杂的查询逻辑。
+# 例如这里 Q(title__icontains=q) | Q(body__icontains=q)
+# 表示标题（title）含有关键词 q 或者正文（body）含有关键词 q ，或逻辑使用 | 符号。
+# 如果不用 Q 对象，就只能写成 title__icontains=q, body__icontains=q，
+# 这就变成标题（title）含有关键词 q 且正文（body）含有关键词 q，就达不到我们想要的目的。
+# def search(request):
+#     q = request.GET.get('q')
+#     error_msg = ''
+#     if not q:
+#         error_msg = '请输入关键词'
+#         return render(request, 'blog/index.html', {'error_msg': error_msg})
+#
+#     post_list = Post.objects.filter(Q(title__icontains=q) | Q(body__icontains=q))
+#     return render(request, 'blog/index.html', {'error_msg': error_msg,
+#                                                'post_list': post_list})

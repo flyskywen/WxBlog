@@ -4,7 +4,7 @@
 {% load blog_tags %}
 
 <!-- 侧边栏 -->
-<div class="col-md-4">
+<div class="col-lg-4">
 
     <!--个人空间-->
     <div class="card border-0 rounded-0 px-3 mb-2 mb-md-3 d-none d-lg-block" id="home-card">
@@ -12,30 +12,32 @@
             <strong><i class="fa fa-paper-plane mr-2"></i>个人空间</strong>
 
             <!-- 切换主题按钮 -->
-            <img class="float-right" id="theme-img" src="#"
-                 alt="theme-toggle" title="切换主题">
+            {#<img class="float-right" id="theme-img" src="#"#}
+            {#     alt="theme-toggle" title="切换主题">#}
         </div>
 
         <!-- 几个重要图标和联系方式 -->
         <div class="card-body px-0 pt-3 pb-1">
-            <div class="row text-center">
+            <div class="row text-center link-black">
                 <div class="col">
-                    <a href="https://github.com/Hopetree" target="_blank"
-                       title="进入博主的Github查看博客源码">
-                        <img style="max-width:40px" alt="博主的github"
-                             src="{% static 'github.png' %}">
+                    <a href="https://github.com/flyskywen" target="_blank"
+                       title="进入博主的Github">
+                        <img style="max-width:40px" alt="博主的Github"
+                             src="{% static 'blog/img/github.png' %}">
                         <p class="mt-2">Github</p>
                     </a>
                 </div>
+
                 <div class="col">
                     <a href="#" target="_blank" title="查看网站建站历程">
-                        <img style="max-width:40px" alt="网站的建站历程" src="{% static 'blog.png' %}">
+                        <img style="max-width:40px" alt="网站的建站历程" src="{% static 'blog/img/blog.png' %}">
                         <p class="mt-2">Timeline</p>
                     </a>
                 </div>
+
                 <div class="col">
-                    <a href="#" target="_blank" title="订阅博客">
-                        <img style="max-width:40px" alt="订阅博客RSS" src="{% static 'rss.png' %}">
+                    <a href="{% url 'rss' %}" target="_blank" title="订阅博客">
+                        <img style="max-width:40px" alt="订阅博客RSS" src="{% static 'blog/img/rss.png' %}">
                         <p class="mt-2">RSS订阅</p>
                     </a>
                 </div>
@@ -50,13 +52,20 @@
         </div>
 
         {% get_categories as category_list %}
-        <ul class="list-group list-group-flush">
+        <ul class="list-group list-group-flush link-black">
             {% for foo in category_list %}
-                <li class="list-group-item d-flex justify-content-between align-items-center pr-2 py-2">
-                    <a class="category-item" href="{% url 'blog:category' foo.pk %}"
-                       title="查看【{{ foo.name }}】分类下所有文章">{{ foo.name }}</a>
-                    <span class="badge text-center"
-                          title="当前分类下有{{ foo.num_posts }}篇文章">{{ foo.num_posts }}</span>
+                {# d-flex justify-content-between 两端对齐贴齐 #}
+                <li class="list-group-item d-flex justify-content-between align-items-center pl-0 pr-2 py-2">
+                    <a href="{% url 'blog:category' foo.pk %}"
+                       title="查看【{{ foo.name }}】分类下所有文章">
+                        <i class="fa fa-caret-right text-primary"></i> {{ foo.name }}
+                    </a>
+
+                    {# 设置宽度,对齐格式 #}
+                    <span class="badge text-center text-white bg-info"
+                          title="当前分类下有{{ foo.num_posts }}篇文章" style="width:2rem;">
+                        {{ foo.num_posts }}
+                    </span>
                 </li>
             {% empty %}
                 <li>
@@ -73,17 +82,18 @@
         <div class="card-header bg-white px-0">
             <strong><i class="fa fa-tags mr-2"></i>标&nbsp;签&nbsp;云</strong>
         </div>
-        <div class="card-body px-0 py-3">
-            <!-- 需要自己编写css样式 -->
+        <div class="card-body px-0 py-3 d-flex">
             {% get_tag as tag_list %}
-            <div>
-                {% for foo in tag_list %}
-                    <a href="{% url 'blog:tag' foo.pk %}" class="tags" id="tag-1"
+            {% for foo in tag_list %}
+                <div class="mr-2 p-1"
+                     style="background-color: {% cycle '#E60000' '#CCFF99' '#3399FF' '#993399' '#00FFCC' '#00CC00' '#CC9900' '#009999' %};">
+                    <a href="{% url 'blog:tag' foo.pk %}" class="text-light"
                        title="【{{ foo.name }}】标签下有{{ foo.num_posts }}篇文章">{{ foo.name }}</a>
-                {% empty %}
-                    暂无标签
-                {% endfor %}
-            </div>
+                </div>
+            {% empty %}
+                暂无标签
+            {% endfor %}
+
         </div>
     </div> <!-- 标签云结束 -->
 
@@ -94,11 +104,11 @@
             <div class="card-header bg-white px-0">
                 <strong><i class="fa fa-link mr-2"></i>友情链接</strong>
             </div>
-            <div class="card-body px-0 py-3">
+            <div class="card-body px-0 py-3 link-black">
                 <div class="tool-list">
                     <div class="w-50 float-left text-center mb-2">
                         <div class="mx-2">
-                            <a href="https://github.com/Hopetree/izone" title="izone 博客项目的源代码"
+                            <a href="https://github.com/flyskywen/WxBlog" title="博客项目的源代码"
                                target="_blank">
                                 博客源码</a>
                         </div>
