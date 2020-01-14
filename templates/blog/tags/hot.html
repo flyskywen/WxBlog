@@ -1,0 +1,37 @@
+<!-- 热度和时间排序按钮 -->
+<!-- font-weight-bold字体加重 -->
+{# 用导航实现效果差不多 #}
+<div class="text-secondary font-weight-bold">
+
+    {# 使用tabs导航 #}
+    <ul class="nav nav-tabs">
+        {% if not hot %}
+            <li class="nav-item">
+                <a class="pl-0 nav-link active" href="#">
+                    <i class="fa fa-bars mr-1"></i>时间排序
+                </a>
+            </li>
+            <li class="nav-item link-black">
+                <a class="nav-link" href="{{ request.path }}hot/">
+                    <i class="fa fa-fire mr-1"></i>热度排序
+                </a>
+            </li>
+        {% else %}
+            <li class="nav-item link-black">
+                <a class="pl-0 nav-link" href="{{ change_url }}">
+                    <i class="fa fa-bars mr-1"></i>时间排序
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" href="#">
+                    <i class="fa fa-fire mr-1"></i>热度排序
+                </a>
+            </li>
+        {% endif %}
+
+    </ul>
+    {#<a class="pb-2 active" href="/">#}
+    {#    <i class="fa fa-bars mr-1"></i>时间排序</a>#}
+    {#<a class="pb-2 ml-4 " href="#">#}
+    {#    <i class="fa fa-fire mr-1"></i>热度排序</a>#}
+</div>

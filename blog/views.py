@@ -7,7 +7,7 @@ from django.shortcuts import render, get_object_or_404
 from .models import Post, Category, Tag
 from comments.forms import CommentForm
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from django.db.models import Q
+import re
 
 # 美化中文toc锚点
 from django.utils.text import slugify
@@ -30,17 +30,31 @@ def get_paginator(request, post_list, num):
     return post_list_page
 
 
+def change_hot(request, post_list, hot):
+    change_url = None
+    if hot:
+        # 按访问量降序排列
+        post_list = post_list.order_by('-views')
+        # 裁切掉末尾的'hot/'
+        change_url = re.sub(r'hot/$', '', request.path)
+    print(change_url)
+    return post_list, change_url
+
+
 # 首页视图函数context={} 可以简化为 {}
-def index(request):
+def index(request, hot=False):
     # 元数据Meta默认按照-created_time排序
     post_list = Post.objects.all()
 
+    # 是否按照热度排序
+    post_list, change_url = change_hot(request, post_list, hot)
     post_list = get_paginator(request, post_list, 5)
-    # left_ellipsis = True if (page - 1) > 4 else False
-    # right_ellipsis= True if(paginator.num_pages - page) > 2 else False
+
     # render 可以传递参数
     return render(request, 'blog/index.html', context={
-        'post_list': post_list
+        'post_list': post_list,
+        'change_url': change_url,
+        'hot': hot
     })
 
     # return HttpResponse("欢迎访问我的博客首页！")
@@ -53,26 +67,34 @@ def index(request):
 
 
 # 分类页面
-def category(request, pk):
+def category(request, pk, hot=False):
     cate = get_object_or_404(Category, pk=pk)
     post_list = Post.objects.filter(category=cate).order_by('-created_time')
 
+    # 是否按照热度排序
+    post_list, change_url = change_hot(request, post_list, hot)
     post_list = get_paginator(request, post_list, 5)
     return render(request, 'blog/category.html', context={
         'post_list': post_list,
-        'category': cate
+        'category': cate,
+        'change_url': change_url,
+        'hot': hot
     })
 
 
 # 标签页面
-def tag(request, pk):
+def tag(request, pk, hot=False):
     ta = get_object_or_404(Tag, pk=pk)
     post_list = Post.objects.filter(tags=ta).order_by('-created_time')
 
+    # 是否按照热度排序
+    post_list, change_url = change_hot(request, post_list, hot)
     post_list = get_paginator(request, post_list, 5)
     return render(request, 'blog/tag.html', context={
         'post_list': post_list,
-        'tag': ta
+        'tag': ta,
+        'change_url': change_url,
+        'hot': hot
     })
 
 
@@ -133,6 +155,7 @@ def detail(request, pk):
 # 表示标题（title）含有关键词 q 或者正文（body）含有关键词 q ，或逻辑使用 | 符号。
 # 如果不用 Q 对象，就只能写成 title__icontains=q, body__icontains=q，
 # 这就变成标题（title）含有关键词 q 且正文（body）含有关键词 q，就达不到我们想要的目的。
+# from django.db.models import Q
 # def search(request):
 #     q = request.GET.get('q')
 #     error_msg = ''

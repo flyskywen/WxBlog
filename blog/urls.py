@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
 -------------------------------------------------
@@ -37,6 +36,18 @@ urlpatterns = [
     # 好在将类视图转换成函数视图非常简单，只需调用类视图的 as_view() 方法即可
     # url(r'^$', views.IndexView.as_view(), name='index'),
     path('', views.index, name='index'),
+    path('hot/', views.index, {'hot': True}, name='index_hot'),
+    # re_path(r'^(/hot/)*$', views.index, name='index'), # 这个想法不太成熟
+
+    # 分类页面 /category/id
+    # url(r'^category/(?P<pk>[0-9]+)/$', views.category, name='category'),
+    # url(r'^category/(?P<pk>[0-9]+)/$', views.CategoryView.as_view(), name='category'),
+    path('category/<int:pk>/', views.category, name='category'),
+    path('category/<int:pk>/hot/', views.category, {'hot': True}, name='category_hot'),
+
+    # 标签Tag页面  /tag/id
+    path('tag/<int:pk>/', views.tag, name='tag'),
+    path('tag/<int:pk>/hot/', views.tag, {'hot': True}, name='tag_hot'),
 
     # <网站域名>/post/2/
     # url(r'^post/(?P<pk>[0-9]+)/$', views.detail, name='detail'),
@@ -48,14 +59,6 @@ urlpatterns = [
     # url(r'^archives/(?P<year>[0-9]{4})/(?P<month>[0-9]{1,2})/$', views.archives, name='archives'),
     # url(r'^archives/(?P<year>[0-9]{4})/(?P<month>[0-9]{1,2})/$', views.ArchivesView.as_view(), name='archives'),
     path('archives/<int:year>/<int:month>/', views.archives, name='archives'),
-
-    # 分类页面 /category/id
-    # url(r'^category/(?P<pk>[0-9]+)/$', views.category, name='category'),
-    # url(r'^category/(?P<pk>[0-9]+)/$', views.CategoryView.as_view(), name='category'),
-    path('category/<int:pk>/', views.category, name='category'),
-
-    # 标签Tag页面  /tag/id
-    path('tag/<int:pk>', views.tag, name='tag'),
 
     # 搜索页面,使用了haystack建立了更为复杂的搜索
     # path('search/', views.search, name='search'),
