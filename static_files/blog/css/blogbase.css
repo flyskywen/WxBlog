@@ -21,6 +21,55 @@ a:hover {
     color: #ea6f5a
 }
 
+/* post_list标题 */
+.link-blue a:link {
+    color: #17a2b7
+}
 
-/* 蓝色 #2196f3 */
-/* 橙色 #ea6f5a */
+.link-blue a:visited {
+    color: #17a2b7
+}
+
+.link-blue a:hover {
+    color: #ea6f5a
+}
+
+
+/* 分类 */
+.link-orange:link {
+    color: #ea6f5a
+}
+
+.link-orange:visited {
+    color: #ea6f5a
+}
+
+.link-orange:hover {
+    color: #17a2b7
+}
+
+
+/* 评论数 */
+.link-grey:link {
+    color: #6c757e
+}
+
+.link-grey :visited {
+    color: #6c757e
+}
+
+.link-grey:hover {
+    color: #e96f5a
+}
+
+
+/* 标签云 */
+/*  style="background-color: {% cycle '#CCFF99' '#3399FF' '#993399' '#E60000' '#00FFCC' '#00CC00' '#CC9900' '#009999' %};"*/
+
+/*.tags-cloud｛*/
+
+/*｝*/
+
+.tags-cloud:hover {
+    background-color: black
+}

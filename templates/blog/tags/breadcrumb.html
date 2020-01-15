@@ -1,0 +1,16 @@
+<nav aria-label="breadcrumb">
+    <ol class="breadcrumb bg-white link-black border-0 rounded-0 mb-2 py-2">
+        <li class="breadcrumb-item">
+            <i class="fa fa-home mr-1"></i><a href="/">首页</a>
+        </li>
+        <li class="breadcrumb-item">
+            <a href="{% url 'blog:category' post.category.pk %}">{{ post.category.name }}</a>
+        </li>
+        {# 仅在md显示 #}
+        <li class="breadcrumb-item active d-none d-md-block" aria-current="page">
+            {{ post.title }}
+        </li>
+        {# 小于md显示: 屏幕较小时,不显示标题 #}
+        <li class="breadcrumb-item active d-md-none" aria-current="page">当前位置</li>
+    </ol>
+</nav>

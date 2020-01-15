@@ -24,124 +24,13 @@
                 <div class="col-lg-9 col-xl-10">
 
                     <!-- 面包屑导航 -->
-                    <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb bg-white border-0 rounded-0 mb-2 py-2">
-                            <li class="breadcrumb-item">
-                                <i class="fa fa-home mr-1"></i><a href="/">首页</a>
-                            </li>
-                            <li class="breadcrumb-item">
-                                <a href="#">{{ post.category.name }}</a>
-                            </li>
-                            {# 仅在md显示 #}
-                            <li class="breadcrumb-item active d-none d-md-block" aria-current="page">
-                                {{ post.title }}
-                            </li>
-                            {# 小于md显示,屏幕小时,不显示标题 #}
-                            <li class="breadcrumb-item active d-md-none" aria-current="page">当前位置</li>
-                        </ol>
-                    </nav>
+                    {% include 'blog/tags/breadcrumb.html' %}
 
-                    {# 文章部分 #}
-                    <div class="card rounded-0 border-0" id="article">
-                        <div class="card-body px-2 px-md-3 pb-0">
-                            <!-- 标题 -->
-                            <h1 class="card-title text-center font-weight-bold text-info">
-                                {{ post.title }}
-                            </h1>
-                            <hr>
+                    {% include 'blog/tags/post.html' %}
 
-                            <!-- 文章信息 -->
-                            <div class="text-center">
-                                {# 创建和修改时间 #}
-                                <span class="mx-2" data-toggle="tooltip" data-placement="bottom"
-                                      title="最后编辑于{{ post.modified_time }}">
-                                {{ post.created_time }}
-                                </span>
-                                {# 访问量 #}
-                                <span class="mx-2">{{ post.views }}</span>
-                                {# 评论 #}
-                                <a class="mx-2 to-com" href="#comment-block">评论 {{ post.comment_set.count }}</a>
-                            </div>
-
-                            <div class="article-body mt-4" style="line-height:1.8">
-                                <!-- 正文 -->
-                                {{ post.body|safe }}
-
-                                <!-- 版权声明 -->
-                                <blockquote class="p-1" style="border-left: 4px solid #dc3545;">
-                                    <p class="m-1"><strong>版权声明：</strong>如无特殊说明，文章均为本站原创，转载请注明出处</p>
-                                    <p class="m-1"><strong>本文链接：</strong>https://tendcode.com/article/theme-change/</p>
-                                </blockquote>
-                            </div>
-
-                            <!-- 标签云 -->
-                            <div class="tag-cloud my-4">
-                                {# 注意:post.tags不是iterable对象 #}
-                                {% for tag in post.tags.all %}
-                                    <a class="tags" href="#">{{ tag.name }}</a>
-                                {% endfor %}
-                            </div>
-
-                            {# 上下篇文章 #}
-                            <nav class="more-page">
-                                <ul class="pagination justify-content-between">
-                                    <li class="page-item">
-
-                                        <a class="d-none d-md-block" href="#"
-                                           title="上一篇：Python 模板渲染库 yaml 和 jinja2 的实战经验分享">
-                                            <i class="fa fa-chevron-left mr-1"></i>
-                                            Python 模板渲染库 yaml
-                                        </a>
-                                        <a class="d-md-none" href="#">
-                                            <i class="fa fa-chevron-left mr-1"></i>上一篇</a>
-
-                                    </li>
-                                    <li class="page-item">
-
-                                        <a class="d-none d-md-block" href="#"
-                                           title="下一篇：博客添加 markdown 在线编辑器工具">
-                                            博客添加 markdown 在线编辑
-                                            <i class="fa fa-chevron-right ml-1"></i>
-                                        </a>
-                                        <a class="d-md-none" href="#">
-                                            下一篇<i class="fa fa-chevron-right ml-1"></i>
-                                        </a>
-
-                                    </li>
-                                </ul>
-                            </nav>
-
-                            {# 赞助功能块 #}
-                            <div class="text-center">
-                                <button class="btn btn-danger rounded-0" data-toggle="collapse"
-                                        data-target=".multi-collapse" aria-expanded="false"
-                                        aria-controls="sponsor-zfb sponsor-wx" style="line-height: 1;font-size: .8rem;">
-                                    <i class="fa fa-cny"></i>
-                                    如果文章对你有所帮助，可以赞助本站
-                                    <i class="fa fa-chevron-down"></i>
-                                </button>
-                            </div>
-                            <div class="row p-3">
-                                <div class="col text-center">
-                                    <div class="collapse multi-collapse" id="sponsor-wx">
-                                        <div class="p-1 text-success">微信</div>
-                                        <img class="w-75" src="{% static 'blog/img/3.jpg' %}">
-                                    </div>
-                                </div>
-                                <div class="col text-center">
-                                    <div class="collapse multi-collapse" id="sponsor-zfb">
-                                        <div class="p-1 text-primary">支付宝</div>
-                                        <img class="w-75" src="{% static 'blog/img/3.jpg' %}">
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
                     <div class="card mt-2 rounded-0 border-0" id="comment-block">
-
                         <div class="card border-0 rounded-0" id="editor-block">
-
                             {# 评论功能 #}
                             <div class="card-body">
                                 <div id="test-editor">

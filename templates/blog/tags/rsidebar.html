@@ -85,6 +85,7 @@
         <div class="card-body px-0 py-3 d-flex">
             {% get_tag as tag_list %}
             {% for foo in tag_list %}
+                {# 循环背景颜色 #}
                 <div class="mr-2 p-1"
                      style="background-color: {% cycle '#E60000' '#CCFF99' '#3399FF' '#993399' '#00FFCC' '#00CC00' '#CC9900' '#009999' %};">
                     <a href="{% url 'blog:tag' foo.pk %}" class="text-light"

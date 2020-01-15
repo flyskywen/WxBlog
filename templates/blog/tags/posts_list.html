@@ -32,7 +32,7 @@
                 </div>
 
                 {# 文章标题链接 #}
-                <h5 class="mt-2 font-weight-bold text-info">
+                <h5 class="mt-2 font-weight-bold link-blue">
                     <a href="{{ post.get_absolute_url }}" target="_blank">{{ post.title }}</a>
                 </h5>
                 {# 长摘要和短摘要 #}
@@ -47,12 +47,12 @@
 
                 <!-- 分类 访问量 评论量 -->
                 <div class="text-muted small mb-0">
-                    <a class="cate" href="{% url 'blog:category' post.category.pk %}" title="查看当前分类下更多文章">
+                    <a class="link-orange" href="{% url 'blog:category' post.category.pk %}" title="查看当前分类下更多文章">
                         <i class="fa fa-book mr-1"></i>{{ post.category.name }}</a>
 
                     <span><i class="fa fa-eye ml-2 mr-1"></i>{{ post.views }}</span>
 
-                    <a href="{{ post.get_absolute_url }}#comment-block" target="_blank"
+                    <a class="link-grey" href="{{ post.get_absolute_url }}#comment-block" target="_blank"
                        title="查看文章评论">
                         <i class="fa fa-comments ml-2 mr-1"></i>8
                     </a>
