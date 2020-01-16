@@ -43,13 +43,19 @@
                 {#    <a class="text-light" href="#">{{ tag.name }}</a>#}
                 {#</div>#}
 
-                <a href="{% url 'blog:tag' tag.pk %}" class="tags-cloud d-block mr-2 p-1">
+                {# d-block 将行内元素变为块元素 #}
+                {# 循环背景颜色 #}
+                <a href="{% url 'blog:tag' tag.pk %}"
+                   class="tags-cloud d-block text-white mr-2 p-1 {% cycle 'bg-info' 'bg-primary' 'bg-success' 'bg-warning' 'bg-danger' 'bg-secondary' 'bg-light' %}">
                     {{ tag.name }}</a>
             {% endfor %}
         </div>
 
         {# 上下篇文章 #}
-        <nav class="more-page link-black">
+        {# 需要传入post的上一post pk和name #}
+        {# 实现思路：1 pk加减，然后判定是否超出数据库，决定是否显示 #}
+        {#          2 model添加previous和next字段 #}
+        <nav class="link-black">
             <ul class="pagination justify-content-between">
                 <li class="page-item">
 
@@ -91,13 +97,13 @@
             <div class="col text-center">
                 <div class="collapse multi-collapse" id="sponsor-wx">
                     <div class="p-1 text-success">微信</div>
-                    <img class="w-75" src="{% static 'blog/img/3.jpg' %}">
+                    <img class="w-60" src="{% static 'blog/img/微信支付.gif' %}">
                 </div>
             </div>
             <div class="col text-center">
                 <div class="collapse multi-collapse" id="sponsor-zfb">
                     <div class="p-1 text-primary">支付宝</div>
-                    <img class="w-75" src="{% static 'blog/img/3.jpg' %}">
+                    <img class="w-60" src="{% static 'blog/img/支付宝.gif' %}">
                 </div>
             </div>
         </div>

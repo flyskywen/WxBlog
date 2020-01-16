@@ -1,0 +1,74 @@
+{% load static %}
+<script type="text/javascript">
+    $(function () {
+        let editor = editormd("test-editor", {
+                // width  : "100%",
+                // height : "100%",
+                placeholder: "请使用Markdown语法", // 不知道为何不生效
+                width: "100%",
+                {#autoHeight: true, // 自动高度#}
+                {# 设置了自动高度后,少了两行,而且输入框直接看不到了 #}
+                height: 400,
+                path: "{% static 'editor.md/lib/' %}", // lib路径
+
+                autoFocus: false, // 关闭自动聚焦
+                syncScrolling: "single", // 同步滚动
+                emoji: true, // emoji表情
+                watch: false, // 实时预览，默认开启
+                saveHTMLToTextarea: true,
+
+                // searchReplace : true, // 搜索功能，default true
+                // Search: Press Ctrl + F / Command + F
+                // Replace: Press Ctrl + Shift + F / Command + Option + F
+                // Replace All: Press Ctrl + Shift + R / Command + Option + R
+
+                // previewCodeHighlight : true, // 预览 HTML 的代码块高亮，默认开启
+                // readOnly: false,  //只读模式，默认关闭
+                // tocm: false, // 支持 [TOCM]
+                // tex: false, // 科学公式TeX语言支持，默认关闭
+                // flowChart: false, // 流程图支持，默认关闭
+                // sequenceDiagram: false,       // 开启时序/序列图支持，默认关闭,
+
+                // dialogLockScreen : false,   // 设置弹出层对话框不锁屏，全局通用，默认为true
+                // dialogShowMask : false,     // 设置弹出层对话框显示透明遮罩层，全局通用，默认为true
+                // dialogDraggable : false,    // 设置弹出层对话框不可拖动，全局通用，默认为true
+                // dialogMaskOpacity : 0.4,    // 设置透明遮罩层的透明度，全局通用，默认值为0.1
+                // dialogMaskBgColor : "#000", // 设置透明遮罩层的背景颜色，全局通用，默认为#fff
+
+                /* 上传图片配置 */
+                // imageUpload: true,
+                // imageFormats: ["jpg", "jpeg", "gif", "png", "bmp", "webp"],
+                // imageUploadURL: "${proPath }/base/blog/upFile", //注意你后端的上传图片服务地址
+
+
+                {# 自定义工具栏 #}
+                toolbarIcons: function () {
+                    // Or return editormd.toolbarModes[name]; // full, simple, mini
+                    // Using "||" set icons align right.
+
+                    // 撤销　回复撤销　粗体　斜体　引用　代码　代码块　插入连接　插入图片　表格　emoji　预览
+                    return ["undo", "redo", "|", "bold", "italic", "quote", "code", "code-block", "link", "image", "table", "emoji", "watch"]
+
+                    {# 默认 #}
+                    // full:["undo","redo","|","bold","del","italic","quote","ucwords","uppercase","lowercase","|",
+                    // "h1","h2","h3","h4","h5","h6","|","list-ul","list-ol","hr","|",
+                    // "link","reference-link","image","code","preformatted-text","code-block","table","datetime","emoji","html-entities","pagebreak",
+                    // "|","goto-line","watch","preview","fullscreen","clear","search","|","help","info"],
+
+                    // simple:["undo","redo","|","bold","del","italic","quote","uppercase","lowercase","|",
+                    // "h1","h2","h3","h4","h5","h6","|","list-ul","list-ol","hr","|","watch","preview","fullscreen","|",
+                    // "help","info"],mini:["undo","redo","|","watch","preview","|","help","info"]
+                }
+                ,
+
+            })
+        ;
+
+        // editor.watch(); // 启动双窗口对比
+        // editor.unwatch(); //取消双窗口对比
+
+        // editor.previewing(); //预览效果???
+        // editor.setToolbarAutoFixed(true); //工具栏自动固定定位的开启与禁用，默认警用
+        // editor.gotoLine(90); //跳转到指定的行
+    });
+</script>

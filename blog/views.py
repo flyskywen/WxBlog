@@ -110,6 +110,9 @@ def archives(request, year, month):
 # 文章详情页
 def detail(request, pk):
     post = get_object_or_404(Post, pk=pk)
+    # 上一篇文章，下一篇文章
+    previous_post = post
+    next_post = post
     # 阅读量+1
     post.increase_views()
     # markdown转换为html
