@@ -70,9 +70,9 @@ a:hover {
 /* 使用bootstrap的bg之后，hover也不生效了 */
 /*  style="background-color: {% cycle '#CCFF99' '#3399FF' '#993399' '#E60000' '#00FFCC' '#00CC00' '#CC9900' '#009999' %};"*/
 
-/*.tags-cloud:hover {*/
-/*    background-color: black*/
-/*}*/
+.tags-cloud:hover {
+    background-color: black!important;
+}
 
 /* footer */
 .link-footer {
