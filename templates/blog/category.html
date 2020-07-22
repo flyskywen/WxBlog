@@ -1,28 +1,58 @@
-{% extends 'blog/index.html' %}
+{% extends "blog/base.html" %}
+{% load static %}
+{% load humanize %}
+{% load blog_tags %}
 
-{% block top %}
-    {# 分类描述信息 替换 index中的图片轮播 #}
-    <div class="card">
-        <div class="card-header bg-white">
-            <p class="float-right mb-0">
-                共<span class="mx-2 text-info">{{ category.post_set.count }}</span>篇
-            </p>
-            <h5><strong>文章分类：{{ category.name }}</strong></h5>
-        </div>
-        <div class="card-body">
-            <p>
-                分类的描述信息(记得删除)
-                {{ category.description }}
-            </p>
-        </div>
+{#{% block head_title %}{{ search_instance.name }}_{{ search_tag }}{% endblock %}#}
+{% block head_title %}分类？？？{% endblock %}
 
+{% block metas %}
+    {#    <meta name="description" content="{{ search_instance.description }}">#}
+    {#    <meta name="keywords" content="{{ search_instance.name }}">#}
+{% endblock %}
+
+{% block base_content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="description bg-white px-3 pt-3 pb-1">
+                    {#<p class="float-right mb-0">共<span class="mx-2 text-info">{{ paginator.count }}</span>篇</p>#}
+                    <p class="float-right mb-0">共<span class="mx-2 text-info">#</span>篇</p>
+
+                    {#<h1 class="f-17"><strong>{{ search_tag }}：{{ search_instance.name }}</strong></h1>#}
+                    <h1 class="f-17"><strong>文章分类：{{ category.name }}</strong></h1>
+                    <p class="f-16">{{ cate.description }}</p>
+                </div>
+
+                <div class="text-secondary font-weight-bold py-2 f-15 choice">
+                    {#{% url 'blog:category' search_instance.slug as base_category %}#}
+                    {% url 'blog:category' category.pk as base_category %}
+                    {#{% url 'blog:category_hot' search_instance.slug as hot_category %}#}
+                    {% url 'blog:category_hot' category.pk as hot_category %}
+                    {#<a class="pb-2 {% if request.path == base_category %}active{% endif %}" href="{{ base_category }}">#}
+
+                    <a class="pb-2 {% if request.path == base_category %}active{% endif %}"
+                       href="{{ base_category }}">
+                        <i class="fa fa-bars mr-1 "></i>时间排序</a>
+                    <a class="pb-2 ml-4 {% if request.path == hot_category %}active{% endif %}"
+                       href="{{ hot_category }}">
+                        <i class="fa fa-fire mr-1"></i>热度排序</a>
+                </div>
+
+                {# 文章列表 #}
+                {# {% load_article_summary articles %} #}
+                {% include 'blog/tags/article_list.html' %}
+
+                {# 页码 #}
+                {#{% if is_paginated %}{% load_pages %}{% endif %}#}
+                {% include 'blog/tags/pagination.html' %}
+
+
+            </div>
+            <div class="col-lg-4">
+                {% include 'blog/tags/base_right.html' %}
+            </div>
+
+        </div>
     </div>
-
-    {#<div class="bg-white px-3 pt-3 pb-1">#}
-    {#    <p class="float-right mb-0">共<span class="mx-2 text-info">{{ category.post_set.count }}</span>篇</p>#}
-    {#    <h5><strong>文章分类：{{ category.name }}</strong></h5>#}
-    {#    <p>#}
-    {#        分类的描述信息#}
-    {#    </p>#}
-    {#</div>#}
-{% endblock top %}
+{% endblock %}

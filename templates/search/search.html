@@ -1,97 +1,89 @@
-{% extends 'blog/index.html' %}
-{% load static %}
-
-{# 不要忘记 load highlight,base.html中定义的高亮css #}
+{% extends 'blog/base.html' %}
+{% load blog_tags oauth_tags comment_tags %}
+{% load humanize %}
 {% load highlight %}
 
-{% if query %}
-    {% block top %}
-        {# 替换index中的轮播 #}
-        {# 描述性文字 #}
-        <div class="bg-white px-3 pt-3 pb-1">
-            {# 搜索出的文章数目 #}
-            <p class="float-right mb-0">共<span class="mx-2 text-info">{{ paginator.count }}</span>篇</p>
-            {# 搜索的字符串 #}
-            <h5><strong>当前搜索：{{ query }}</strong></h5>
-            <p>
-                网站全文搜索功能，将整个网站的文章的标题和内容进行分词存储，然后给每个分词建立索引，搜索功能返回的是全站文章中标题或者内容中包含关键词的文章。
-            </p>
-        </div>
-    {% endblock top %}
+{% block head_title %}文章搜索：{{ query }}{% endblock %}
+{% block metas %}
+    <meta name="description" content="文章搜索：{{ query }}，网站全文搜索功能，按照文章标题和内容建立索引，实现整站搜索，django-haystack全文搜索库的使用">
+    <meta name="keywords" content="{{ query }},全文搜索,django-haystack">
+{% endblock %}
 
-    {% block hot %}
-        {# 搜索页面不需要hot排序 #}
-    {% endblock %}
-
-    {% block post_list %}
-        <!-- 文章列表 -->
-        <div class="article-list">
-            {% for result in page.object_list %}
-                <div class="media mb-1 mb-sm-2 p-2 p-lg-3 bg-white">
-                    <!-- 文章图片，占据一行百分之25的内容 -->
-                    <!-- align子元素设置 支持不同尺寸匹配 -->
-                    <div class="align-self-center mr-2 mr-lg-3 w-25">
-                        <a href="{{ result.object.get_absolute_url }}" target="_blank">
-                            <img class="w-100 article-img" src="{% static 'blog/img/3.jpg' %}"
-                                 alt="博客添加 markdown 在线编辑器工具">
-                        </a>
+{% block base_content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="description bg-white px-3 pt-3 pb-1 mb-1 mb-sm-2 mb-md-3">
+                    <p class="float-right mb-0">共<span class="mx-2 text-info">{{ paginator.count }}</span>篇</p>
+                    <h1 class="f-17"><strong>当前搜索：{{ query }}</strong></h1>
+                    <p class="f-16">网站全文搜索功能，将整个网站的文章的标题和内容进行分词存储，然后给每个分词建立索引，搜索功能返回的是全站文章中标题或者内容中包含关键词的文章。</p>
+                </div>
+                {% if query %}
+                    <div class="summary-list">
+                        {#{% for post in search_list %}#}
+                        {% for post in page.object_list %}
+                            <div class="media mb-1 mb-sm-2 p-2 p-lg-3">
+                                <div class="align-self-center mr-2 mr-lg-3 w-25 modal-open">
+                                    <a href="{{ post.object.get_absolute_url }}" target="_blank">
+                                        <img class="w-100 article-img" src="{{ post.object.img_link }}"
+                                             alt="{{ post.object.title }}">
+                                    </a>
+                                </div>
+                                <div class="media-body">
+                                    <div class="text-muted mb-2 f-12">
+                                        {% get_user_avatar_tag post.object.author %}
+                                        <span>{{ post.object.author }}</span>
+                                        <span><i class="fa fa-calendar-times-o ml-2 mr-1"></i>
+                                            {{ post.object.created_time|naturaltime }}</span>
+                                    </div>
+                                    <h2 class="mt-0 font-weight-bold text-info f-17">
+                                        <a href="{{ post.object.get_absolute_url }}" target="_blank">
+                                            {% my_highlight post.object.title query %}</a>
+                                    </h2>
+                                    {% with post.object.body_to_markdown|safe as this_body %}
+                                        <p class="d-none d-sm-block mb-2 f-15">{% highlight this_body with query max_length 130 %}</p>
+                                        <p class="d-block d-sm-none mb-2 f-15">{% highlight this_body with query max_length 64 %}</p>
+                                    {% endwith %}
+                                    <div class="text-muted mb-0 f-12">
+                                        <a class="cate" href="{{ post.object.category.get_absolute_url }}"
+                                           title="查看当前分类下更多文章">
+                                            <i class="fa fa-book mr-1"></i>{{ post.object.category }}</a>
+                                        <span><i class="fa fa-eye ml-2 mr-1"></i>{{ post.object.views }}</span>
+                                        <a href="{{ post.object.get_absolute_url }}#comment-block" target="_blank"
+                                           title="查看文章评论">
+                                            <i class="fa fa-comments ml-2 mr-1"></i>{% get_comment_count post.object %}
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        {% empty %}
+                            <div class="p-3 mt-3 bg-white"><p>暂时没有文章!</p></div>
+                        {% endfor %}
                     </div>
+                {% endif %}
 
-                    <!-- 标题和摘要 -->
-                    <div class="media-body">
-                        <!-- 文章标题链接 -->
-                        <h5 class="mt-0 font-weight-bold text-info">
-                            <a href="{{ result.object.get_absolute_url }}" target="_blank">
-                                {% highlight result.object.title with query %}
-                            </a>
-                        </h5>
-
-                        <!-- 正文 -->
-                        <!-- 只在sm屏幕隐藏 -->
-                        <p class="d-none d-sm-block mb-2">
-                            {% highlight result.object.body with query %}
-                        </p>
-                        <!-- 只在sm屏幕可见 -->
-                        <p class="d-block d-sm-none mb-2">
-                            {% highlight result.object.body with query %}
-                            需要写两个摘要信息
-                            <!-- 分类 访问量 评论量 -->
-                        <div class="text-muted mb-0">
-                            <a class="cate" href="#" title="查看当前分类下更多文章">
-                                <i class="fa fa-book mr-1"></i>{{ result.object.category.name }}</a>
-
-                            <span><i class="fa fa-eye ml-2 mr-1"></i>{{ result.object.increase_views }}</span>
-
-                            <a href="{{ result.object.get_absolute_url }}#comment-block" target="_blank"
-                               title="查看文章评论">
-                                <i class="fa fa-comments ml-2 mr-1"></i>8
-                            </a>
-                        </div>
-
+                {% if is_paginated %}
+                    <div class="text-center mt-2 mt-sm-1 mt-md-0 mb-3 f-16">
+                        {% if page_obj.has_previous %}
+                            <a class="text-success"
+                               href="?q={{ query }}&amp;page={{ page_obj.previous_page_number }}">上一页</a>
+                        {% else %}
+                            <span class="text-secondary" title="当前页已经是首页">上一页</span>
+                        {% endif %}
+                        <span class="mx-2">第&nbsp;{{ page_obj.number }}&nbsp;/&nbsp;{{ paginator.num_pages }}&nbsp;页</span>
+                        {% if page_obj.has_next %}
+                            <a class="text-success"
+                               href="?q={{ query }}&amp;page={{ page_obj.next_page_number }}">下一页</a>
+                        {% else %}
+                            <span class="text-secondary" title="当前页已经是末页">下一页</span>
+                        {% endif %}
                     </div>
-
-                </div> <!-- 第一篇文章 -->
-            {% empty %}
-                <!-- 这个格式要重写 -->
-                <div class="no_post">暂时还没有发布的文章！</div>
-            {% endfor %}
-
-        </div> <!-- 文章列表结束 -->
-
-        {# 分页 #}
-        <div class="pagination">
-            <ul>
-                {% if post_list.has_previous %}
-                    <li><a href="?page={{ post_list.previous_page_number }}">上一页</a></li>
                 {% endif %}
-                <li class="current">第{{ post_list.number }}页/共{{ post_list.paginator.num_pages }}页</li>
-                {% if post_list.has_next %}
-                    <li><a href="?page={{ post_list.next_page_number }}">下一页</a></li>
-                {% endif %}
-            </ul>
+
+            </div>
+            <div class="col-lg-4">
+                {% include 'blog/tags/base_right.html' %}
+            </div>
         </div>
-    {% endblock %}
-
-{% else %}
-    请输入搜索关键词，例如 django
-{% endif %}
+    </div>
+{% endblock %}

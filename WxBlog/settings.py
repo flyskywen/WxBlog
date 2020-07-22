@@ -11,10 +11,13 @@ https://docs.djangoproject.com/en/2.1/ref/settings/
 """
 
 import os
+import sys
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 # 文件目录
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+sys.path.insert(0, os.path.join(BASE_DIR, 'apps'))
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/2.1/howto/deployment/checklist/
@@ -31,15 +34,37 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'django.contrib.admin',
+
     'django.contrib.auth',
     'django.contrib.contenttypes',
+
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'django.contrib.humanize',  # 添加人性化过滤器
+    'django.contrib.sitemaps',  # 网站地图
+
+    'oauth',  # 自定义用户
+
+    # 第三方用户管理
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.github',
+
+    # 美化表单
+    'crispy_forms',
+
+    # 较为复杂的搜索应用
+    'haystack',  # tendocode说全文搜索应用 这个要放在其他应用之前，但我没看出为啥要放在之前
     'blog',
     'comments',
-    # 较为复杂的搜索应用
-    'haystack'
+
+    # RESTful API
+    'rest_framework',
+
 ]
 
 # HAYSTACK_CONNECTIONS 的 ENGINE 指定了 django haystack 使用的搜索引擎，
@@ -165,6 +190,8 @@ USE_L10N = True
 # USE_TZ = True
 USE_TZ = False
 
+# 自定义
+
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 STATIC_URL = '/static/'
@@ -173,3 +200,66 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static_files"),
 )
+
+# 媒体文件收集
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
+AUTH_USER_MODEL = 'oauth.Ouser'
+
+# allauth配置
+AUTHENTICATION_BACKENDS = (
+    # Needed to login by username in Django admin, regardless of `allauth`
+    'django.contrib.auth.backends.ModelBackend',
+
+    # `allauth` specific authentication methods, such as login by e-mail
+    'allauth.account.auth_backends.AuthenticationBackend',
+)
+
+# allauth需要的配置
+# 当出现"SocialApp matching query does not exist"这种报错的时候就需要更换这个ID
+# 默认：未指定
+# 当前站点在django_site数据库表中的ID，一个整数，从1开始计数。
+# 很多人都不知道Django是支持多站点同时运行的。
+# 通常我们都只有一个站点，所以不关心这个选项。如果你同时运行了多个站点，
+# 那么每个app就得知道自己是为那个站点或哪些站点服务的，这就需要SITE_ID参数了。
+
+SITE_ID = 1
+
+# 设置登录和注册成功后重定向的页面，默认是/accounts/profile/
+LOGIN_REDIRECT_URL = "/"
+# LOGIN_REDIRECT_URL = '/accounts/profile/'
+
+# Email setting
+# 注册中邮件验证方法:“强制（mandatory）”,“可选（optional）【默认】”或“否（none）”之一。
+# 开启邮箱验证的话，如果邮箱配置不可用会报错，所以默认关闭，根据需要自行开启
+ACCOUNT_EMAIL_VERIFICATION = os.getenv('IZONE_ACCOUNT_EMAIL_VERIFICATION', 'none')
+# 登录方式，选择用户名或者邮箱都能登录
+ACCOUNT_AUTHENTICATION_METHOD = "username_email"
+# 设置用户注册的时候必须填写邮箱地址
+ACCOUNT_EMAIL_REQUIRED = True
+
+# 登出直接退出，不用确认
+ACCOUNT_LOGOUT_ON_GET = True
+
+# 邮箱配置  授权码：lqcgzxohyszrebji
+EMAIL_HOST = 'smtp.qq.com'
+EMAIL_PORT = 25
+EMAIL_HOST_USER = 'runoogkui@qq.com'  # 你的 QQ 账号和授权码
+EMAIL_HOST_PASSWORD = 'lqcgzxohyszrebji'
+EMAIL_TIMEOUT = 5
+
+EMAIL_USE_TLS = True  # 这里必须是 True，否则发送不成功
+EMAIL_FROM = 'runoobkui@qq.com'  # 你的 QQ 账号
+DEFAULT_FROM_EMAIL = '测试博客 <runoobkui@qq.com>'
+
+# # 邮箱配置
+# EMAIL_HOST = os.getenv('IZONE_EMAIL_HOST', 'smtp.163.com')
+# EMAIL_HOST_USER = os.getenv('IZONE_EMAIL_HOST_USER', 'your-email-address')
+# EMAIL_HOST_PASSWORD = os.getenv('IZONE_EMAIL_HOST_PASSWORD', 'your-email-password')  # 这个不是邮箱密码，而是授权码
+# EMAIL_PORT = os.getenv('IZONE_EMAIL_PORT', 465)  # 由于阿里云的25端口打不开，所以必须使用SSL然后改用465端口
+# EMAIL_TIMEOUT = 5
+# # 是否使用了SSL 或者TLS，为了用465端口，要使用这个
+# EMAIL_USE_SSL = os.getenv('IZONE_EMAIL_USE_SSL', 'True').upper() == 'TRUE'
+# # 默认发件人，不设置的话django默认使用的webmaster@localhost，所以要设置成自己可用的邮箱
+# DEFAULT_FROM_EMAIL = os.getenv('IZONE_DEFAULT_FROM_EMAIL', 'TendCode博客 <your-email-address>')

@@ -1,52 +1,35 @@
-{% load static %}
-
-{# 轮播 #}
-{# 思路: post model 添加图片字段和是否加入轮播字段 #}
-<div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
-    <!-- 轮播列表 -->
+{% load static blog_tags %}
+{% get_carousel_list as carousels %}
+<div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
     <ol class="carousel-indicators">
-        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
-        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
-        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
-        <li data-target="#carouselExampleIndicators" data-slide-to="3"></li>
+        {% for each in carousels %}
+            {% if forloop.counter0 == 0 %}
+                <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+            {% else %}
+                <li data-target="#carouselExampleIndicators" data-slide-to="{{ forloop.counter0 }}"></li>
+            {% endif %}
+        {% endfor %}
     </ol>
-    <!-- 轮播内容 -->
     <div class="carousel-inner">
-        <div class="carousel-item active">
-            <a href="{% static 'blog/img/1.jpg' %}">
-                <img class="w-100" src="{% static 'blog/img/5.jpg' %}"
-                     alt="容器化部署博客（3）—— 5分钟完成项目迁移">
-            </a>
+        {% for each in carousels %}
+            {% if forloop.counter0 == 0 %}
+                <div class="carousel-item active">
+            {% else %}
+                <div class="carousel-item">
+            {% endif %}
+        <a href="{{ each.get_absolute_url }}">
+            <img class="w-100" src="{{ each.img_link }}" alt="{{ each.title }}">
+        </a>
         </div>
-        <div class="carousel-item">
-            <a href="{% static 'blog/img/2.jpg' %}">
-                <img class="w-100" src="{% static 'blog/img/2.jpg' %}"
-                     alt="在 Linux 服务器上使用 Nginx + Gunicorn 部署 Django 项目的正确姿势">
-            </a>
-        </div>
-        <div class="carousel-item">
-            <a href="{% static 'blog/img/3.jpg' %}">
-                <img class="w-100" src="{% static 'blog/img/3.jpg' %}"
-                     alt="Python虚拟环境Virtualenv分别在Windows和Linux上的安装和使用">
-            </a>
-        </div>
-        <div class="carousel-item">
-            <a href="#">
-                <img class="w-100" src="{% static 'blog/img/4.jpg' %}" alt="煎蛋网妹子图爬虫">
-            </a>
-        </div>
+        {% endfor %}
 
-        <!-- 轮播上下控件 -->
-        <a class="carousel-control-prev" href="#carouselExampleControls" role="button"
-           data-slide="prev">
-            <!-- 图标，不能放太亮色的图片，否则看不清图标 -->
+        </div>
+        <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="sr-only">Previous</span>
         </a>
-        <a class="carousel-control-next" href="#carouselExampleControls" role="button"
-           data-slide="next">
+        <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
             <span class="carousel-control-next-icon" aria-hidden="true"></span>
             <span class="sr-only">Next</span>
         </a>
     </div>
-</div><!-- 轮播结束 -->
