@@ -9,9 +9,87 @@ from .models import Post, Category, Tag
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 import re
 
+from django.views.generic import ListView, DetailView
+
 # 美化中文toc锚点
 from django.utils.text import slugify
 from markdown.extensions.toc import TocExtension
+
+
+# 指定三个属性
+# model。将 model 指定为 Post，告诉 django 我要获取的模型是 Post。
+# template_name。指定这个视图渲染的模板。
+# context_object_name。指定获取的模型列表数据保存的变量名，这个变量会被传递给模板。
+
+class IndexView(ListView):
+    model = Post
+    template_name = 'blog/index.html'
+    context_object_name = 'post_list'
+    # 指定 paginate_by 属性后开启分页功能，其值代表每一页包含多少篇文章
+    paginate_by = 10
+
+    # 不清楚这个属性的意义
+    paginate_orphans = 5
+
+    # 排序
+    def get_ordering(self):
+        hot = self.kwargs.get('hot')
+        if hot:
+            return '-views', '-created_time', '-id'
+        else:
+            return '-is_top', '-created_time'
+
+
+class CategoryView(IndexView):
+    # model = Post
+    template_name = 'blog/category.html'
+    # context_object_name = 'post_list'
+
+    # # 指定 paginate_by 属性后开启分页功能，其值代表每一页包含多少篇文章
+    # paginate_by = 10
+    #
+    # # 不清楚这个属性的意义
+    # paginate_orphans = 5
+
+    def get_ordering(self):
+        hot = self.kwargs.get('hot')
+        if hot:
+            return '-views', '-update_date', '-id'
+        return '-created_time'
+
+    def get_queryset(self):
+        # 筛选
+        cate = get_object_or_404(Category, pk=self.kwargs.get('pk'))
+        return super(CategoryView, self).get_queryset().filter(category=cate)
+
+    def get_context_data(self):
+        context_data = super(CategoryView, self).get_context_data()
+        cate = get_object_or_404(Category, pk=self.kwargs.get('pk'))
+        context_data['search_tag'] = '文章分类'
+        context_data['search_instance'] = cate
+        return context_data
+
+
+class TagView(IndexView):
+    template_name = 'blog/tag.html'
+
+    # def get_ordering(self):
+    #     ordering = super(TagView, self).get_ordering()
+    #     hot = self.kwargs.get('hot')
+    #     if hot:
+    #         return '-views', '-update_date', '-id'
+    #     return ordering
+
+    def get_queryset(self):
+        ta = get_object_or_404(Tag, pk=self.kwargs.get('pk'))
+        return super(TagView, self).get_queryset().filter(tags=ta)
+
+    def get_context_data(self):
+        context_data = super(TagView, self).get_context_data()
+        ta = get_object_or_404(Tag, pk=self.kwargs.get('pk'))
+        context_data['search_tag'] = '文章标签'
+        context_data['search_instance'] = ta
+        return context_data
 
 
 def get_paginator(request, post_list, num):

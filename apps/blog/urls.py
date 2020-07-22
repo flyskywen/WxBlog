@@ -35,19 +35,25 @@ urlpatterns = [
     # 而 IndexView 是一个类，不能直接替代 index 函数。
     # 好在将类视图转换成函数视图非常简单，只需调用类视图的 as_view() 方法即可
     # url(r'^$', views.IndexView.as_view(), name='index'),
-    path('', views.index, name='index'),
-    path('hot/', views.index, {'hot': True}, name='index_hot'),
+    # path('', views.index, name='index'),
+    # path('hot/', views.index, {'hot': True}, name='index_hot'),
     # re_path(r'^(/hot/)*$', views.index, name='index'), # 这个想法不太成熟
+    path('', views.IndexView.as_view(), name='index'),
+    path('hot/', views.IndexView.as_view(), {'hot': True}, name='index_hot'),
 
     # 分类页面 /category/id
     # url(r'^category/(?P<pk>[0-9]+)/$', views.category, name='category'),
     # url(r'^category/(?P<pk>[0-9]+)/$', views.CategoryView.as_view(), name='category'),
-    path('category/<int:pk>/', views.category, name='category'),
-    path('category/<int:pk>/hot/', views.category, {'hot': True}, name='category_hot'),
+    # path('category/<int:pk>/', views.category, name='category'),
+    # path('category/<int:pk>/hot/', views.category, {'hot': True}, name='category_hot'),
+    path('category/<int:pk>/', views.CategoryView.as_view(), name='category'),
+    path('category/<int:pk>/hot/', views.CategoryView.as_view, {'hot': True}, name='category_hot'),
 
     # 标签Tag页面  /tag/id
-    path('tag/<int:pk>/', views.tag, name='tag'),
-    path('tag/<int:pk>/hot/', views.tag, {'hot': True}, name='tag_hot'),
+    # path('tag/<int:pk>/', views.tag, name='tag'),
+    # path('tag/<int:pk>/hot/', views.tag, {'hot': True}, name='tag_hot'),
+    path('tag/<int:pk>/', views.TagView.as_view(), name='tag'),
+    path('tag/<int:pk>/hot/', views.TagView.as_view(), {'hot': True}, name='tag_hot'),
 
     # <网站域名>/post/2/
     # url(r'^post/(?P<pk>[0-9]+)/$', views.detail, name='detail'),

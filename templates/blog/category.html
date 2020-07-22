@@ -3,12 +3,13 @@
 {% load humanize %}
 {% load blog_tags %}
 
-{#{% block head_title %}{{ search_instance.name }}_{{ search_tag }}{% endblock %}#}
-{% block head_title %}分类？？？{% endblock %}
+{% block head_title %}
+    {{ search_instance.name }}_{{ search_tag }}
+{% endblock %}
 
 {% block metas %}
-    {#    <meta name="description" content="{{ search_instance.description }}">#}
-    {#    <meta name="keywords" content="{{ search_instance.name }}">#}
+    <meta name="description" content="{{ search_instance.description }}">
+    <meta name="keywords" content="{{ search_instance.name }}">
 {% endblock %}
 
 {% block base_content %}
@@ -16,20 +17,18 @@
         <div class="row">
             <div class="col-lg-8">
                 <div class="description bg-white px-3 pt-3 pb-1">
-                    {#<p class="float-right mb-0">共<span class="mx-2 text-info">{{ paginator.count }}</span>篇</p>#}
-                    <p class="float-right mb-0">共<span class="mx-2 text-info">#</span>篇</p>
+                    <p class="float-right mb-0">共<span class="mx-2 text-info">{{ paginator.count }}</span>篇</p>
 
                     {#<h1 class="f-17"><strong>{{ search_tag }}：{{ search_instance.name }}</strong></h1>#}
-                    <h1 class="f-17"><strong>文章分类：{{ category.name }}</strong></h1>
-                    <p class="f-16">{{ cate.description }}</p>
+                    <h1 class="f-17"><strong>{{ search_instance.name }}</strong></h1>
+                    <p class="f-16">{{ search_instance.description }}</p>
                 </div>
 
                 <div class="text-secondary font-weight-bold py-2 f-15 choice">
                     {#{% url 'blog:category' search_instance.slug as base_category %}#}
-                    {% url 'blog:category' category.pk as base_category %}
+                    {% url 'blog:category' search_instance.pk as base_category %}
                     {#{% url 'blog:category_hot' search_instance.slug as hot_category %}#}
-                    {% url 'blog:category_hot' category.pk as hot_category %}
-                    {#<a class="pb-2 {% if request.path == base_category %}active{% endif %}" href="{{ base_category }}">#}
+                    {% url 'blog:category_hot' search_instance.pk as hot_category %}
 
                     <a class="pb-2 {% if request.path == base_category %}active{% endif %}"
                        href="{{ base_category }}">

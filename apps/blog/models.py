@@ -9,6 +9,10 @@ from django.urls import reverse
 import markdown
 from django.utils.html import strip_tags
 
+# 美化中文toc锚点
+from django.utils.text import slugify
+from markdown.extensions.toc import TocExtension
+
 
 class Category(models.Model):
     """
@@ -156,10 +160,27 @@ class Post(models.Model):
         return Post.objects.filter(id__gt=self.id).order_by('id').first()
 
     def body_to_markdown(self):
+        # 返回markdown转html后的正文
         return markdown.markdown(self.body, extensions=[
             'markdown.extensions.extra',
             'markdown.extensions.codehilite',
         ])
+
+    def body_to_markdowntoc(self):
+        # 对文章标题toc处理,以后再做处理
+        md = markdown.Markdown(extensions=[
+            # 支持 ```
+            'markdown.extensions.extra',
+            # 代码高亮
+            'markdown.extensions.codehilite',
+            # toc
+            # 记得在顶部引入 TocExtension 和 slugify
+            TocExtension(slugify=slugify),
+        ])
+        # markdown转html后的正文
+        self.body = md.convert(self.body)
+        # TOC目录
+        self.toc = md.toc
 
     # ordering 属性用来指定文章排序方式，['-created_time'] 指定了依据哪个属性的值进行排序，
     # 这里指定为按照文章发布时间排序，且负号表示逆序排列。列表中可以用多个项，
