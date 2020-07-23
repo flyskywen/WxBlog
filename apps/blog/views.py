@@ -71,8 +71,18 @@ class CategoryView(ListView):
         return context_data
 
 
-class TagView(CategoryView):
+class TagView(ListView):
+    model = Post
     template_name = 'blog/tag.html'
+    context_object_name = 'post_list'
+    paginate_by = 10
+    paginate_orphans = 5
+
+    def get_ordering(self):
+        hot = self.kwargs.get('hot')
+        if hot:
+            return '-views', '-created_time', '-id'
+        return '-created_time'
 
     # def get_ordering(self):
     #     ordering = super(TagView, self).get_ordering()

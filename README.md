@@ -32,4 +32,7 @@ django-crispy-forms
 
 # API
 pip install djangorestframework django-filter
+
+# 测试脚本
+faker
 ```

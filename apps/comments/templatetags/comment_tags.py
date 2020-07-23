@@ -73,6 +73,7 @@ def get_notifications_count(user, f=None):
     if f == 'true':
         lis = user.notification_get.filter(is_read=True)
     elif f == 'false':
+        # 未读取消息
         lis = user.notification_get.filter(is_read=False)
     else:
         lis = user.notification_get.all()
