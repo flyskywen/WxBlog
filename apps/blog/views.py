@@ -40,21 +40,22 @@ class IndexView(ListView):
             return '-is_top', '-created_time'
 
 
-class CategoryView(IndexView):
-    # model = Post
+class CategoryView(ListView):
+    model = Post
     template_name = 'blog/category.html'
-    # context_object_name = 'post_list'
 
-    # # 指定 paginate_by 属性后开启分页功能，其值代表每一页包含多少篇文章
-    # paginate_by = 10
-    #
-    # # 不清楚这个属性的意义
-    # paginate_orphans = 5
+    context_object_name = 'post_list'
+
+    # 指定 paginate_by 属性后开启分页功能，其值代表每一页包含多少篇文章
+    paginate_by = 10
+
+    # 不清楚这个属性的意义
+    paginate_orphans = 5
 
     def get_ordering(self):
         hot = self.kwargs.get('hot')
         if hot:
-            return '-views', '-update_date', '-id'
+            return '-views', '-created_time', '-id'
         return '-created_time'
 
     def get_queryset(self):
@@ -62,7 +63,7 @@ class CategoryView(IndexView):
         cate = get_object_or_404(Category, pk=self.kwargs.get('pk'))
         return super(CategoryView, self).get_queryset().filter(category=cate)
 
-    def get_context_data(self):
+    def get_context_data(self, **kwargs):
         context_data = super(CategoryView, self).get_context_data()
         cate = get_object_or_404(Category, pk=self.kwargs.get('pk'))
         context_data['search_tag'] = '文章分类'
@@ -70,7 +71,7 @@ class CategoryView(IndexView):
         return context_data
 
 
-class TagView(IndexView):
+class TagView(CategoryView):
     template_name = 'blog/tag.html'
 
     # def get_ordering(self):
@@ -84,7 +85,7 @@ class TagView(IndexView):
         ta = get_object_or_404(Tag, pk=self.kwargs.get('pk'))
         return super(TagView, self).get_queryset().filter(tags=ta)
 
-    def get_context_data(self):
+    def get_context_data(self, **kwargs):
         context_data = super(TagView, self).get_context_data()
         ta = get_object_or_404(Tag, pk=self.kwargs.get('pk'))
         context_data['search_tag'] = '文章标签'

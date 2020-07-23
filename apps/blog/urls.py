@@ -47,7 +47,7 @@ urlpatterns = [
     # path('category/<int:pk>/', views.category, name='category'),
     # path('category/<int:pk>/hot/', views.category, {'hot': True}, name='category_hot'),
     path('category/<int:pk>/', views.CategoryView.as_view(), name='category'),
-    path('category/<int:pk>/hot/', views.CategoryView.as_view, {'hot': True}, name='category_hot'),
+    path('category/<int:pk>/hot/', views.CategoryView.as_view(), {'hot': True}, name='category_hot'),
 
     # 标签Tag页面  /tag/id
     # path('tag/<int:pk>/', views.tag, name='tag'),
