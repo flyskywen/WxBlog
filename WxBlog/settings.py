@@ -59,6 +59,7 @@ INSTALLED_APPS = [
 
     # 较为复杂的搜索应用
     'haystack',  # tendocode说全文搜索应用 这个要放在其他应用之前，但我没看出为啥要放在之前
+
     'blog',
     'comments',
 

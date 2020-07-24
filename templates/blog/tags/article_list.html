@@ -1,5 +1,4 @@
-{#{% load blog_tags oauth_tags comment_tags %}#}
-{% load blog_tags %}
+{% load blog_tags oauth_tags comment_tags %}
 {% load humanize static %}
 <div class="summary-list">
     {% for article in post_list %}
@@ -12,17 +11,16 @@
 
             <div class="media-body">
                 {# 是否TOP #}
-                {#{% if article.is_top %}#}
-                {#<img class="float-right top-article-img" src="{% static 'blog/img/TOP.png' %}">#}
-                {#{% endif %}#}
+                {% if article.is_top %}
+                    <img class="float-right top-article-img" src="{% static 'blog/img/TOP.png' %}">
+                {% endif %}
 
                 <div class="text-muted mb-2 f-12">
                     {# 获取作者头像tag #}
-                    {#{% get_user_avatar_tag article.author %}#}
+                    {% get_user_avatar_tag article.author %}
 
-                    <span>作者</span>
+                    <span>{{ article.author }}</span>
                     <span><i class="fa fa-calendar-times-o ml-2 mr-1"></i>{{ article.created_time|naturaltime }}</span>
-                    {#<span><i class="fa fa-calendar-times-o ml-2 mr-1"></i>{{ article.created_time }}</span>#}
                 </div>
 
                 {# 标题 #}

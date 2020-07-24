@@ -56,10 +56,15 @@ urlpatterns = [
                   path('oauth/', include('oauth.urls')),
 
                   # restful api
-                  path("api/", include(router.urls)),
-                  path("api/auth/", include("rest_framework.urls", namespace="rest_framework")),
+                  # path("api/", include(router.urls)),
+                  # path("api/auth/", include("rest_framework.urls", namespace="rest_framework")),
 
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 # 我选择将文件夹放入静态文件夹中
 # 加入这个才能显示media文件,添加静态文件夹路径
+
+# if settings.API_FLAG:
+from api.urls import router
+
+urlpatterns.append(path('api/v1/', include((router.urls, router.root_view_name), namespace='api')))  # restframework

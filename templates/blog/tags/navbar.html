@@ -72,10 +72,14 @@
             {#{% endif %}#}
 
             {#{% if api_flag %}#}
-            <li class="nav-item mr-2">
-                <a class="nav-link py-md-3" href="#" target="_blank"><i
-                        class="fa fa-key mr-1"></i>API</a>
-            </li>
+            {# api是否开放 #}
+            {% if user.is_staff %}
+                {# superuser才能看到API #}
+                <li class="nav-item mr-2">
+                    <a class="nav-link py-md-3" href="{% url 'api:api-root' %}" target="_blank"><i
+                            class="fa fa-key mr-1"></i>API</a>
+                </li>
+            {% endif %}
             {#{% endif %}#}
 
             <li class="nav-item mr-2 ">
