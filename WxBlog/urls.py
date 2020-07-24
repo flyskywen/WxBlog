@@ -24,6 +24,8 @@ from django.conf import settings
 
 from rest_framework import routers
 
+from api.views import DrfCategoryView, NewCategoryView, DrfPostView
+
 router = routers.DefaultRouter()
 
 urlpatterns = [
@@ -58,6 +60,16 @@ urlpatterns = [
                   # restful api
                   # path("api/", include(router.urls)),
                   # path("api/auth/", include("rest_framework.urls", namespace="rest_framework")),
+
+                  # drf练习
+                  path('drfcategory/', DrfCategoryView.as_view(), name='api_test'),
+                  path('drfcategory/<int:pk>/', DrfCategoryView.as_view()),
+                  # url(r'^drfcategore/(?P<pk>\d+)/$', DrfCategoryView.as_view()),
+
+                  path('newdrfcategory/', NewCategoryView.as_view(), name='new_api_test'),
+                  path('newdrfcategory/<int:pk>/', NewCategoryView.as_view(), name='new_api_test_1'),
+
+                  path('drfpost/', DrfPostView.as_view()),
 
               ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 

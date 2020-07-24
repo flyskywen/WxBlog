@@ -265,3 +265,8 @@ DEFAULT_FROM_EMAIL = '测试博客 <runoobkui@qq.com>'
 # EMAIL_USE_SSL = os.getenv('IZONE_EMAIL_USE_SSL', 'True').upper() == 'TRUE'
 # # 默认发件人，不设置的话django默认使用的webmaster@localhost，所以要设置成自己可用的邮箱
 # DEFAULT_FROM_EMAIL = os.getenv('IZONE_DEFAULT_FROM_EMAIL', 'TendCode博客 <your-email-address>')
+
+# 定义DRF每页显示的数据个数
+# REST_FRAMEWORK = {
+#     'PAGE_SIZE': 5
+# }

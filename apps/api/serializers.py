@@ -63,6 +63,8 @@ class PostSerializer(serializers.ModelSerializer):
         # fields = ('id', 'author', 'title', 'views', 'category', 'tags')
         # fields = '__all__'
         exclude = ('body',)
+        # 深度，观察下效果
+        # depth = 1
 
 # class TimelineSerializer(serializers.ModelSerializer):
 #     class Meta:

@@ -17,6 +17,8 @@ __author__ = 'dk'
 from rest_framework import permissions
 
 
+# 权限
+# 这部分自定义的权限没有用上
 class IsAdminUserOrReadOnly(permissions.BasePermission):
     def has_permission(self, request, view):
         if request.method in permissions.SAFE_METHODS:

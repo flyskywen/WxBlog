@@ -35,4 +35,8 @@ pip install djangorestframework django-filter
 
 # 测试脚本
 faker
+
+# 异步
+celery
+django-celery
 ```
