@@ -40,3 +40,8 @@ faker
 celery
 django-celery
 ```
+
+＃ Tips
+```text
+学习redis, blog/views.py
+```
