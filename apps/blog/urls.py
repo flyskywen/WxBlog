@@ -58,7 +58,8 @@ urlpatterns = [
     # <网站域名>/post/2/
     # url(r'^post/(?P<pk>[0-9]+)/$', views.detail, name='detail'),
     # url(r'^post/(?P<pk>[0-9]+)/$', views.PostDetailView.as_view(), name='detail'),
-    path('post/<int:pk>/', views.detail, name='detail'),
+    # path('post/<int:pk>/', views.detail, name='detail'),
+    path('post/<int:pk>/', views.PostView.as_view(), name='detail'),
 
     # 归档页面 /archives/years/month
     # url中包含year和month参数 传递给archives视图函数

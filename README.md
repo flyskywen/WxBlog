@@ -39,6 +39,10 @@ faker
 # 异步
 celery
 django-celery
+
+
+# 缓存
+django-redis
 ```
 
 ＃ Tips

@@ -167,7 +167,7 @@ class Post(models.Model):
             'markdown.extensions.codehilite',
         ])
 
-    def body_to_markdowntoc(self):
+    def body_to_markdownandtoc(self):
         # 对文章标题toc处理,以后再做处理
         md = markdown.Markdown(extensions=[
             # 支持 ```

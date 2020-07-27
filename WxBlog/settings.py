@@ -270,3 +270,14 @@ DEFAULT_FROM_EMAIL = '测试博客 <runoobkui@qq.com>'
 # REST_FRAMEWORK = {
 #     'PAGE_SIZE': 5
 # }
+
+# 使用redis作为缓存
+# CACHES = {
+#     "default": {
+#         "BACKEND": "django_redis.cache.RedisCache",
+#         "LOCATION": "redis://127.0.0.1:6379/1",
+#         "OPTIONS": {
+#             "CLIENT_CLASS": "django_redis.client.DefaultClient",
+#         }
+#     }
+# }

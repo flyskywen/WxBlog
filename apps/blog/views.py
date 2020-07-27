@@ -15,6 +15,10 @@ from django.views.generic import ListView, DetailView
 from django.utils.text import slugify
 from markdown.extensions.toc import TocExtension
 
+# detail缓存
+from django.core.cache import cache
+import time, datetime
+
 
 # 指定三个属性
 # model。将 model 指定为 Post，告诉 django 我要获取的模型是 Post。
@@ -101,6 +105,63 @@ class TagView(ListView):
         context_data['search_tag'] = '文章标签'
         context_data['search_instance'] = ta
         return context_data
+
+
+class PostView(DetailView):
+    model = Post
+    template_name = 'blog/detail.html'
+    context_object_name = 'post'
+
+    def get_object(self):
+        obj = super(DetailView, self).get_object()
+        # 设置浏览量增加时间判断,同一篇文章两次浏览超过半小时才重新统计阅览量,作者浏览忽略
+        u = self.request.user
+        ses = self.request.session
+        # the_key = 'is_read_{}'.format(obj.id)
+        the_key = f'is_read_{obj.id}'  # 是否阅读本篇文章
+        is_read_time = ses.get(the_key)
+        if u != obj.author:
+            # 非作者
+            if not is_read_time:
+                # 无key参数，更新阅览量
+                obj.increase_views()
+                ses[the_key] = time.time()
+            else:
+                now_time = time.time()
+                t = now_time - is_read_time
+                if t > 60 * 30:
+                    # 阅览半小时，更新阅览量
+                    obj.increase_views()
+                    ses[the_key] = time.time()
+
+        # 获取文章更新的时间，判断是否从缓存中取文章的markdown,可以避免每次都转换
+
+        # ud = obj.update_date.strftime("%Y%m%d%H%M%S")
+        # 修改的时间
+        ud = obj.modified_time.strftime("%Y%m%d%H%M%S")
+        md_key = '{}_md_{}'.format(obj.id, ud)
+        cache_md = cache.get(md_key)
+        print(cache_md)
+        if cache_md:
+            obj.body, obj.toc = cache_md
+            # obj.boy = cache_md
+        else:
+            md = markdown.Markdown(extensions=[
+                'markdown.extensions.extra',
+                'markdown.extensions.codehilite',
+                TocExtension(slugify=slugify),
+            ])
+            obj.body = md.convert(obj.body)
+            obj.toc = md.toc
+            # 暂时没有用上toc，之后可以使用body_to_markdownandtoc方法实现
+            # 很离奇，使用markdown.Markdown，可以正确是safe
+            # 而markdown.markdown，却无法正确的safe
+
+            obj.body = obj.body_to_markdown()
+            cache.set(md_key, (obj.body, obj.toc), 60 * 60 * 12)
+            # cache.set(md_key, obj.body, 60 * 60 * 12)
+
+        return obj
 
 
 def get_paginator(request, post_list, num):

@@ -46,7 +46,7 @@
                               title="最后编辑于{{ post.update_date|date:'Y年m月d日' }}">{{ post.created_time }}</span>
                             <span class="mx-2">阅读 {{ post.views }}</span>
                             {#<a class="mx-2 to-com" href="#comment-block">评论 {% get_comment_count post %}</a>#}
-                            <a class="mx-2 to-com" href="#comment-block">评论 数量</a>
+                            <a class="mx-2 to-com" href="#comment-block">评论 {% get_comment_count post %}</a>
                         </div>
                         <div class="post-body mt-4 f-17" style="line-height:1.8">
                             {{ post.body|safe }}
