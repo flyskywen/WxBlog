@@ -37,6 +37,7 @@ pip install djangorestframework django-filter
 faker
 
 # 异步
+# 暂时不使用celery，未搞清楚原理
 celery
 django-celery
 

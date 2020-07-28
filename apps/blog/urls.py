@@ -71,4 +71,7 @@ urlpatterns = [
     # 搜索页面,使用了haystack建立了更为复杂的搜索
     # path('search/', views.search, name='search'),
     # path('search/', MySearchView.as_view(), name='search_view'),  # 全文搜索
+
+    # 站点更新
+    path('timeline/', views.TimeLineView.as_view(), name='timeline')
 ]

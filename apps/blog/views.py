@@ -4,7 +4,7 @@
 
 import markdown
 from django.shortcuts import render, get_object_or_404
-from .models import Post, Category, Tag
+from .models import Post, Category, Tag, Timeline
 # from comments.forms import CommentForm
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 import re
@@ -68,6 +68,7 @@ class CategoryView(ListView):
         return super(CategoryView, self).get_queryset().filter(category=cate)
 
     def get_context_data(self, **kwargs):
+        # 添加数据
         context_data = super(CategoryView, self).get_context_data()
         cate = get_object_or_404(Category, pk=self.kwargs.get('pk'))
         context_data['search_tag'] = '文章分类'
@@ -164,6 +165,14 @@ class PostView(DetailView):
         return obj
 
 
+# 网站的更新说明
+class TimeLineView(ListView):
+    model = Timeline
+    template_name = 'blog/timeline.html'
+    context_object_name = 'timeline_list'
+
+
+# 不使用视图类
 def get_paginator(request, post_list, num):
     # 实现分页,不用视图类
     # 5个文章一页
