@@ -48,7 +48,7 @@ INSTALLED_APPS = [
     'oauth',  # 自定义用户
 
     # 第三方用户管理
-    'django.contrib.sites',
+    'django.contrib.sites', # 这个是自带的，会创建一个sites表，用来存放域名
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
@@ -275,12 +275,12 @@ DEFAULT_FROM_EMAIL = '测试博客 <runoobkui@qq.com>'
 # }
 
 # 使用redis作为缓存
-# CACHES = {
-#     "default": {
-#         "BACKEND": "django_redis.cache.RedisCache",
-#         "LOCATION": "redis://127.0.0.1:6379/1",
-#         "OPTIONS": {
-#             "CLIENT_CLASS": "django_redis.client.DefaultClient",
-#         }
-#     }
-# }
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379/1",
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+        }
+    }
+}

@@ -7,19 +7,19 @@ django==2.2
 
 # 文章搜索功能
 # 在win 中多安装了一个 haystack库
-# django-haystack
-# whoosh
-# jieba
+django-haystack
+whoosh
+jieba
 
 # 实现文章显示markdown
-# Pygments
-# Markdown
+Pygments
+Markdown
 
 # Django上传图片
-# pillow
+pillow
 
 # Faker 快速生成测试数据
-# Faker
+Faker
 
 ＃ 第三方图片处理
 django-imagekit
@@ -31,15 +31,15 @@ django-allauth
 django-crispy-forms
 
 # API
-pip install djangorestframework django-filter
+djangorestframework django-filter
 
 # 测试脚本
 faker
 
 # 异步
 # 暂时不使用celery，未搞清楚原理
-celery
-django-celery
+#celery
+#django-celery
 
 
 # 缓存
