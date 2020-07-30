@@ -48,7 +48,7 @@ INSTALLED_APPS = [
     'oauth',  # 自定义用户
 
     # 第三方用户管理
-    'django.contrib.sites', # 这个是自带的，会创建一个sites表，用来存放域名
+    'django.contrib.sites',  # 这个是自带的，会创建一个sites表，用来存放域名
     'allauth',
     'allauth.account',
     'allauth.socialaccount',
@@ -84,8 +84,8 @@ INSTALLED_APPS = [
 
 HAYSTACK_CONNECTIONS = {
     'default': {
-        'ENGINE': 'blog.whoosh_cn_backend.WhooshEngine',
-        'PATH': os.path.join(BASE_DIR, 'whoosh_index'),
+        'ENGINE': 'blog.whoosh_cn_backend.WhooshEngine',  # 选择语言解析器为自己更换的结巴分词
+        'PATH': os.path.join(BASE_DIR, 'whoosh_index'),  # 保存索引文件的地址，选择主目录下，这个会自动生成
     },
 }
 HAYSTACK_SEARCH_RESULTS_PER_PAGE = 10
@@ -191,8 +191,10 @@ USE_I18N = True
 USE_L10N = True
 
 # 解决mysql 时区不正确的问题,filter过滤月份开始不正常,也失去了时区功能!
-# USE_TZ = True
-USE_TZ = False
+# USE_TZ = False # 暂时使用的sqlite
+
+
+USE_TZ = True
 
 # 自定义
 

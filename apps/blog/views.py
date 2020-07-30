@@ -142,7 +142,7 @@ class PostView(DetailView):
         ud = obj.modified_time.strftime("%Y%m%d%H%M%S")
         md_key = '{}_md_{}'.format(obj.id, ud)
         cache_md = cache.get(md_key)
-        print(cache_md)
+        print(md_key)
         if cache_md:
             obj.body, obj.toc = cache_md
             # obj.boy = cache_md
@@ -157,8 +157,7 @@ class PostView(DetailView):
             # 暂时没有用上toc，之后可以使用body_to_markdownandtoc方法实现
             # 很离奇，使用markdown.Markdown，可以正确是safe
             # 而markdown.markdown，却无法正确的safe
-
-            obj.body = obj.body_to_markdown()
+            # obj.body = obj.body_to_markdown()
             cache.set(md_key, (obj.body, obj.toc), 60 * 60 * 12)
             # cache.set(md_key, obj.body, 60 * 60 * 12)
 

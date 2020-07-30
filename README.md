@@ -49,4 +49,6 @@ django-redis
 ＃ Tips
 ```text
 学习redis, blog/views.py
+
+docker redis配置未完成，django无法正确连接redis
 ```
