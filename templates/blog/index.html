@@ -1,56 +1,49 @@
-{% extends 'base.html' %}
-<!-- 继承模版,如果写在templates/blog下,要加上blog/ -->
-{% block main %}
-    <!--添加关于搜索的error_msg-->
-    {% if error_msg %}
-        <p>{{ error_msg }}</p>
-    {% endif %}
-    {% for post in post_list %}
-        <article class="post post-{{ post.pk }}">
-            <header class="entry-header">
-                <h1 class="entry-title">
-                    <!--models.Post中的函数-->
-                    <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
-                </h1>
-                <div class="entry-meta">
-                    <span class="post-category"><a
-                            href="{% url 'blog:category' post.category.pk %}">{{ post.category }}</a></span>
-                    <span class="post-date"><a href="#"><time class="entry-date"
-                                                              datetime="2012-11-09T23:15:57+00:00">{{ post.created_time }}</time></a></span>
-                    <span class="post-author"><a href="#">{{ post.author }}</a></span>
-                    <span class="comments-link"><a href="#">{{ post.comment_set.count }} 评论</a></span>
-                    <span class="views-count"><a href="#">{{ post.created_time }}{{ post.views }} 阅读</a></span>
+{% extends "blog/base.html" %}
+{% load static %}
+{% load humanize %}
+{% load blog_tags %}
+
+{% block head_title %}个人博客_一个使用django和bootstrap搭建的个人博客{% endblock %}
+{% block metas %}
+    {# 待定 #}
+    {#<meta name="description" content="{{ site_description }}">#}
+    {#<meta name="keywords" content="{{ site_keywords }}">#}
+    {#<!--站长验证-->#}
+    {#{% if site_verification %}{{ site_verification|safe }}{% endif %}#}
+{% endblock %}
+
+{% block base_content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                {# 图片轮播 #}
+                {% include 'blog/tags/carousel.html' %}
+
+                {# 排序方式 #}
+                <div class="text-secondary font-weight-bold py-2 f-15 choice">
+                    {% url 'blog:index' as base_index %}
+                    {% url 'blog:index_hot' as hot_index %}
+
+                    <a class="pb-2 {% if request.path == base_index %}active{% endif %}" href="{{ base_index }}">
+                        <i class="fa fa-bars mr-1"></i>时间排序</a>
+                    <a class="pb-2 ml-4 {% if request.path == hot_index %}active{% endif %}" href="{{ hot_index }}">
+                        <i class="fa fa-fire mr-1"></i>热度排序</a>
                 </div>
-            </header>
-            <div class="entry-content clearfix">
-                <p>{{ post.excerpt }}...</p>
-                <div class="read-more cl-effect-14">
-                    <a href="{{ post.get_absolute_url }}" class="more-link">继续阅读 <span class="meta-nav">→</span></a>
-                </div>
+
+                {# 文章列表 #}
+                {# {% load_article_summary articles %} #}
+                {% include 'blog/tags/article_list.html' %}
+
+                {# 页码 #}
+                {#{% if is_paginated %}{% load_pages %}{% endif %}#}
+                {% include 'blog/tags/pagination.html' %}
+
             </div>
-        </article>
-    {% empty %}
-        <div class="no_post">暂时还没有发布的文章！</div>
-    {% endfor %}
 
-
-    <!-- 简单分页效果
-    <div class="pagination-simple">
-        <a href="#">上一页</a>
-        <span class="current">第 6 页 / 共 11 页</span>
-        <a href="#">下一页</a>
+            {# 右侧导航栏 #}
+            <div class="col-lg-4">
+                {% include 'blog/tags/base_right.html' %}
+            </div>
+        </div>
     </div>
-    -->
-    <div class="pagination">
-        <ul>
-            {% if post_list.has_previous %}
-            <li><a href="?page={{ post_list.previous_page_number }}">上一页</a></li>
-            {% endif %}
-            <li class="current">第{{ post_list.number }}页/共{{ post_list.paginator.num_pages }}页</li>
-            {% if post_list.has_next %}
-            <li><a href="?page={{ post_list.next_page_number }}">下一页</a></li>
-            {% endif %}
-        </ul>
-    </div>
-
-{% endblock main %}
+{% endblock %}

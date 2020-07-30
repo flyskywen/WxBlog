@@ -1,23 +1,39 @@
+amqp==1.4.9
+anyjson==0.3.3
+billiard==3.3.0.23
+celery==3.1.26.post2
+certifi==2020.6.20
+chardet==3.0.4
+defusedxml==0.6.0
 Django==2.2
+django-allauth==0.42.0
+django-appconf==1.0.4
+django-celery==3.3.1
+django-crispy-forms==1.9.2
+django-filter==2.3.0
 django-haystack==2.8.1
-jieba==0.40
-Markdown==3.1.1
-Pygments==2.5.2
-pytz==2019.3
-sqlparse==0.3.0
+django-imagekit==4.0.2
+django-ranged-response==0.2.0
+django-simple-captcha==0.5.12
+djangorestframework==3.11.0
+Faker==4.1.1
+future==0.18.2
+idna==2.10
+jieba==0.42.1
+kombu==3.0.37
+Markdown==3.2.2
+oauthlib==3.1.0
+pilkit==2.0
+Pillow==7.2.0
+Pygments==2.6.1
+python-dateutil==2.8.1
+python3-openid==3.2.0
+pytz==2020.1
+requests==2.24.0
+requests-oauthlib==1.3.0
+six==1.15.0
+sqlparse==0.3.1
+text-unidecode==1.3
+urllib3==1.25.9
+vine==1.3.0
 Whoosh==2.7.4
-
-
-# 注意：django2.2不支持pyMySQL，所以暂时用sqlite数据库
-
-# Django
-
-# 文章搜索功能
-# 在win 中多安装了一个 haystack库
-# django-haystack
-# whoosh
-# jieba
-
-# 实现文章显示markdown
-# Pygments
-# Markdown

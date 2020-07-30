@@ -1,10 +1,18 @@
 # python运行产生的缓存
 *.pyc
+__pycache__/
 
 # .idea/目录下的pycharm文件
-*.xml
-*.iml
+# *.xml
+# *.iml
+.idea/
 
 # 迁移数据库产生的文件
-blog/migrations/
-comments/migrations/
+apps/blog/migrations/
+apps/comments/migrations/
+
+# 搜索产生的缓存文件
+whoosh_index/
+
+# 临时数据库
+db.sqlite3
