@@ -14,6 +14,10 @@
 
 
 
+
+
+
+
                      {% if request.COOKIES.toggleTheme == 'dark' %}{% static 'blog/img/toggle-dark.png' %}{% else %}{% static 'blog/img/toggle-light.png' %}{% endif %}"
              alt="theme-toggle" title="切换主题">
     </div>
@@ -80,21 +84,25 @@
         <div class="card-body px-0 py-3">
             <div class="tool-list">
                 {% get_friends as friends %}
+                {# 查询有效可展示的链接 #}
 
-                <div class="w-50 float-left text-center mb-2">
-                    <div class="mx-2">
-                        {% for friend in friends %}
+                {% get_friends as friends %}
+                {% for friend in friends %}
+                    <div class="w-50 float-left text-center mb-2">
+                        <div class="mx-2">
                             <a href="{{ friend.link }}" title="{{ friend.description }}" target="_blank">
                                 {{ friend.name }}</a>
-                        {% empty %}
-                            <a href="#" title="..."
-                               target="_blank">
-                                暂无友链</a>
-                        {% endfor %}
-
+                        </div>
                     </div>
-                </div>
+
+                {% empty %}
+                    <a href="#" title="..."
+                       target="_blank">
+                        暂无友链</a>
+                {% endfor %}
             </div>
         </div>
     </div>
+</div>
+</div>
 </div>
