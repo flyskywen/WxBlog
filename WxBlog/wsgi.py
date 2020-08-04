@@ -11,6 +11,7 @@ import os
 
 from django.core.wsgi import get_wsgi_application
 
+# 配置设置文件
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'WxBlog.settings')
 
 application = get_wsgi_application()

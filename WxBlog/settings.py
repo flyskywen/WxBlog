@@ -28,7 +28,11 @@ SECRET_KEY = 'yg3m1a5d8o^64ov@u#h+!69mutxfmcrrm$%_v@gmx40=29qi3q'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+# ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost ', '144.34.185.28', '.mkwxcode.link']
+# 指定了 ALLOWED_HOSTS 的值后，django 将只允许通过指定的域名访问我们的应用，
+# 比如这里只允许通过 127.0.0.1，localhost 以及 zmrenwu.com 和其任意子域名（域名前加一个点表示允许访问该域名下的子域名）访问（即 HTTP 报文头部中 Host 的值必须是以上指定的域名，
+# 通常你在浏览器输入域名访问网站时，Host 的值就会被设置为网站的域名），这样可以避免 HTTP Host 头攻击。
 
 # Application definition
 
@@ -207,6 +211,10 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = (
     os.path.join(BASE_DIR, "static_files"),
 )
+
+# 部署时添加
+# STATIC_ROOT 即指定静态文件的收集路径，这里指定为 BASE_DIR（项目根目录，在 settings.py 文件起始处定义）下的 static 文件夹。
+STATIC_ROOT = os.path.join(BASE_DIR, 'static_files')
 
 # 动态资源
 # 媒体文件收集
