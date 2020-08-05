@@ -23,3 +23,5 @@ django-filter
 faker
 
 django-redis
+
+supervisor

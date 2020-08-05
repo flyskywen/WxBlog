@@ -1,0 +1,98 @@
+version: '3'
+services:
+  #  db:
+  #    image: mariadb
+  #    expose:
+  #      - "3306"
+  #    volumes:
+  #      - .compose/local/mysql:/var/lib/mysql:rw
+  #    environment:
+  #      - MYSQL_DATABASE=wxblog
+  #      - MYSQL_ROOT_PASSWORD=123456
+
+  db:
+    image: mariadb
+    environment:
+      - MYSQL_ROOT_PASSWORD=123456 # 数据库密码
+      - MYSQL_DATABASE=wxblog # 数据库名称
+      - MYSQL_USER=test # 数据库用户名
+      - MYSQL_PASSWORD=123456 # 用户密码
+
+    volumes:
+      # 目录db/data对应/var/lib/mysql用于存放数据库文件
+      # 目录db/initdb.d中的文件init.sql, sql脚本
+        - ./mariadb/init.d:/docker-entrypoint-initdb.d
+      - ./mariadb/data:/var/lib/mysql
+      - ./mariadb/conf/my.cnf:/etc/mysql/my.cnf # 挂载配置文件
+#      - ./mariadb/conf/50-server.cnf:/etc/mysql/mariadb.conf.d/50-server.cnf # 挂载配置文件，mysql停止运行
+#      - ./mariadb/conf:/etc/mysql # 挂载配置文件,这样挂载，容器中的数据全部会消失==>不创建文件夹也不行
+
+    # MariaDB的配置文件，数据具体在哪不了解
+    #    volumes:
+    #      - ./mariadb/mysql:/var/lib/mysql:rw # 挂载数据库数据, 可读可写
+    #      - ./mariadb/sqldata:/opt:rw
+    #      - ./mariadb/conf/my.cnf:/etc/mysql/my.cnf # 挂载配置文件
+    #      - ./mariadb/init:/docker-entrypoint-initdb.d/ # 挂载数据初始化sql脚本
+    ports:
+      - "3306:3306" # 与配置文件保持一致，映射端口
+    restart: always
+
+  redis:
+    image: redis
+    # container_name: redis
+    volumes:
+      - ./redis/redis.conf:/etc/redis/redis.conf # 挂载redis配置文件
+      - ./redis/data:/data #给redis数据备份
+    #      - ./redis/redis-server.log://redis-server.log # 挂载redis log，易报错
+    # 死活连接不上,不是接口的问题，是django settings的问题
+    expose:
+      - "6379"
+    #    ports:
+    #      - "6379:6379"
+    command:
+      # 使用redis.conf配置启动redis服务
+      redis-server /etc/redis/redis.conf --appendonly yes
+    restart: always # always表示容器运行发生错误时一直重启
+
+  django:
+    build:
+      context: ../../../WxBlog # 上下文
+      dockerfile: compose/local/Django/Dockerfile
+    volumes:
+      - ../../../WxBlog:/usr/src/app # 挂载项目
+    # - /tmp/logs:/tmp
+    # command: bash ./Django/start.sh # 运行命令
+    command: /start.sh
+    ports:
+      - "8000:8000"
+    links:
+      - redis
+      - db
+
+    # 依赖关系
+    depends_on:
+      - redis
+      - db
+    restart: always
+
+  nginx:
+    build: ./nginx/Dockerfile
+    ports:
+      - "80:80"
+      - "8000:8000"
+    volumes:
+      - ../../static_files:/usr/share/nginx/html/static:ro
+      - ../../media:/usr/share/nginx/html/media:ro
+    links:
+      - django
+    depends_on:
+      - django
+    restart: always
+
+# '''1. expose 与 ports 比较'''
+# ports: 绑定容器的端口到主机的端口，这样就可以在外网访问docker容器的服务
+# expose: 将当前容器的端口3暴露给link到本容器的容器，expose不会将端口暴露给主机
+
+# '''2. depends_on 与 links区别'''
+# depends_on: 指定本容器启动依赖的容器必须先启动
+# links: 保证容器如果ip变化也能访问(基本已经弃用，因为不使用link仍然可以通过容器名称访问)

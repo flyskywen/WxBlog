@@ -44,6 +44,9 @@ faker
 
 # 缓存
 django-redis
+
+# 生产环境中使用的服务进程
+pip install supervisor
 ```
 
 ＃ Tips
