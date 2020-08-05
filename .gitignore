@@ -16,3 +16,6 @@ whoosh_index/
 
 # 临时数据库
 db.sqlite3
+
+# 挂载的数据备份
+data/
