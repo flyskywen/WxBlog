@@ -57,4 +57,12 @@ docker redis配置未完成，django无法正确连接redis
 
 # 安装docker-compose
 pip install docker-compose
+
+
+# 实际上就是把所有static文件收集在static文件夹中
+python manage.py collectstatic
+
+# 所以nginx中有个一个设置是有问题的 不能使用static_files配置
+
+# nginx 静态资源指向 static文件夹和media文件夹 就解决了,就修改了docker-compose挂载而已
 ```
