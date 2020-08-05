@@ -19,7 +19,8 @@ EXPOSE 80 8000
 # 删除nginx原有配置文件
 RUN rm /etc/nginx/conf.d/default.conf
 # 将自己写的配置文件添加到容器
-ADD conf.d/nginx.conf /etc/nginx/conf.d/
+#ADD conf.d/nginx.conf /etc/nginx/conf.d/
+COPY conf.d/nginx.conf /etc/nginx/conf.d/nginx.conf
 # 创建web应用的静态文件存储
 RUN mkdir -p /usr/share/nginx/html/static
 RUN mkdir -p /usr/share/nginx/html/media

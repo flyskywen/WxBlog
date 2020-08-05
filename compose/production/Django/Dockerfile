@@ -37,7 +37,7 @@ RUN pip install -r requirements.txt
 #RUN pipenv install
 
 # 开放容器的8080端口，允许外部链接这个端口
-# EXPOSE 8000
+EXPOSE 8000
 
 # 运行start.sh
 COPY ./compose/local/Django/start.sh /start.sh

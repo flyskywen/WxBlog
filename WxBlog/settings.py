@@ -1,2 +1,3 @@
-# 开发环境
-from .local import *
+# 工程环境
+# from .local import *
+from .production import *
