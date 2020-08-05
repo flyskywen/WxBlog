@@ -82,8 +82,10 @@ services:
       - "80:80"
 #      - "8000:8000"
     volumes:
-      - ../../static_files:/usr/share/nginx/html/static:ro
+      - ../../static:/usr/share/nginx/html/static:ro
       - ../../media:/usr/share/nginx/html/media:ro
+      - ./nginx/log:/tmp/nginx_access.log
+      - ./nginx/log:/tmp/nginx_error.log
     links:
       - django
     depends_on:
