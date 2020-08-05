@@ -84,7 +84,7 @@ services:
     volumes:
       - ../../static:/usr/share/nginx/html/static:ro
       - ../../media:/usr/share/nginx/html/media:ro
-      - ./nginx/log:/tmp
+#      - ./nginx/log:/tmp
 #      - ./nginx/log/nginx_access.log:/tmp/nginx_access.log
 #      - ./nginx/log/nginx_error.log:/tmp/nginx_error.log
     links:
