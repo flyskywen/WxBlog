@@ -65,4 +65,6 @@ python manage.py collectstatic
 # 所以nginx中有个一个设置是有问题的 不能使用static_files配置
 
 # nginx 静态资源指向 static文件夹和media文件夹 就解决了,就修改了docker-compose挂载而已
+
+有问题，python collection后，static在容器django中，所以我修改的挂载有问题
 ```

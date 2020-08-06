@@ -1,5 +1,7 @@
 #!/bin/sh
+# 收集静态文件未生效,需要手动运行次才能有用
 python manage.py collectstatic --noinput
+
 python manage.py makemigrations
 python manage.py migrate
 
