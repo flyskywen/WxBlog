@@ -64,7 +64,7 @@ services:
     # - ../../../WxBlog:/usr/src/app # 挂载项目,挂载后容器内的项目被覆盖
     # - /tmp/logs:/tmp
     # command: bash ./Django/start.sh # 运行命令
-    command: /start.sh
+    command: ./start.sh
     #    ports:
     #      - "8000:8000"
     links:
