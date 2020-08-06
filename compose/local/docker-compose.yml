@@ -10,32 +10,33 @@ services:
   #      - MYSQL_DATABASE=wxblog
   #      - MYSQL_ROOT_PASSWORD=123456
 
-  db:
-    image: mariadb
-    environment:
-      - MYSQL_ROOT_PASSWORD=123456 # 数据库密码
-      - MYSQL_DATABASE=wxblog # 数据库名称
-      - MYSQL_USER=test # 数据库用户名
-      - MYSQL_PASSWORD=123456 # 用户密码
-
-    volumes:
-      # 目录db/data对应/var/lib/mysql用于存放数据库文件
-      # 目录db/initdb.d中的文件init.sql, sql脚本, 初始化数据库的时候执行,第一次运行之后，就可以不再运行初始化脚本了。
-      - ./mariadb/init.d:/docker-entrypoint-initdb.d
-      - ./mariadb/data:/var/lib/mysql
-      - ./mariadb/conf/my.cnf:/etc/mysql/my.cnf # 挂载配置文件
-#      - ./mariadb/conf/50-server.cnf:/etc/mysql/mariadb.conf.d/50-server.cnf # 挂载配置文件，mysql停止运行
-#      - ./mariadb/conf:/etc/mysql # 挂载配置文件,这样挂载，容器中的数据全部会消失==>不创建文件夹也不行
-
-    # MariaDB的配置文件，数据具体在哪不了解
-    #    volumes:
-    #      - ./mariadb/mysql:/var/lib/mysql:rw # 挂载数据库数据, 可读可写
-    #      - ./mariadb/sqldata:/opt:rw
-    #      - ./mariadb/conf/my.cnf:/etc/mysql/my.cnf # 挂载配置文件
-    #      - ./mariadb/init:/docker-entrypoint-initdb.d/ # 挂载数据初始化sql脚本
-    ports:
-      - "3306:3306" # 与配置文件保持一致，映射端口
-    restart: always
+  #  暂时使用sqlite
+  #  db:
+  #    image: mariadb
+  #    environment:
+  #      - MYSQL_ROOT_PASSWORD=123456 # 数据库密码
+  #      - MYSQL_DATABASE=wxblog # 数据库名称
+  #      - MYSQL_USER=test # 数据库用户名
+  #      - MYSQL_PASSWORD=123456 # 用户密码
+  #
+  #    volumes:
+  #      # 目录db/data对应/var/lib/mysql用于存放数据库文件
+  #      # 目录db/initdb.d中的文件init.sql, sql脚本, 初始化数据库的时候执行,第一次运行之后，就可以不再运行初始化脚本了。
+  #      - ./mariadb/init.d:/docker-entrypoint-initdb.d
+  #      - ./mariadb/data:/var/lib/mysql
+  #      - ./mariadb/conf/my.cnf:/etc/mysql/my.cnf # 挂载配置文件
+  ##      - ./mariadb/conf/50-server.cnf:/etc/mysql/mariadb.conf.d/50-server.cnf # 挂载配置文件，mysql停止运行
+  ##      - ./mariadb/conf:/etc/mysql # 挂载配置文件,这样挂载，容器中的数据全部会消失==>不创建文件夹也不行
+  #
+  #    # MariaDB的配置文件，数据具体在哪不了解
+  #    #    volumes:
+  #    #      - ./mariadb/mysql:/var/lib/mysql:rw # 挂载数据库数据, 可读可写
+  #    #      - ./mariadb/sqldata:/opt:rw
+  #    #      - ./mariadb/conf/my.cnf:/etc/mysql/my.cnf # 挂载配置文件
+  #    #      - ./mariadb/init:/docker-entrypoint-initdb.d/ # 挂载数据初始化sql脚本
+  #    ports:
+  #      - "3306:3306" # 与配置文件保持一致，映射端口
+  #    restart: always
 
   redis:
     image: redis
@@ -67,12 +68,12 @@ services:
       - "8000:8000"
     links:
       - redis
-      - db
+#      - db
 
     # 依赖关系
     depends_on:
       - redis
-      - db
+#      - db
     restart: always
 
 #  nginx:
