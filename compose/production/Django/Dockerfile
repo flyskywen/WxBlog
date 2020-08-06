@@ -41,7 +41,7 @@ RUN pip install -r requirements.txt
 EXPOSE 8000
 
 # 复制start.sh到容器
-COPY ./compose/local/Django/start.sh /start.sh
+COPY ./compose/production/Django/start.sh /start.sh
 RUN sed -i 's/\r//' /start.sh
 RUN chmod +x /start.sh
 
