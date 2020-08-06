@@ -59,10 +59,9 @@ services:
       context: ../../../WxBlog # 上下文
       dockerfile: compose/local/Django/Dockerfile
     volumes:
-      - ../../../WxBlog/static:/usr/src/app/static
+      - ../../../WxBlog/static:/usr/src/app/static # 挂载收集后的静态文件
       - ../../../WxBlog/media:/usr/src/app/media
-    # - ../../../WxBlog:/usr/src/app # 挂载项目
-    # 这样挂载项目导致容器内生成的静态文件被覆盖
+    # - ../../../WxBlog:/usr/src/app # 挂载项目,挂载后容器内的项目被覆盖
     # - /tmp/logs:/tmp
     # command: bash ./Django/start.sh # 运行命令
     command: /start.sh
