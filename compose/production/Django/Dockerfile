@@ -19,7 +19,8 @@ RUN apk add jpeg-dev zlib-dev freetype-dev lcms2-dev openjpeg-dev tiff-dev tk-de
 RUN mkdir /usr/src/app
 # 将项目中所有文件都拷贝到容器中指定目录
 # docker-compose已挂载，但这一步也很有必要
-COPY ../../../../WxBlog/ /usr/src/app
+# 按照docker-compose的context计算
+COPY . /usr/src/app
 # 将/usr/src/app指定为工作目录
 WORKDIR /usr/src/app
 
