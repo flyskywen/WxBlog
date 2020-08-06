@@ -1,13 +1,15 @@
 #!/bin/sh
-# 收集静态文件未生效,需要手动运行次才能有用
+# 收集静态文件未生效,需要手动运行次才能有用,修改配置后可运行了。
 python manage.py collectstatic --noinput
 
 python manage.py makemigrations
 python manage.py migrate
 
+# 添加一个收集whoosh的搜索索引
+
 # python manage.py compilemessages
 # gunicorn config.wsgi:application -w 4 -k gthread -b 0.0.0.0:8000 --chdir=/app
-gunicorn WxBlog.wsgi -w 4 -k gthread -b 0.0.0.0:8000
+gunicorn WxBlog.wsgi -w 2 -k gthread -b 0.0.0.0:8000
 #`-w 2 表示启动 2 个 worker 用于处理请求（一个 worker 可以理解为一个进程），通常将 worker 数目设置为 CPU 核心数的 2-4 倍。
 #
 #-k gthread 指定每个 worker 处理请求的方式，根据大家的实践，指定为 gthread 的异步模式能获取比较高的性能，因此我们采用这种模式。

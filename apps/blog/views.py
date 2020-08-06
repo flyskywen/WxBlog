@@ -142,7 +142,7 @@ class PostView(DetailView):
         ud = obj.modified_time.strftime("%Y%m%d%H%M%S")
         md_key = '{}_md_{}'.format(obj.id, ud)
         cache_md = cache.get(md_key)
-        print(md_key)
+        # print(md_key)
         if cache_md:
             obj.body, obj.toc = cache_md
             # obj.boy = cache_md
