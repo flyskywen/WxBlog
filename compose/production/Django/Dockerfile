@@ -4,11 +4,11 @@ MAINTAINER flyskywen<flyskywen@outlook.com>
 # python环境变量
 ENV PYTHONUNBUFFERED 1
 
-RUN apk update
-
 #RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
-#RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories
+RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories
 #使用sed工具将字符串dl-cdn.alpinelinux.org替换为mirrors.aliyun.com
+
+RUN apk update
 
 # Pillow dependencies
 RUN apk add libxml2-dev libxslt-dev libffi-dev gcc musl-dev libgcc openssl-dev curl
@@ -30,8 +30,9 @@ RUN pip3 install pip --upgrade
 # 目录取决于docker-compose的context
 
 # 安装依赖
-COPY  ./requirements.txt requirements.txt
-RUN pip install -r requirements.txt
+#COPY  ./requirements.txt requirements.txt
+#RUN pip install -r requirements.txt
+RUN pip install -r requirements.txt -i https://pypi.douban.com/simple
 
 #COPY Pipfile /app/Pipfile
 #COPY Pipfile.lock /app/Pipfile.lock
