@@ -7,7 +7,7 @@ ENV PYTHONUNBUFFERED 1
 RUN apk update
 
 #RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
-RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories
+#RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories
 #使用sed工具将字符串dl-cdn.alpinelinux.org替换为mirrors.aliyun.com
 
 # Pillow dependencies

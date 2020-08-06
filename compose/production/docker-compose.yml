@@ -57,7 +57,7 @@ services:
   django:
     build:
       context: ../../../WxBlog # 上下文
-      dockerfile: compose/local/Django/Dockerfile
+      dockerfile: compose/production/Django/Dockerfile # 这么明显的错误，没注意啊！！！
     volumes:
       - ../../../WxBlog/static:/usr/src/app/static # 挂载收集后的静态文件
       - ../../../WxBlog/media:/usr/src/app/media
