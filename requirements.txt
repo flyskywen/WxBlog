@@ -25,3 +25,5 @@ faker
 django-redis
 
 supervisor
+
+gunicorn
