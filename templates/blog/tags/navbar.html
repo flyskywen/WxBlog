@@ -52,15 +52,16 @@
 
             <li class="nav-item mr-2">
                 {% url 'blog:archives' as archive_url %}
-                <a class="nav-link py-md-3"
+                <a class="nav-link py-md-3 {% if request.path == archive_url %}active{% endif %}"
                    href="{{ archive_url }}"><i class="fa fa-sitemap mr-1"></i>归档</a>
             </li>
 
             {#{% if tool_flag %}#}
             <li class="nav-item mr-2">
                 {% url 'tool:total' as tool_url %}
-                <a class="nav-link py-md-3"
-                   href="#"><i class="fa fa-balance-scale mr-1"></i>在线工具</a>
+
+                <a class="nav-link py-md-3 {% if request.path == tool_url %}active{% endif %}"
+                   href="{{ tool_url }}"><i class="fa fa-balance-scale mr-1"></i>在线工具</a>
             </li>
             {#{% endif %}#}
 

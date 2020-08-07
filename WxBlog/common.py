@@ -105,6 +105,7 @@ INSTALLED_APPS = [
 
     'blog',
     'comments',
+    'tool',
 
     # RESTful API
     'rest_framework',

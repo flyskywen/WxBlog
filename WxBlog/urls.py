@@ -57,6 +57,8 @@ urlpatterns = [
                   # 用户信息
                   path('oauth/', include('oauth.urls')),
 
+                  path('tools/', include('tool.urls')),
+
                   # restful api
                   # path("api/", include(router.urls)),
                   # path("api/auth/", include("rest_framework.urls", namespace="rest_framework")),
