@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>属性指令</title>
+    <style>
+        .box {
+            width: 200px;
+            height: 200px;
+            background-color: orange;
+        }
+
+        .wrap {
+            width: 100px;
+            height: 100px;
+            background-color: red;
+        }
+
+        .kiss {
+            width: 150px;
+            height: 150px;
+            background-color: cyan;
+        }
+
+        .x {
+            width: 300px;
+        }
+
+        .y {
+            height: 300px;
+        }
+
+        .z {
+            background-color: brown;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <!--  绑定style的操作也单独记忆     -->
+        <!-- v-bind属性指令 :属性名="属性变量"，v-bind: 可以简写为: -->
+        <!--eg: v-bind:class='myClass' | v-bind:style='myStyle' | v-bind:aaa='myAAA' -->
+        <!-- 传入pink作为参数 -->
+        <div class="box" v-bind:style="myStyle" @click="changeColor('pink')"></div>
+
+        <!--1、操作单个样式：w变量的值就是为属性宽提供数据的-->
+        <!-- 宽度从400px -> 500px -->
+        <div class="box" v-bind:style="{'width': w}" @click="changeWidth"></div>
+
+        <!--2、操作多个样式: more_style是一个对象变量，可以赋值多个key:value样式-->
+        <div class="box" v-bind:style="more_style" @click="changeStyle"></div>
+
+        <!--3、v-bind: 可以简写为 :，可以绑定所有系统和自定义属性，属性一旦绑定，后方就是变量 -->
+        <div :aaa="AAA">简写v-bind</div>
+
+        <!--        ps：绑定类名的操作单独记忆                     -->
+        <!--4、操作单个类名-->
+        <!--直接赋值：c1就是变量，变量的值就是类名-->
+        <div :class="c1" @click="changeClass"></div>
+        <!--布尔切换：该div有一个kiss类名，kiss_able的true或false决定kiss是否生效-->
+        <div :class="{kiss: kiss_able}"></div>
+        <!--绑定类这一块比较特殊，加了大括号就是 类名：布尔值  不加就是变量    -->
+
+        <!--5、操作多个类名: [变量1, ..., 变量n] 每个变量的值都是该标签的类名 -->
+        <!-- 同理is_z的值确定z是否为类名 -->
+        <div :class="[x, y, {z: is_z}]"></div>
+        <div :class="[x, y, {z: true}]"></div>
+        <div :class="[x, y, {z: false}]"></div>
+
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            myStyle: 'background-color: red;',
+            w: '400px',
+            more_style: {
+                width: '100px',
+                height: '100px',
+                borderRadius: '50%',
+                backgroundColor: 'cyan'
+            },
+            AAA: 'BBB',
+            c1: 'wrap',
+            kiss_able: true,
+            x: 'x',
+            y: 'y',
+            // z: 'z',
+            is_z: true
+        },
+        methods: {
+            changeColor(color) {
+                this.myStyle = 'background-color: ' + color + ';'
+            },
+            changeWidth() {
+                this.w = '500px'
+            },
+            changeStyle() {
+                this.more_style.borderRadius = '30%'
+
+                // this.more_style = {
+                //     width: '200px',
+                //     height: '200px',
+                //     borderRadius: '50%',
+                //     backgroundColor: 'tan'
+                // }
+            },
+            changeClass() {
+                if (this.c1 === 'box') {
+                    this.c1 = 'wrap';
+                } else {
+                    this.c1 = 'box';
+                }
+
+                // 布尔类型值来回切换
+                this.kiss_able = !this.kiss_able;
+            }
+        }
+    })
+</script>
+
+</html>

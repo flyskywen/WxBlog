@@ -93,5 +93,3 @@ class TimelineAdmin(admin.ModelAdmin):
     )
     date_hierarchy = 'update_date'
     list_filter = ('star_num', 'update_date')
-
-

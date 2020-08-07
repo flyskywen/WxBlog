@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>vue引入</title>
+
+</head>
+<body>
+<div id="app">
+    <h1 @click="action">{{ msg }}</h1>
+    <h2>{{ info }}</h2>
+    <h2>{{ message }}</h2>
+</div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    // console.log(Vue);
+    // 为每个h1 h2 p表片这么写实例太麻烦了 ，一个h2实例只能对上面一个h2标签有效，所以这么设计非常不合理，实例与页面挂载点一一对应。
+    // new Vue({
+    //    el: 'h1'
+    // });
+    // new Vue({
+    //     el: 'h2'
+    // })
+
+    // 1、创建vue实例与页面标签进行绑定，该实例就可以控制该标签机内部所有标签。
+    // ps：其实就是用一个大div设置id夹住很多标签  然后这个实例就可以操作下面的这些标签
+    new Vue({
+        // 2、挂载点：与页面标签绑定的关键，具有唯一性
+        el: '#app',
+        // 3、vue中要使用的数据
+        data: {
+            msg: 'h1标签',
+            info: '',
+            message: ''
+        },
+        // 4、methods控制所有事件
+        methods: {
+            action: function () {
+                this.msg = 'h1被点击了';
+                this.info = 'h1被点击了';
+                this.message = 'h1被点击了';
+            }
+        }
+    })
+</script>
+</html>

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>todolist</title>
+    <style>
+        li:hover {
+            cursor: pointer;
+            color: red;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <input type="text" v-model="msg_val">
+        <button @click="sendMsg">留言</button>
+
+        <ul>
+            <li v-for="(msg, i) in msgs" @click="deleteMsg(i)">{{ msg }}</li>
+        </ul>
+    </div>
+
+</body>
+<script src="js/vue.js"></script>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            // msgs: ['第一条留言', '第二条留言'],
+            // 三元运算，如果存在就分割成数组，否则是空数组
+            msgs: localStorage.msgs ? localStorage.msgs.split(',') : [],
+            msg_val: '',
+        },
+        methods: {
+            sendMsg() {
+                // 1）数据为空直接结束
+                if (!this.msg_val) return;
+
+                // 2）数据添加到留言数组中
+                // this.msgs.push(this.msg_val);  // 尾增
+                this.msgs.unshift(this.msg_val); // 首增
+
+                // 数据同步到前台数据库
+                localStorage.msgs = this.msgs;
+
+                // 3）清空输入框
+                this.msg_val = '';
+            },
+            deleteMsg(index) {
+                // console.log(index);
+                this.msgs.splice(index, 1);
+                // 数据同步到前台数据库
+                localStorage.msgs = this.msgs;
+            }
+        }
+    })
+</script>
+
+</html>

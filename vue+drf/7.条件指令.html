@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <style>
+        [v-cloak] {
+            display: none;
+        }
+        .box {
+            width: 200px;
+            height: 200px;
+        }
+        .b1 {background-color: orange;}
+        .b2 {background-color: cyan;}
+
+        .r {background-color: red;}
+        .b {background-color: blue;}
+        .g {background-color: green;}
+    </style>
+</head>
+<body>
+    <div id="app" v-cloak>
+        <!-- v-if | v-show 条件指令: v-if="变量" | v-show="变量" -->
+
+        <!--1、v-if | v-show比较：两者绑定的变量值都是 true|false-->
+        <p>
+            <button @click="toggleAction(true)">显示</button>
+            <button @click="toggleAction(false)">隐藏</button>
+        </p>
+        <!--v-if在隐藏时，不被渲染 | v-show在隐藏时，采用display: none存在-->
+        <div class="box b1" v-if="is_show"></div>
+        <div class="box b2" v-show="is_show"></div>
+
+        <!--2、v-if、v-else-if、v-else 分支家族 -->
+        <p><script src="js/vue.js"></script>ggleShow('green')">绿</button>
+        </p>
+        <div class="box r" v-if="color == 'red'"></div>
+        <div class="box b" v-else-if="color == 'blue'"></div>
+        <div class="box g" v-else></div>
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            is_show: false,
+            color: 'red'
+        },
+        methods: {
+            toggleAction(is_show) {
+                this.is_show = is_show;
+            },
+            toggleShow(color) {
+                this.color = color;
+            }
+        }
+    })
+</script>
+</html>

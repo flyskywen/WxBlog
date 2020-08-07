@@ -1,0 +1,52 @@
+<!--测试点击@click="changeMsg" 观察once的效果 -->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>文本指令</title>
+
+</head>
+
+<body>
+    <div id="app">
+        <!--1、插值表达式：在内部直接写变量或变量表达式-->
+        <p>{{ msg + '_喜欢篮球 rap 唱 跳' }}</p>
+        <p>{{ (num + 1 - 3) / 2 }}</p>
+
+
+        <!--2、v-text v-html v-once 三个文本指令 -->
+        <!--v-text:纯文本-->
+        <p v-text="msg"></p>
+
+        <!--v-html:可以解析标签-->
+        <p v-html="'<b>加粗文本</b>'"></p>
+
+        <p v-html="htmlMSG" @click="changeMsg"></p>
+
+        <!--v-once:插值表达式渲染文本，once来限制文本不可修改-->
+        <!--限制的是这个标签，差值表达式渲染出了初始值后就不会再做任何变化-->
+        <!--也没有对标签进行渲染-->
+        <p v-once>{{ htmlMSG + msg }}</p>
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            msg: 'message',
+            num: 10,
+            htmlMSG: '<b>加粗文本</b>'
+        },
+        methods: {
+            changeMsg: function () {
+                this.htmlMSG = '<i>加粗文本</i>'; //取消加粗文本
+                this.msg = '11111111111111'; //将msg的值替换
+            }
+        }
+    })
+</script>
+
+</html>

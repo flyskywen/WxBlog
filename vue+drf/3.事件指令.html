@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>事件指令</title>
+    <style>
+        [aaa*='2'] {
+            color: red;
+        }
+
+        [v-cloak] {
+            display: none;
+        }
+    </style>
+
+
+</head>
+
+<body>
+    <div id="app" v-cloak aaa="123">
+        <!-- v-on指令: 1）明确事件名 2）明确事件函数  v-on:事件名="事件函数"  -->
+
+        <!--1、基础的事件绑定-->
+        <p v-on:click="clickAction">单击</p>
+        <p v-on:dblclick="dblclickAction">双击</p>
+
+        <!--2、绑定事件并传参-->
+        <p>传递参数</p>
+        <ul>
+            <li v-on:click="liAction(0)">{{ li1 }}</li>
+            <li v-on:click="liAction(1)">222</li>
+            <li v-on:click="liAction(2)">333</li>
+        </ul>
+
+        <!--3、传递事件对象两种方式-->
+        <p v-on:click="sysAction1">不传自定义参数，默认自动传递时间</p>
+        <p v-on:click="sysAction2(888, $event)">传自定义参数，需要$event明确指出传在哪里传事件对象</p>
+
+        <p>
+            点击后 console.log的信息
+        </p>
+        <p>
+            3.事件指令.html:68 
+            MouseEvent {isTrusted: true, screenX: 255, screenY: 374, clientX: 255, clientY: 230, …}
+        </p>
+        <p>
+            3.事件指令.html:72 888
+            3.事件指令.html:73 
+            MouseEvent {isTrusted: true, screenX: 329, screenY: 422, clientX: 329, clientY: 278, …}
+        </p>
+
+        <!--4、v-on: 可以简写为 @ -->
+        <p @click="clickAction">单击</p>
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    new Vue({
+        el: '#app',
+        data: {
+            li1: '111'
+        },
+        methods: {
+            clickAction: function () {
+                alert('点击')
+            },
+            dblclickAction() {
+                alert('双击')
+            },
+
+            // 传递参数
+            liAction(index) {
+                // alert('li被点击了');
+                // alert(this.li1);
+                alert(index);
+            },
+
+
+            sysAction1(ev) {
+                console.log(ev)
+            },
+
+            sysAction2(num, ev) {
+                console.log(num);
+                console.log(ev);
+            }
+
+        }
+
+    })
+</script>
+
+</html>

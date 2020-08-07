@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+
+<body>
+    <div id="app">
+        <h1>{{ msg }}</h1>
+        <!-- v-for="item in items" -->
+        <!-- 遍历的对象: 数组[] 对象(字典){} -->
+        <ul>
+            <li>{{ list[0] }}</li>
+            <li>{{ list[1] }}</li>
+            <li>{{ list[2] }}</li>
+            <li>{{ list[3] }}</li>
+            <li>{{ list[4] }}</li>
+        </ul>
+
+        <!-- n为遍历的元素值 -->
+        <ul>
+            <li v-for="n in list">{{ n }}</li>
+        </ul>
+
+        <!-- 一般列表渲染需要建立缓存 -->
+        <!-- 列表渲染是循环,需要赋值变量给key,使用key需要v-bind:处理 -->
+        <!-- v-for变量数组[]时,接收两个值时,第一个为元素值,第二个为元素索引 -->
+        <ul>
+            <li v-for="(n, i) in list" :key="i">value:{{ n }} | index: {{ i }}</li>
+        </ul>
+
+        <h3>vue字典取值</h3>
+        <ul>
+            <li>{{ dic['name'] }}</li>
+            <li>{{ dic.age }}</li>
+            <li>{{ dic.gender }}</li>
+        </ul>
+
+        <!-- v-for变量对象{}时,接收三个值时,第一个为元素值,第二个为元素键,第三个为元素索引 -->
+        <!--key属性是vue的属性，表示为改标签在内存中建立缓存的依据,要保证唯一性-->
+        <ul>
+            <li v-for="(v, k, i) in dic" :key="k">value:{{ v }} | key:{{ k }} | index: {{ i }}</li>
+        </ul>
+
+        <!-- 遍历的嵌套 -->
+        <div v-for="(person, index) in persons" :key="index" style="height: 21px;">
+
+            <span v-for="(v, k, i) in person" :key="k">
+                <!-- 就是下标为１，才显示｜ -->
+                <b v-if="i != 0"> | </b>
+                <span>{{ k }} : {{ v }}&nbsp;&nbsp;&nbsp;</span>
+            </span>
+        </div>
+    </div>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script type="text/javascript">
+        new Vue({
+            el: "#app",
+            data: {
+                msg: "列表渲染",
+                list: [1, 2, 3, 4, 5],
+                dic: {
+                    name: 'zero',
+                    age: 88888,
+                    gender: 'god'
+                },
+                persons: [{
+                        name: "zero",
+                        age: 8
+                    },
+                    {
+                        name: "egon",
+                        age: 78
+                    },
+                    {
+                        name: "liuXX",
+                        age: 77
+                    },
+                    {
+                        name: "yXX",
+                        age: 38
+                    }
+                ]
+            }
+        })
+    </script>
+</body>
+
+</html>
