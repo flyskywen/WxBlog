@@ -1,0 +1,35 @@
+<!--测试点击@click="changeMsg" 观察once的效果 -->
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>文本指令</title>
+
+</head>
+
+<body>
+    <!-- id app内的内容全部替换为 template -->
+    <div id="app">
+        <h1>{{ msg }}</h1>
+    </div>
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<script type="text/javascript">
+    // 通过new Vue创建的实例就是根组件(实例与组件一一对应,一个实例就是一个组件)
+    // 每个组件组件均拥有模板,template但是真实场景下一般不写模板
+    var app = new Vue({
+        // 根组件的模板就是挂载点
+        el: "#app",
+        data: {
+            msg: "根组件"
+        },
+        // 模板: 由""包裹的html代码块,出现在组件的内部,赋值给组件的$template变量
+        // 显式书写模块,就会替换挂载点,但根组件必须拥有挂载点
+        template: "<div>显式模板</div>" //虚拟dom会替换挂在点的真实dom
+    })
+</script>
+
+</html>
