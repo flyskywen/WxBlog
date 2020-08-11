@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>父传子案例</title>
+    <style>
+        .box {
+            width: 200px;
+            text-align: center;
+            border: 1px solid black;
+            border-radius: 10px;
+            overflow: hidden;
+            float: left;
+        }
+
+        .box img {
+            width: 100%;
+        }
+
+        .box p {
+            margin: 0;
+        }
+
+        .box span:hover {
+            cursor: pointer;
+            color: orange;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="app">
+        <box-tag v-for="box_obj in box_data" :box_obj="box_obj"></box-tag>
+    </div>
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    // 局部组件
+    let boxTag = {
+        // 通过props获取父组件的数据 box_data ==> box_obj 
+        // props是一个数组，应该是里面每个元素和父组件的data一一对应。
+        props: ['box_obj'],
+        template: `
+        <div class="box">
+            <img :src="box_obj.img_url" alt="">
+            <p>
+                <span @click="btnClick">点击了{{ num }}下</span>
+                <p>{{ box_obj.img_title }}</p>
+            </p>
+        </div>
+        `,
+        data() {
+            return {
+                num: 0
+            }
+        },
+        methods: {
+            btnClick() {
+                this.num += 1;
+            }
+        }
+    };
+
+
+    // 后台的数据
+    let back_data = [{
+            img_url: 'img/001.jpg',
+            img_title: '野兽1'
+        },
+        {
+            img_url: 'img/002.jpg',
+            img_title: '野兽2'
+        },
+        {
+            img_url: 'img/003.jpg',
+            img_title: '野兽3'
+        }
+    ];
+
+    new Vue({
+        el: '#app',
+        // 父组件的数据 box_data
+        data: {
+            box_data: back_data
+        },
+        components: {
+            boxTag,
+        }
+    })
+</script>
+
+</html>

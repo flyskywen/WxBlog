@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        body,
+        h1,
+        h2 {
+            margin: 0;
+        }
+    </style>
+    <style>
+        .header {
+            height: 120px;
+            background-color: orange;
+        }
+
+        .body {
+            height: 800px;
+            background-color: pink;
+        }
+
+        .footer {
+            height: 180px;
+            background-color: brown;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="app">
+        <view-tag></view-tag>
+        <!---渲染子组件 而字符组件里面还有子组件 --->
+
+        <view-tag-2></view-tag-2>
+    </div>
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<script>
+    // 小组件
+    let headerTag = {
+        template: `
+        <div class="header">
+            <h1 style="text-align: center; line-height: 120px">头</h1>
+        </div>
+        `,
+    };
+
+    // 小组件
+    let footerTag = {
+        template: `
+        <div class="footer" >
+            <h2 style="text-align: center; line-height: 180px">尾</h2>
+        </div>
+        `,
+    };
+
+    // 局部组件
+    let viewTag = {
+        template: `
+        <div class="view-tag">
+            <header-tag></header-tag>
+            <div class="body" style="background-color: lawngreen"></div>
+            <footer-tag></footer-tag>
+        </div>
+        `,
+        components: {
+            headerTag, //对于viewTag来说headerTag是子组件，viewTag是父组件
+            footerTag, //对于viewTag来说footerTag是子组件，viewTag是父组件
+        }
+    };
+
+    // 局部组件
+    let viewTag2 = {
+        template: `
+        <div class="view-tag">
+            <header-tag></header-tag>
+            <div class="body" style="background-color: cyan"></div>
+            <footer-tag></footer-tag>
+        </div>
+        `,
+        components: {
+            headerTag, //对于viewTag2来说headerTag是子组件，viewTag是父组件
+            footerTag, //对于viewTag2来说footerTag是子组件，viewTag是父组件
+        }
+    };
+
+    // 根组件
+    new Vue({
+        el: '#app',
+        components: {
+            viewTag, // 对于根组件来说 viewTag就是子组件
+            viewTag2, // 对于根组件来首 viewTag2就是子组件
+        },
+
+    });
+</script>
+
+</html>

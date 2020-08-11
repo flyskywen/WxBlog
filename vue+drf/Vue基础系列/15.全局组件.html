@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>全局组件</title>
+</head>
+
+<body>
+    <div id="app">
+        <!--<p-tag></p-tag>-->
+        <!--<p-tag></p-tag>-->
+
+        <g-tag></g-tag> <!-- 只要是vue的挂载点内都有效果-->
+        <p-tag></p-tag> <!-- 有效 因为p-tag在 #app中注册过-->
+    </div>
+
+    <div id="zz">
+
+        <g-tag></g-tag> <!-- 只要是vue的挂载点内都有效果-->
+        <p-tag></p-tag>
+        <!--无效 因为p-tag只在 #app中注册过 -->
+
+    </div>
+    <g-tag></g-tag> <!-- 不在vue的挂载点内没有效果-->
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script>
+    // 局部组件
+    let pTag = {
+        template: `
+        <p>
+            <span @click="action">局部组件：{{ num }}</span>
+        </p>
+        `,
+        data() {
+            return {
+                num: 0
+            }
+        },
+        methods: {
+            action() {
+                this.num++;
+            }
+        }
+    };
+
+    // 创建全局组件，通过 Vue.component('组件名', 组件对象主体);
+    Vue.component('gTag', {
+        template: `
+            <p style="color:red;">
+                <span @click="action">全局组件：{{ num }}</span>
+            </p>
+            `,
+        data() {
+            // 每次渲染全局组件的时候，都会有自己的名称空间，同局部组件一样也实现了数据隔离
+            return {
+                num: 0
+            }
+        },
+        methods: {
+            action() {
+                this.num++;
+            }
+        }
+    });
+    // 根组件 #app
+    new Vue({
+        el: '#app',
+        components: {
+            pTag,
+        }
+    });
+    // 跟组件 #zz
+    new Vue({
+        el: '#zz',
+        components: {
+            // pTag,
+        }
+    })
+</script>
+
+</html>
