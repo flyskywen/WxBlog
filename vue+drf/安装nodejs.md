@@ -55,6 +55,5 @@ vue create vue-proj
 
   npm uninstall -g vue-cli
   npm install -g @vue/cli
-
 ```
 
