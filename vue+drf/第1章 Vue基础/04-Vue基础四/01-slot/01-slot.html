@@ -15,11 +15,22 @@
 <body>
   <div id="box">
     <child>
+      <!-- 内容填充在slot name=‘a’中 -->
       <div slot="a">aaaaaaaaaaaa</div>
+      <!-- 内容填充在slot name=‘b’中 -->
       <div slot="b">bbbbbbbbbbbb</div>
     </child>
 
+    <!-- <div><ul><li>
+      11111
+    </li><li>
+      22222
+    </li><li>
+      333333
+    </li></ul></div> -->
+
     <swiper>
+      <!-- 内容填充在slot中 -->
       <li v-for="data in datalist">
         {{data}}
       </li>

@@ -14,8 +14,11 @@
     <div id="box">
       <!-- <button @click="isShow=!isShow">click</button> -->
       <navbar>
+        <!-- 修改isShow的值 -->
+        <!-- 父组件模板的内容在父组件作用域内编译；子组件模板的内容在子组件作用域内编译 -->
         <button @click="isShow=!isShow">navbar-button</button>
       </navbar>
+
       <sidebar v-show="isShow"></sidebar>
 
     </div>
@@ -41,7 +44,7 @@
             </ul>  
           </div>`
         })
-
+        
         new Vue({
           el:"#box",
           data:{
