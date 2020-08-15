@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>fetch</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link href="" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="box">
+
+        <button @click="handleClick()">获取影片信息</button>
+        <ul>
+            <li v-for="data in datalist">
+                <h3>{{data.name}}</h3>
+                <img :src="data.poster" />
+            </li>
+        </ul>
+    </div>
+
+
+    <script type="text/javascript">
+        new Vue({
+            el: "#box",
+            data: {
+                datalist: []
+            },
+            methods: {
+                handleClick() {
+                    fetch("./json/test.json").then(res => res.json()).then(res => {
+                        console.log(res.data.films)
+                        this.datalist = res.data.films
+                    })
+                }
+            }
+        })
+
+        /*
+        // post-1
+         fetch("**",{
+             method:'post',
+             headers: {
+                "Content‐Type": "application/x‐www‐form‐urlencoded"
+             },
+            body: "name=kerwin&age=100",
+            credentials:"include"
+        }).then(res=>res.json()).then(res=>{console.log(res)});
+      
+        // post-2
+         fetch("**",{
+             method:'post',
+             headers: {
+                "Content‐Type": "application/json"
+             },
+            body: JSON.stringify({
+                myname:"kerwin",
+                myage:100
+            })
+        }).then(res=>res.json()).then(res=>{console.log(res)});
+       */
+    </script>
+</body>
+
+</html>

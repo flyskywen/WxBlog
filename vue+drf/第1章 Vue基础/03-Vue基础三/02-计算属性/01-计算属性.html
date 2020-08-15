@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>Examples</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="box">
+      {{myname.substring(0,1).toUpperCase() + myname.substring(1)}}
+
+      <p>计算属性:{{getMyName}}</p>
+      <p>普通方法:{{getMyNameMethod()}}</p>
+
+      <div>
+        也需要计算结果
+        <p>计算属性:{{getMyName}}</p>
+        <p>普通方法:{{getMyNameMethod()}}</p>
+      </div>
+    </div>	
+
+    <script type="text/javascript">
+      var vm = new Vue({
+        el:"#box",
+        data:{
+          myname:"xiaoming"
+        },
+        methods:{
+          getMyNameMethod(){
+            console.log("getMyNameMethod-方法调用")
+            // 首字母大写
+            return this.myname.substring(0,1).toUpperCase() + this.myname.substring(1)
+          }
+        },
+
+        computed:{
+          getMyName(){
+            console.log("getMyName-计算属性调用")
+            return this.myname.substring(0,1).toUpperCase() + this.myname.substring(1)
+          } //1.  依赖的状态改变了 ，计算属性 会重新计算一遍 2. 计算属性会缓存
+        }
+      })
+    </script>
+</body>
+</html>

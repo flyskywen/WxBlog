@@ -1,0 +1,2 @@
+exports.ids=[1],exports.modules={88:function(t,e,r){"use strict";r.r(e);var n={data:()=>({datalist:["1111","2222","333"]})},d=r(2);var component=Object(d.a)(n,function(){var t=this,e=t.$createElement;return(t._self._c||e)("div",[t._ssrNode("\n  center\n  <ul data-v-3ebd427a>"+t._ssrList(t.datalist,function(data){return"<li data-v-3ebd427a>"+t._ssrEscape("\n      "+t._s(data)+"\n    ")+"</li>"})+"</ul>")])},[],!1,function(t){},"3ebd427a","581620a5");e.default=component.exports}};
+//# sourceMappingURL=405b8757705e3a198681.js.map

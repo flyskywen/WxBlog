@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>Examples</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+<style type="text/css">
+  
+    *{
+      margin: 0px;
+      padding: 0px;
+    }
+
+    html,body{
+      width: 100%;
+      height: 100%;
+    }
+   footer ul {
+    display: flex;
+    position: fixed;
+    left: 0px;
+    bottom: 0px;
+    width: 100%;
+    height: 40px;
+   }
+
+   footer ul li {
+    flex: 1;
+    text-align: center;
+    list-style: none;
+    height: 40px;
+    line-height: 40px;
+    background: gray;
+   }
+
+/* 
+   .bounce-enter-active {
+     animation: bounce-in .5s;
+   }
+   .bounce-leave-active {
+     animation: bounce-in .5s reverse;
+   }
+   @keyframes bounce-in {
+     0% {
+       transform: translateX(100px);
+       opacity: 0;
+     }
+     
+     100% {
+       transform: translateX(0px);
+       opacity: 1;
+     }
+   } */
+</style>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="box">
+       <keep-alive>
+        <component :is="who"></component>
+       </keep-alive>
+       <footer>
+         <ul>
+           <li><a @click="who='home'">首页</a></li>
+           <li><a @click="who='list'">列表页</a></li>
+           <li><a @click="who='shopcar'">购物车页面</a></li>
+         </ul>
+       </footer>
+    </div>
+   
+
+    <script type="text/javascript">
+      //babel-loader  ES6=>ES5
+    
+
+
+
+     var vm =  new Vue({
+        el:"#box",
+        data:{
+          who:'home'
+        },
+        components:{
+          "home":{
+            template:`<div>home<input type="text"/></div>`
+          },
+          "list":{
+            template:`<div>list</div>`
+          },
+          "shopcar":{
+            template:`<div>shopcar</div>`
+          }
+        }
+      })
+
+    </script>
+</body>
+</html>

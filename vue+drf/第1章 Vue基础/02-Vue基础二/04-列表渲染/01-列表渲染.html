@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>Examples</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+<style>
+    
+    .active{
+        background-color: red;
+    }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="box">
+     <ul>
+       <li v-for="(data,index) in datalist" key="data">
+         {{data}}--{{index}}
+       </li>
+     </ul>
+
+     <ul>
+        <li v-for="(data,index) of datalist">
+          {{data}}--{{index}}
+        </li>
+      </ul>
+
+     <ul>
+       <li v-for="(data,key) in obj">
+         {{data}}--{{key}}
+       </li>
+     </ul>
+     <ul>
+        <li v-for="(data,key) of obj">
+          {{data}}--{{key}}
+        </li>
+      </ul>
+
+
+      <ul>
+        <li v-for="n in 10">
+          {{n}}
+        </li>
+      </ul>
+    </div>
+
+    <script type="text/javascript">
+        var vm = new Vue({
+          el:"#box",
+          data:{
+            datalist:["111","222","333"],
+            obj:{
+              name:"kerwin",
+              age:100,
+              location:"dalian"
+            }
+          }
+        })
+     
+    </script>
+</body>
+</html>

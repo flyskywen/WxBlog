@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no">
+<title>Examples</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+
+<style>
+	*{
+		margin: 0;
+		padding: 0;
+	}
+
+    .box{
+        width: 100px;
+        height: 100px;
+        background: red;
+    }
+</style>
+<script type="text/javascript" src="lib/hammer.js"></script>
+
+</head>
+<body>
+    <div class="box">
+		   	
+    </div>
+
+    <script type="text/javascript">
+    	var hammertime = new Hammer(document.querySelector(".box"), {});
+        hammertime.get('swipe').set({ enable:true ,direction: Hammer.DIRECTION_ALL});
+
+        hammertime.on('tap', function(ev) {
+            console.log("点击了，解决了300ms");
+        });
+        hammertime.on('press', function(ev) {
+            console.log("长压了");
+        });
+
+        hammertime.on('swipeleft', function(ev) {
+            console.log("左滑了");
+        });
+
+        hammertime.on('swipeup', function(ev) {
+            console.log("上滑了");
+        });
+    </script>
+</body>
+</html>

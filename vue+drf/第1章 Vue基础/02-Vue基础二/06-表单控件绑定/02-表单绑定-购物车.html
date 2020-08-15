@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Examples</title>
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  <link href="" rel="stylesheet">
+
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+  <div id="box">
+    <input type="checkbox" @change="handleChange" v-model="isAllChecked" />
+    <ul>
+      <li v-for="data in datalist">
+        <input type="checkbox" v-model="checkgroup" :value="data" @change="handleLiChange" />
+        {{data}}
+        <button @click="handleDelClick(data)">del</button>
+        {{data.number}}
+        <button @click="data.number++">add</button>
+      </li>
+    </ul>
+    {{checkgroup}}
+    <p>总金额计算:{{ getSum() }}</p>
+  </div>
+
+  <script type="text/javascript">
+    var vm = new Vue({
+      el: "#box",
+      data: {
+        checkgroup: [],
+        isAllChecked: false,
+        datalist: [{
+            name: "商品1",
+            price: 10,
+            number: 1,
+            id: "1",
+          },
+          {
+            name: "商品2",
+            price: 20,
+            number: 2,
+            id: "2",
+          },
+          {
+            name: "商品3",
+            price: 30,
+            number: 3,
+            id: "3",
+          }
+        ]
+      },
+      methods: {
+        getSum() {
+          // 函数计算中的状态改变后， 函数会自动执行一遍
+          var sum = 0;
+          for (var i in this.checkgroup) {
+            sum += this.checkgroup[i].number * this.checkgroup[i].price
+          }
+          return sum
+        },
+
+        handleChange() {
+          console.log("改变了", this.isAllChecked)
+          if (this.isAllChecked) {
+            this.checkgroup = this.datalist
+          } else {
+            this.checkgroup = []
+          }
+        },
+
+        handleLiChange() {
+          console.log("handleLiChange-判断是不是都勾选")
+          if (this.checkgroup.length === this.datalist.length) {
+            this.isAllChecked = true
+          } else {
+            this.isAllChecked = false
+          }
+        },
+
+        handleDelClick(data) {
+          // console.log(data)
+          data.number--;
+          if (data.number === 0) {
+            data.number = 1;
+          }
+        }
+      }
+    })
+    /*
+      [
+          {
+                name:"商品1",
+                price:10,
+                number:1,
+                id:"1",
+          },
+              {
+                name:"商品2",
+                price:20,
+                number:2,
+                id:"2",
+              },
+              {
+                name:"商品3",
+                price:30,
+                number:3,
+                id:"3",
+              }
+            ]
+    
+    */
+  </script>
+</body>
+
+</html>

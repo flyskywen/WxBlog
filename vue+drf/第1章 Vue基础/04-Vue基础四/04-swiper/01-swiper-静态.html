@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>Examples</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+
+<link rel="stylesheet" href="lib/swiper/css/swiper.css">
+<script src="lib/swiper/js/swiper.js"></script>
+
+<style>
+	.swiper-container {
+	    width: 600px;
+	    height: 300px;
+	}  
+</style>
+</head>
+<body>
+    <div class="swiper-container a">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">Slide 1</div>
+            <div class="swiper-slide">Slide 2</div>
+            <div class="swiper-slide">Slide 3</div>
+        </div>
+        <!-- 如果需要分页器 -->
+        <div class="swiper-pagination"></div>
+        
+        <!-- 如果需要导航按钮 -->
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
+        
+        <!-- 如果需要滚动条 -->
+        <!-- <div class="swiper-scrollbar"></div> -->
+    </div>
+
+
+    <script type="text/javascript">
+    	
+    	new Swiper ('.a',{
+        // direction: 'vertical'
+        loop:true,
+            // 如果需要分页器
+        pagination: {
+          el: '.swiper-pagination',
+        },
+
+        autoplay: {
+          delay: 2500,
+          disableOnInteraction: false,
+        },
+
+
+        navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev',
+        },
+      })
+    </script>
+</body>
+</html>

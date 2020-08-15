@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>Examples</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+<style>
+    
+    .active{
+        background-color: red;
+    }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    
+
+    <div id="box">
+       
+    </div>
+
+    <script type="text/javascript">
+        
+
+        var arr= [1,2,3];
+
+
+      // var arr2=   arr.filter(function(item){
+      //     return item>2
+      // })
+        
+        var arr3 = arr.filter(item=>item>2);
+
+        //map
+        var arrmap = arr.map(item=>item*item);
+
+
+      // for(var i in arr){
+      //   var $li = $("<li>").html(arr[i]);
+
+      // }
+      
+        var arrli = arr.map(item=>`<li>${item}</li>`);
+    </script>
+</body>
+</html>

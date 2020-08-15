@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>Examples</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+<style>
+  .navbar{
+    background: red;
+  }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+   
+    <div id="box">
+      <navbar></navbar>
+      <sidebar></sidebar>
+    </div>
+
+   
+    <script type="text/javascript">
+          //1. 全局定义组件 (作用域隔离)
+          Vue.component("navbar",{
+            template:`
+              <div style="background:yellow">
+                <button @click="handleback()">返回</button> 
+                navbar--{{navbarname}}
+                <button>主页</button> 
+                <child></child>
+                <navbarchild></navbarchild>
+              </div>`,
+              methods:{
+                handleback(){
+                  console.log("back")
+                }
+              },
+              data(){
+                return {
+                  navbarname:"navbarname"
+                }
+              },
+              //局部定义组件
+              components:{
+                navbarchild:{
+                  template:`<div>navbarchild-只能再navbar组件中使用</div>`
+                }
+              }
+          })
+
+
+          Vue.component("child",{
+            template:`<div>child组件-全局定义</div>`
+          })
+
+
+          Vue.component("sidebar",{
+            template:`
+            <section>
+                <div style="background:red">
+                  sider组件
+                  <child></child>  
+                  <navbarchild></navbarchild>   
+                </div>
+                <div>213456</div>
+            </section>
+            `
+          })
+
+          new Vue({
+            el:"#box"
+          }) // root component
+    </script>
+</body>
+
+
+</html>
+

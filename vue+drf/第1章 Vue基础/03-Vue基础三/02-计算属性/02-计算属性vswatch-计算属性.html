@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>Examples</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    <div id="box">
+       
+      
+        <!-- <button @click="handleClick()">登录</button> -->
+        
+        <p>单价 <input type="text" v-model="price" /></p>
+        <p>数量 <input type="text" v-model="number"/></p>
+
+        <p>金额计算{{computedsum}}</p>
+    </div>	
+
+    <script type="text/javascript">
+    	
+       
+        
+        var vm = new Vue({
+            el:"#box",
+            data:{
+                price:100,
+                number:1,
+            },
+
+            computed: {
+                computedsum(){
+                    var sum = 0;
+                    if(this.price*this.number<1000){
+                        sum=this.price*this.number+100
+                    }else{
+                        sum=this.price*this.number
+                    }
+                    return sum;
+                }
+            },
+           
+        })
+
+    	
+    </script>
+</body>
+</html>

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Examples</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link href="" rel="stylesheet">
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="box">
+        <button @click="handleClick">click1</button>
+        <button @click="isActive && handleClick($event)">click2</button>
+        <!-- 修改isShow的值 -->
+        <button @click="isShow=!isShow">click3</button>
+        <div v-show="isShow">111111111111111</div>
+
+
+        <ul @click.self="handleULClick()">
+            <li @click.stop="handleLiClick($event)">11111</li>
+            <li @click="handleLiClick()">2222</li>
+            <li @click.once="handleLiClick()">3333</li>
+        </ul>
+
+
+
+
+        <a href="http://www.baidu.com" @click.prevent="handleChangePage()">changepage</a>
+
+        <input type="text" @keyup.enter.ctrl="handleKeyup($event)" />
+    </div>
+
+
+    <script type="text/javascript">
+        var vm = new Vue({
+            el: "#box",
+            data: {
+                isShow: false,
+                isActive: true
+            },
+            methods: {
+                handleClick(ev) {
+                    console.log(ev.target); // ev就是事件对象
+                    this.isShow = !this.isShow
+                },
+                handleLiClick(ev) {
+                    // ev.stopPropagation();
+                    console.log("li click")
+                },
+                handleULClick() {
+                    console.log("ul click")
+                },
+                handleChangePage(ev) {
+                    //ev.preventDefault();
+                    console.log("handleChangePage")
+                },
+                handleKeyup(ev) {
+                    // console.log(ev)
+                    // if(ev.keyCode===13){
+                    //     console.log("执行todolist 添加动作")
+                    // }
+                    console.log("执行todolist 添加动作")
+                }
+            }
+        })
+    </script>
+</body>
+
+</html>

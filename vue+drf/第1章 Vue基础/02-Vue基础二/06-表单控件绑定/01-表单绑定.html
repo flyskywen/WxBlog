@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Examples</title>
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <link href="" rel="stylesheet">
+
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+<div id="box">
+    <input type="text" v-model="mytext">
+    {{mytext}}
+    <textarea v-model="mytext"></textarea>
+    <br/>
+    <input type="checkbox" v-model="isChecked">记录用户名
+
+    <br/>
+
+    <p>你喜欢的运动？
+        <input type="checkbox" v-model="checkgroup" value="游泳">游泳
+        <input type="checkbox" v-model="checkgroup" value="滑冰">滑冰
+        <input type="checkbox" v-model="checkgroup" value="长跑">长跑
+    </p>
+    {{checkgroup}}
+
+    <p>你最喜欢的开发语言？
+        <input type="radio" v-model="picked" value="php">php
+        <input type="radio" v-model="picked" value="js">js
+        <input type="radio" v-model="picked" value="java">java
+    </p>
+
+    {{picked}}
+</div>
+
+<!-- <div v-model=""></div> -->
+
+<script type="text/javascript">
+
+    var vm = new Vue({
+        el: "#box",
+        data: {
+            mytext: "",
+            isChecked: true,
+            checkgroup: [],
+            picked: "js"
+        }
+    })
+
+</script>
+</body>
+</html>

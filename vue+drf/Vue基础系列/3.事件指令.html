@@ -22,6 +22,7 @@
         <!-- v-on指令: 1）明确事件名 2）明确事件函数  v-on:事件名="事件函数"  -->
 
         <!--1、基础的事件绑定-->
+        <!-- v-on:click="" 字符串可以直接写js运算，比如num+=1 -->
         <p v-on:click="clickAction">单击</p>
         <p v-on:dblclick="dblclickAction">双击</p>
 
@@ -37,16 +38,61 @@
         <p v-on:click="sysAction1">不传自定义参数，默认自动传递时间</p>
         <p v-on:click="sysAction2(888, $event)">传自定义参数，需要$event明确指出传在哪里传事件对象</p>
 
+        <!-- $event事件对象 -->
+        <!-- MouseEvent {isTrusted: true, screenX: 267, screenY: 416, clientX: 267, clientY: 272, …}
+        altKey: false
+        bubbles: true
+        button: 0
+        buttons: 0
+        cancelBubble: false
+        cancelable: true
+        clientX: 267
+        clientY: 272
+        composed: true
+        ctrlKey: false
+        currentTarget: null
+        defaultPrevented: false
+        detail: 1
+        eventPhase: 0
+        fromElement: null
+        isTrusted: true
+        layerX: 267
+        layerY: 272
+        metaKey: false
+        movementX: 0
+        movementY: 0
+        offsetX: 259
+        offsetY: 8
+        pageX: 267
+        pageY: 272
+        path: (6) [p, div#app, body, html, document, Window]
+        relatedTarget: null
+        returnValue: true
+        screenX: 267
+        screenY: 416
+        shiftKey: false
+        sourceCapabilities: InputDeviceCapabilities {firesTouchEvents: false}
+        srcElement: p
+        target: p
+        timeStamp: 104488.62999999983
+        toElement: p
+        type: "click"
+        view: Window {parent: Window, postMessage: ƒ, blur: ƒ, focus: ƒ, close: ƒ, …}
+        which: 1
+        x: 267
+        y: 272
+        __proto__: MouseEvent -->
+
         <p>
             点击后 console.log的信息
         </p>
         <p>
-            3.事件指令.html:68 
+            3.事件指令.html:68
             MouseEvent {isTrusted: true, screenX: 255, screenY: 374, clientX: 255, clientY: 230, …}
         </p>
         <p>
             3.事件指令.html:72 888
-            3.事件指令.html:73 
+            3.事件指令.html:73
             MouseEvent {isTrusted: true, screenX: 329, screenY: 422, clientX: 329, clientY: 278, …}
         </p>
 

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>Examples</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+<link href="" rel="stylesheet">
+<style>
+    
+    .active{
+        /*background-color: red;*/
+        text-decoration: line-through;
+    }
+
+
+</style>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+<body>
+    
+   	<div id="box">
+
+      <input type="text" v-model="text"/>
+      <button @click="handleAdd()">add</button>
+   		<ul>
+       <li :class="data.isMarked?'active':''" v-for="data,index in list" @click="handleClick(index)">
+         {{data.value}}
+         <button @click="handleDelClick(index)">del</button>
+        <button @click="handleMarkClick(index)">mark</button>
+
+       </li> 
+      </ul>
+   	</div>
+
+   <script type="text/javascript">
+
+  		var vm = new Vue({
+        el:"#box",
+
+        data:{
+          list:[],
+          text:'',
+          current:0
+        },
+
+        methods:{
+          handleClick(index){
+            console.log(index);
+            this.current= index;
+          },
+          handleAdd(){
+            this.list.push({
+              value:this.text,
+              isMarked:false
+            });
+          },
+          handleDelClick(index){
+            this.list.splice(index,1)
+          },
+          handleMarkClick(index){
+            this.list[index].isMarked = !this.list[index].isMarked
+          }
+
+        }
+      })
+   	  
+   </script>
+</body>
+</html>

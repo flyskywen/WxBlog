@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <title>Examples</title>
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  <link href="" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+  <div id="box">
+    <button @click="methodA()">click</button>
+
+
+
+  </div>
+
+
+  <script type="text/javascript">
+    function mymethod() {
+      console.log("复杂计算")
+    }
+
+    var myobj = {
+      methods: {
+        methodA: mymethod
+      }
+    }
+
+
+
+    new Vue({
+      el: "#box",
+      data: {
+
+      },
+      // 混入 (mixin) 提供了一种非常灵活的方式，来分发 Vue 组件中的可复用功能。
+      // 一个混入对象可以包含任意组件选项。当组件使用混入对象时，所有混入对象的选项将被“混合”进入该组件本身的选项。
+      // 将myobj和new Vue混合
+      mixins: [myobj]
+    })
+
+    // var obj1= {
+    //   name:"kerwin"
+    // }
+    // var obj2= {
+    //   age:100
+    // }
+
+    /*
+     vnode   vdom
+     虚拟dom  virtual dom virtual node
+     虚拟节点
+
+     用js对象 模拟的真实dom节点
+    */
+  </script>
+</body>
+
+</html>

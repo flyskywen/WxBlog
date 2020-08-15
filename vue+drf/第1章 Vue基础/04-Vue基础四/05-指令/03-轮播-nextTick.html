@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<title>Examples</title>
+<meta name="description" content="">
+<meta name="keywords" content="">
+
+<link rel="stylesheet" href="lib/swiper/css/swiper.css">
+<script src="lib/swiper/js/swiper.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+<style>
+  .swiper-container {
+      width: 600px;
+      height: 300px;
+  }  
+</style>
+</head>
+<body>
+  <div id="box">
+    <div class="swiper-container a">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide" v-for="(data,index) in list">
+              {{data}}
+            </div>
+        </div>
+        <!-- 如果需要分页器 -->
+        <div class="swiper-pagination"></div>
+        
+    </div>
+
+  </div>
+
+    <script type="text/javascript">
+    
+      new Vue({
+        el:"#box",
+        data:{
+          list:[]
+        },
+
+        mounted(){
+
+          setTimeout(() => {
+            this.list = ["111","2222","3333"];
+
+            console.log("节点创建完了？？？？","没有，异步渲染")
+
+            this.$nextTick(()=>{
+              console.log("我比updated都晚")
+              new Swiper ('.a',{
+                // direction: 'vertical'
+                loop:true,
+                    // 如果需要分页器
+                pagination: {
+                  el: '.swiper-pagination',
+                }
+              })
+
+            })
+          }, 2000)
+        },
+
+        updated(){
+          console.log("updated---初始化swiper")
+        }
+      })
+     
+
+
+    </script>
+</body>
+</html>

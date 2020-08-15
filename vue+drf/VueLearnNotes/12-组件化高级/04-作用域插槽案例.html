@@ -23,23 +23,23 @@
       </template>
     </cpn>
     <cpn>
-        <!-- 2.5以下必须使用template -->
-        <template v-slot="slot">
-          <!-- <span v-for="(item, index) in slot.data" :key="index">{{item}}*</span> -->
-          <span>{{slot.data.join(' * ')}}</span>
-        </template>
+      <!-- 2.5以下必须使用template -->
+      <template v-slot="slot">
+        <!-- <span v-for="(item, index) in slot.data" :key="index">{{item}}*</span> -->
+        <span>{{slot.data.join(' * ')}}</span>
+      </template>
     </cpn>
   </div>
 
-<!-- 插槽的基本使用使用<slot></slot> -->
+  <!-- 插槽的基本使用使用<slot></slot> -->
   <!-- 子组件 -->
   <template id="cpn">
 
     <div>
       <slot :data="pLanguage">
-          <ul>
-              <li v-for="(item, index) in pLanguage" :key="index">{{item}}</li>
-            </ul>
+        <ul>
+          <li v-for="(item, index) in pLanguage" :key="index">{{item}}</li>
+        </ul>
       </slot>
 
     </div>
@@ -52,8 +52,8 @@
       template: "#cpn",
       data() {
         return {
-          isShwo:false,
-          pLanguage:['JavaScript','Java','C++','C']
+          isShow: false,
+          pLanguage: ['JavaScript', 'Java', 'C++', 'C']
         }
       },
     }
@@ -61,7 +61,7 @@
       el: "#app",
       data() {
         return {
-          isShow:true
+          isShow: true
         }
       },
       components: {
